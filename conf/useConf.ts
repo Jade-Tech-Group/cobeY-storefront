@@ -11,11 +11,8 @@ export default {
           edit: '/category',
           del: '/category',
         },
-        department: {
-          list: '/department',
-          add: '/department',
-          edit: '/department',
-          del: '/department',
+        banner: {
+          list: '/banner',
         },
         product: {
           list: '/product',

@@ -117,3 +117,12 @@ export interface NuxtFilter {
   showCount: boolean;
   openByDefault: boolean;
 }
+export interface Banner {
+  id: string;
+  desktop_image?: string;
+  tablet_image: string;
+  movil_image: string;
+  department_id: string;
+  category_id: string;
+  product_id: string;
+}
