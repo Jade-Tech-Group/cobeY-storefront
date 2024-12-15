@@ -1,4 +1,5 @@
 import type Category from "~/types";
+import conf from "~/conf/useConf";
 
 export const useCategoriesStore = defineStore("categories", {
   state: () => ({
@@ -14,7 +15,7 @@ export const useCategoriesStore = defineStore("categories", {
       this.loading = true;
       try {
         const response: { data: Category[]  } = await $fetch(
-          "http://localhost:3000/api/v1/category"
+          `${conf.api.baseUrl}${conf.api.services.categories.list}`
         );
         this.categories = response.data;
         this.loading = false;

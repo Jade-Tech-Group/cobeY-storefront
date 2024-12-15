@@ -90,6 +90,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
+
+
 import { useKeenSlider } from "keen-slider/vue.es";
 import "keen-slider/keen-slider.min.css";
 const opacities = ref<number[]>([]);
