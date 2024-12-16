@@ -1,6 +1,6 @@
 import type { User } from "~/types";
 import type { Login } from "~/types";
-
+import conf from "~/conf/useConf";
 export const useAuth = () => {
   const user = useCookie<User | null>("user");
   const accessToken = useCookie<string | null>("accessToken");
@@ -14,7 +14,7 @@ export const useAuth = () => {
   ): Promise<{ success: boolean; error: any } | undefined> => {
     isPending.value = true;
     try {
-      const response = await $fetch("http://localhost:3000/api/v1/auth/login", {
+      const response = await $fetch(`${conf.api.baseUrl}${conf.api.services.auth.login}`, {
         method: "POST",
         body: JSON.stringify(credentials),
         headers: {
@@ -66,8 +66,8 @@ export const useAuth = () => {
   ): Promise<{ success: boolean; error: any }> => {
     isPending.value = true;
     try {
-      const response = await $fetch(
-        "http://localhost:3000/api/v1/auth/register",
+      await $fetch(
+        `${conf.api.baseUrl}${conf.api.services.auth.register}`,
         {
           method: "POST",
           body: JSON.stringify(userInfo),
@@ -84,14 +84,14 @@ export const useAuth = () => {
     }
   };
   // Update the user state
-  const updateCustomer = () => {};
+  const updateCustomer = () => { };
 
   const updateViewer = (payload: any): void => {
     user.value = payload;
     accessToken.value = payload?.accessToken ?? null;
     isPending.value = false;
   };
-  const sendResetPasswordEmail = async () => {};
+  const sendResetPasswordEmail = async () => { };
 
   const resetPasswordWithKey = async ({
     key,
@@ -101,9 +101,9 @@ export const useAuth = () => {
     key: string;
     login: string;
     password: string;
-  }) => {};
+  }) => { };
 
-  const getDownloads = async () => {};
+  const getDownloads = async () => { };
 
   return {
     user,

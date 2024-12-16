@@ -67,7 +67,7 @@
 import { computed, ref } from "vue";
 import { useKeenSlider } from "keen-slider/vue.es";
 import "keen-slider/keen-slider.min.css";
-import type { PropType } from 'vue';
+import type { PropType } from "vue";
 
 const props = defineProps({
   nodes: { type: Array as PropType<Banner[]>, required: true },
@@ -75,14 +75,10 @@ const props = defineProps({
 
 import type { Banner } from "~/types";
 const opacities = ref<number[]>([]);
-const images = [
-  "https://images.unsplash.com/photo-1537832816519-689ad163238b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDkyMnwwfDF8c2VhcmNofDI3fHxmYXNoaW9uJTIwY29sbGVjdGlvbnxlbnwwfHx8fDE2OTY4NzI4NzR8MA&ixlib=rb-4.0.3&q=80&w=2000",
-  "https://v3.woonuxt.com/.netlify/images?w=1400&h=800&url=%2Fimages%2Fhero-4.jpg",
-];
 const current = ref(1);
 const [container, slider] = useKeenSlider({
   initial: current.value,
-  slides: images.length,
+  slides: props.nodes.length,
   loop: true,
   defaultAnimation: {
     duration: 3000,

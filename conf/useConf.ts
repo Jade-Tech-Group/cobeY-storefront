@@ -1,9 +1,10 @@
 export default {
     api: {
-      baseUrl: 'http://localhost:3000/api/v1',
+      baseUrl: 'https://cobey-api-production.up.railway.app/api/v1',
       services: {
         auth: {
           login: '/auth/login',
+          register: '/register'
         },
         categories: {
           list: '/category',
