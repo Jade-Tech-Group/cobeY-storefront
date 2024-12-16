@@ -1,5 +1,5 @@
 import type Product from "~/types";
-
+import conf from "~/conf/useConf";
 export const useProductsStore = defineStore("products", {
   state: () => ({
     loading: false,
@@ -23,7 +23,7 @@ export const useProductsStore = defineStore("products", {
       this.loading = true;
       try {
         const response: { data: Product[] } = await $fetch(
-          "http://localhost:3000/api/v1/product/available/web?featured=true"
+          `${conf.api.baseUrl}${conf.api.services.product.available}?featured=true`
         );
         this.featured = response.data;
         this.loading = false;
@@ -36,7 +36,7 @@ export const useProductsStore = defineStore("products", {
       this.loading = true;
       try {
         const response: { data: Product[] } = await $fetch(
-          `http://localhost:3000/api/v1/product?&category_id=${category_id}&available=true`
+          `${conf.api.baseUrl}${conf.api.services.product.available}?&category_id=${category_id}`
         );
         this.byCategory = response.data;
         this.loading = false;
@@ -45,12 +45,12 @@ export const useProductsStore = defineStore("products", {
         this.loading = false;
       }
     },
-    
+
     async fetchOnSale(): Promise<void> {
       this.loading = true;
       try {
         const response: { data: Product[] } = await $fetch(
-          "http://localhost:3000/api/v1/product?available=true&on_sale=true"
+          `${conf.api.baseUrl}${conf.api.services.product.available}?on_sale=true`
         );
         this.onSale = response.data;
         this.loading = false;
@@ -59,12 +59,12 @@ export const useProductsStore = defineStore("products", {
         this.loading = false;
       }
     },
-    
+
     async fetchAll(): Promise<void> {
       this.loading = true;
       try {
         const response: { data: Product[] } = await $fetch(
-          "http://localhost:3000/api/v1/product/available/web"
+          `${conf.api.baseUrl}${conf.api.services.product.available}`
         );
         this.products = response.data;
         this.loading = false;
@@ -73,12 +73,12 @@ export const useProductsStore = defineStore("products", {
         this.loading = false;
       }
     },
-    
+
     async fetchById(id: string): Promise<void> {
       this.loading = true;
       try {
         const response = await $fetch(
-          `http://localhost:3000/api/v1/product/${id}`
+          `${conf.api.baseUrl}${conf.api.services.product.byId}/${id}`
         );
         this.current = response as Product;
         this.loading = false;
@@ -95,7 +95,7 @@ export const useProductsStore = defineStore("products", {
       this.loading = true;
       try {
         const response: { data: Product[] } = await $fetch(
-          `http://localhost:3000/api/v1/product?page=${page}&size=${size}&category_id=${category_id}&available=true`
+          `${conf.api.baseUrl}${conf.api.services.product.available}?page=${page}&size=${size}&category_id=${category_id}&available=true`
         );
         this.related = response.data as Product[];
         this.loading = false;

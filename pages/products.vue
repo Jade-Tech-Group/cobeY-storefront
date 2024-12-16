@@ -6,6 +6,7 @@ const { storeSettings } = useAppConfig();
 const { isQueryEmpty } = useHelpers();
 
 const stProducts = useProductsStore();
+
 await stProducts.fetchAll();
 
 setProducts(stProducts.getAll);

@@ -6,10 +6,12 @@ const { siteName, description, shortDescription, siteImage } = useAppConfig();
 
 const stCategories = useCategoriesStore();
 const stProducts = useProductsStore();
+const stBanners = useBannerStore();
 
 await stCategories.fetch();
 await stProducts.fetchFeatured();
 await stProducts.fetchOnSale();
+await stBanners.fetch();
 
 useSeoMeta({
   title: `Home`,
@@ -63,7 +65,7 @@ const [container] = useKeenSlider({
 
 <template>
   <main>
-    <HeroBanner />
+    <HeroBanner :nodes="stBanners.getAll"/>
     <section class="container my-16">
       <div class="flex items-end justify-between">
         <h2 class="text-lg font-semibold md:text-2xl">

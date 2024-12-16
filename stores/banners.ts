@@ -1,23 +1,24 @@
 import type Category from "~/types";
 import conf from "~/conf/useConf";
+import type { Banner } from "~/types";
 
-export const useCategoriesStore = defineStore("categories", {
+export const useBannerStore = defineStore("banner", {
   state: () => ({
     loading: false,
-    categories: [] as Category[],
+    banners: [] as Banner[],
     count: 0,
   }),
   getters: {
-    getAll: (state) => state.categories,
+    getAll: (state) => state.banners,
   },
   actions: {
     async fetch(): Promise<void> {
       this.loading = true;
       try {
-        const response: { data: Category[]  } = await $fetch(
-          `${conf.api.baseUrl}${conf.api.services.categories.list}`
+        const response: { data: Banner[]  } = await $fetch(
+          `${conf.api.baseUrl}${conf.api.services.banner.list}`
         );
-        this.categories = response.data;
+        this.banners = response.data;
         this.loading = false;
       } catch (error: unknown) {
         console.error(error);

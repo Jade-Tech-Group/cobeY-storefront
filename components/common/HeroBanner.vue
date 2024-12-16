@@ -4,16 +4,16 @@
       <div class="navigation-wrapper">
         <div ref="container" class="keen-slider">
           <div
-            v-for="(src, idx) in images"
-            :key="idx"
+            v-for="(node, index) in nodes"
+            :key="index"
             class="keen-slider__slide fader__slide"
-            :style="{ opacity: opacities[idx] }"
+            :style="{ opacity: opacities[index] }"
           >
             <NuxtImg
               width="1400"
               height="800"
               class="object-cover w-full h-[420px] lg:h-[560px] xl:h-[640px]"
-              :src="src"
+              :src="node.desktop_image"
               alt="Hero image"
               loading="eager"
               sizes="sm:100vw md:1400px"
@@ -22,30 +22,6 @@
               placeholder
               placeholder-class="blur-xl"
             />
-            <div
-              class="container absolute sm:left-40 inset-0 flex flex-col sm:items-start  xs:items-center justify-center 
-              bg-gradient-to-l from-gray-200"
-            >
-              <h1 class="text-3xl font-bold md:mb-4 md:text-4xl lg:text-6xl">
-                Just landed.
-              </h1>
-              <h2 class="text-lg font-bold md:mb-4 lg:text-3xl">
-                The New Year Collection
-              </h2>
-              <div
-                class="max-w-sm mb-8 text-md font-light lg:max-w-md text-balance"
-              >
-                <p>
-                  Our latest collection is here. Discover the latest trends and
-                  styles for the new year.
-                </p>
-              </div>
-              <NuxtLink
-                class="px-6 py-3 font-bold text-white bg-gray-800 rounded-xl hover:bg-gray-800"
-                to="/products"
-                >Shop now</NuxtLink
-              >
-            </div>
           </div>
         </div>
         <svg
@@ -85,22 +61,24 @@
       </div>
     </div>
     <div class="w-full"></div>
-   </div>
+  </div>
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
-
 import { useKeenSlider } from "keen-slider/vue.es";
 import "keen-slider/keen-slider.min.css";
+import type { PropType } from "vue";
+
+const props = defineProps({
+  nodes: { type: Array as PropType<Banner[]>, required: true },
+});
+
+import type { Banner } from "~/types";
 const opacities = ref<number[]>([]);
-const images = [
-  "https://images.unsplash.com/photo-1537832816519-689ad163238b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDkyMnwwfDF8c2VhcmNofDI3fHxmYXNoaW9uJTIwY29sbGVjdGlvbnxlbnwwfHx8fDE2OTY4NzI4NzR8MA&ixlib=rb-4.0.3&q=80&w=2000",
-  "https://v3.woonuxt.com/.netlify/images?w=1400&h=800&url=%2Fimages%2Fhero-4.jpg",
-];
 const current = ref(1);
 const [container, slider] = useKeenSlider({
   initial: current.value,
-  slides: images.length,
+  slides: props.nodes.length,
   loop: true,
   defaultAnimation: {
     duration: 3000,
@@ -146,7 +124,7 @@ const dotHelper = computed(() =>
   position: absolute;
   display: flex;
   padding: 10px 0;
-  margin-top: -30px;
+  margin-top: -50px;
   justify-content: center;
   left: 0;
   right: 0;
