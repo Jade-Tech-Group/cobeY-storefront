@@ -4,7 +4,7 @@
  * Below are the default values.
  */
 export default defineAppConfig({
-  siteName: "Cove Y+",
+  siteName: "COBE Y +",
   shortDescription:
     "This is an example of store. It provides a modern, fast, and SEO friendly ecommerce store built with Nuxt.",
   description: `
@@ -14,7 +14,7 @@ export default defineAppConfig({
     "https://user-images.githubusercontent.com/5116925/218879668-f4c1f9fd-bef4-44b0-bc7f-e87d994aa3a1.png",
   storeSettings: {
     autoOpenCart: false,
-    showReviews: true,  
+    showReviews: true,
     showFilters: true,
     showOrderByDropdown: true,
     showSKU: true,
