@@ -5,7 +5,9 @@ const props = defineProps({
 });
 const isLoading = ref(false);
 const { t } = useI18n();
-const addToCartButtonText = computed(() => (isLoading.value ? t('messages.shop.adding') : t('messages.shop.addToCart')));
+const addToCartButtonText = computed(() =>
+  isLoading.value ? t("messages.shop.adding") : t("messages.shop.addToCart")
+);
 
 // stop loading when cart is updated
 watch(cart, (val) => {
@@ -16,11 +18,11 @@ watch(cart, (val) => {
 <template>
   <button
     type="submit"
-    class="rounded-lg flex font-bold bg-primary text-white text-center p-2 gap-4 
-    items-center justify-center focus:outline-none"
+    class="rounded-full flex font-bold bg-primary text-white text-center p-2 gap-4 items-center justify-center focus:outline-none"
     :class="{ disabled: disabled }"
     :disabled="disabled"
-    @click="isLoading = true">
+    @click="isLoading = true"
+  >
     <span>{{ addToCartButtonText }}</span>
     <LoadingIcon v-if="isLoading" stroke="4" size="12" color="#fff" />
   </button>
