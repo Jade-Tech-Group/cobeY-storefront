@@ -32,13 +32,13 @@ export interface DeliveryAddress {
 }
 
 export interface User {
-  name: string
-  last_name: string
-  email: string
-  phone: string
-  roles: string[],
-  password: string
-  passwordConfirm: string
+  name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  roles: string[];
+  password: string;
+  passwordConfirm: string;
   id: string;
 }
 export interface Login {
@@ -53,7 +53,6 @@ export interface ProductCart {
 export interface Cart {
   products: ProductCart[];
 }
-
 
 export interface BillingAddress {
   name: string;
@@ -76,7 +75,7 @@ export default interface Product {
   format: string;
   order: number;
   stock: number;
-  category_id: string
+  category_id: string;
   measure_unit: string;
   measure_unit_amount: number;
   createdAt: string;
