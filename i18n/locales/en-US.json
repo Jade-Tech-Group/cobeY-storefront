@@ -17,6 +17,7 @@
       "myDetails": "My Details",
       "home": "Home",
       "allProducts": "Products",
+      "catalog": "Catalog",
       "productsOnSale": "Products on offer",
       "featuredProducts": "Featured Products",
       "product": "Product",
@@ -87,7 +88,7 @@
       "congrats": "Congratulations! You have completed the registration successfully.",
       "verifyText": "To activate your account, you must verify your email. We have sent an email to your email address with a verification link. Please check your inbox and follow the instructions to verify your email.",
       "notSendedEmail": " If you have not received the email, you can request that it be resended.",
-       "resendEmail": "Resend email"
+      "resendEmail": "Resend email"
     },
     "shop": {
       "shopByCategory": "Shop by Category",
