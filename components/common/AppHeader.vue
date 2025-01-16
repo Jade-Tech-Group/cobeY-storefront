@@ -17,7 +17,7 @@
         <SearchTrigger />
         <div class="flex gap-4 items-center">
           <SignInLink />
-          <div class="flex items-center justify-center">
+          <div class="flex flex-col items-center justify-center">
             <CartTrigger />
           </div>
         </div>

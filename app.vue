@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { siteName } = useAppConfig();
 const route = useRoute();
-const { isShowingCart, toggleCart } = useCart();
+const { isShowingCart, toggleCart, refreshCart } = useCart();
 const { isShowingMobileMenu, toggleMobileMenu, addBodyClass, removeBodyClass } =
   useHelpers();
 const closeCartAndMenu = () => {
@@ -19,6 +19,10 @@ watch(
   () => route.path,
   () => closeCartAndMenu()
 );
+
+onMounted(() => {
+  refreshCart();
+});
 
 useHead({
   titleTemplate: `${siteName}`,

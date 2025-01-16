@@ -14,7 +14,7 @@ export const useOrdersStore = defineStore("orders", {
       this.loading = true;
       try {
         const response: { data: Order[] } = await $fetch(
-          "http://localhost:3000/api/v1/order",
+          "https://cobey-api.onrender.com/api/v1/order",
           {
             method: "GET",
             headers: {

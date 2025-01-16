@@ -1,6 +1,6 @@
 export default {
   api: {
-    baseUrl: "https://cobey-api.onrender.com/api/v1",
+    baseUrl: "http://localhost:3000/api/v1",
     services: {
       auth: {
         login: "/auth/login",
@@ -23,6 +23,10 @@ export default {
       },
       order: {
         list: "/order",
+      },
+      cart: {
+        list: "/cart",
+        add: '/cart'
       },
     },
   },

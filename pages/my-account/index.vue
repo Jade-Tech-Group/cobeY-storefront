@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { logoutUser, user, isPending } = useAuth();
+const { logoutUser, user, isPending, accessToken } = useAuth();
 const route = useRoute();
 const showLoader = computed(() => !user);
 const activeTab = computed(() => route.query.tab || 'my-details');

@@ -1,28 +1,29 @@
-import type { User } from "~/types";
+import type { Customer, User } from "~/types";
 import type { Login } from "~/types";
 import conf from "~/conf/useConf";
 export const useAuth = () => {
   const user = useCookie<User | null>("user");
   const accessToken = useCookie<string | null>("accessToken");
   const isPending = useState<boolean>("isPending", () => false);
-  const { refreshCart } = useCart();
+  // const { refreshCart } = useCart();
   const { clearAllCookies } = useHelpers();
   const { t } = useI18n();
   const router = useRouter();
+  
   const loginUser = async (
     credentials: Login
   ): Promise<{ success: boolean; error: any } | undefined> => {
     isPending.value = true;
     try {
-      const response = await $fetch(`${conf.api.baseUrl}${conf.api.services.auth.login}`, {
+      const response: Customer | null = await $fetch(`${conf.api.baseUrl}${conf.api.services.auth.login}`, {
         method: "POST",
         body: JSON.stringify(credentials),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      updateViewer(response);
-      await refreshCart();
+      updateCustomer(response);
+      // await refreshCart();
       return {
         success: true,
         error: null,
@@ -41,7 +42,7 @@ export const useAuth = () => {
   const logoutUser = async (): Promise<{ success: boolean; error: any }> => {
     isPending.value = true;
     try {
-      await refreshCart();
+      // await refreshCart();
       clearAllCookies();
       isPending.value = false;
       return { success: true, error: null };
@@ -84,12 +85,14 @@ export const useAuth = () => {
     }
   };
   // Update the user state
-  const updateCustomer = () => { };
-
-  const updateViewer = (payload: any): void => {
+  const updateCustomer = (payload: Customer | null) => {
     user.value = payload;
     accessToken.value = payload?.accessToken ?? null;
     isPending.value = false;
+  };
+
+  const updateViewer = (payload: any): void => {
+
   };
   const sendResetPasswordEmail = async () => { };
 

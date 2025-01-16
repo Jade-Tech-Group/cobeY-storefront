@@ -32,13 +32,13 @@ export interface DeliveryAddress {
 }
 
 export interface User {
-  name: string
-  last_name: string
-  email: string
-  phone: string
-  roles: string[],
-  password: string
-  passwordConfirm: string
+  name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  roles: string[];
+  password: string;
+  passwordConfirm: string;
   id: string;
 }
 export interface Login {
@@ -51,9 +51,15 @@ export interface ProductCart {
   amount: number;
 }
 export interface Cart {
-  products: ProductCart[];
+  id: string,
+  amount: number,
+  coupon_discount: string,
+  coupon_id: string,
+  delivery_cost: string,
+  subtotal_price: string,
+  total_price: string,
+  products: Product[];
 }
-
 
 export interface BillingAddress {
   name: string;
@@ -76,7 +82,7 @@ export default interface Product {
   format: string;
   order: number;
   stock: number;
-  category_id: string
+  category_id: string;
   measure_unit: string;
   measure_unit_amount: number;
   createdAt: string;
@@ -94,6 +100,7 @@ export default interface Product {
   favorite: boolean;
   id: string;
   category: Category;
+  amount: number
 }
 
 export interface Order {
@@ -118,6 +125,7 @@ export interface NuxtFilter {
   showCount: boolean;
   openByDefault: boolean;
 }
+
 export interface Banner {
   id: string;
   desktop_image?: string;
@@ -126,4 +134,16 @@ export interface Banner {
   department_id: string;
   category_id: string;
   product_id: string;
+}
+
+export interface Customer {
+  accessToken: string
+  name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  roles: string[];
+  password: string;
+  passwordConfirm: string;
+  id: string;
 }
