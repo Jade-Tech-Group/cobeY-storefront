@@ -86,7 +86,7 @@ export function useCart() {
   async function refreshCart(): Promise<boolean> {
     const tokenCookie = useCookie('accessToken');
     try {
-      const response: Cart = await $fetch(
+      const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.list}`,
         {
           method: 'GET',
@@ -130,8 +130,17 @@ export function useCart() {
     };
   }
 
-  function updateCart(payload?: Cart | null): void {
-    // cart.value = payload || null;
+  function updateCart(payload: Cart): void {
+    cart.value = payload || {
+      id: '',
+      products: [],
+      subtotal_price: '0',
+      total_price: '0',
+      amount: 0,
+      coupon_discount: '0',
+      coupon_id: '',
+      delivery_cost: '0'
+    };
   }
   // toggle the cart visibility
   function toggleCart(state: boolean | undefined = undefined): void {
@@ -145,7 +154,7 @@ export function useCart() {
     isUpdatingCart.value = true;
 
     try {
-      const response: Cart = await $fetch(
+      const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.add}`,
         {
           method: "POST",
@@ -171,18 +180,29 @@ export function useCart() {
     // updateCart(updateItemQuantities?.cart);
   }
 
-  // update the quantity of an item in the cart
-  async function updateItemQuantity(key: string, quantity: number): Promise<void> {
+  async function updateItemQuantity(productId: string): Promise<void> {
+    const tokenCookie = useCookie('accessToken');
     isUpdatingCart.value = true;
     try {
-      // const { updateItemQuantities } = await GqlUpDateCartQuantity({ key, quantity });
-      // updateCart(updateItemQuantities?.cart);
+      const response  = await $fetch(
+        `${useConf.api.baseUrl}${useConf.api.services.cart.delete}/${productId}`,
+        {
+          method: "DELETE",
+          body: JSON.stringify({ productId  }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${tokenCookie.value}`,
+          },
+        }
+      );
+      updateCart(response)
+      isUpdatingCart.value = false;
     } catch (error: any) {
       console.log(error)
+      isUpdatingCart.value = false;
     }
   }
 
-  // empty the cart
   async function emptyCart(): Promise<void> {
     try {
       isUpdatingCart.value = true;
