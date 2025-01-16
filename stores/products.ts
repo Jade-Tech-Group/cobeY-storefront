@@ -25,7 +25,10 @@ export const useProductsStore = defineStore("products", {
         const response: { data: Product[] } = await $fetch(
           `${conf.api.baseUrl}${conf.api.services.product.available}?featured=true`
         );
-        this.featured = response.data;
+        this.featured = response.data.map((r) => ({
+          ...r,
+          amount: 1,
+        }));
         this.loading = false;
       } catch (error: unknown) {
         console.error(error);
@@ -38,7 +41,10 @@ export const useProductsStore = defineStore("products", {
         const response: { data: Product[] } = await $fetch(
           `${conf.api.baseUrl}${conf.api.services.product.available}?&category_id=${category_id}`
         );
-        this.byCategory = response.data;
+        this.byCategory = response.data.map((r) => ({
+          ...r,
+          amount: 1,
+        }));
         this.loading = false;
       } catch (error: unknown) {
         console.error(error);
@@ -52,7 +58,10 @@ export const useProductsStore = defineStore("products", {
         const response: { data: Product[] } = await $fetch(
           `${conf.api.baseUrl}${conf.api.services.product.available}?on_sale=true`
         );
-        this.onSale = response.data;
+        this.onSale = response.data.map((r) => ({
+          ...r,
+          amount: 1,
+        }));
         this.loading = false;
       } catch (error: unknown) {
         console.error(error);
@@ -66,7 +75,10 @@ export const useProductsStore = defineStore("products", {
         const response: { data: Product[] } = await $fetch(
           `${conf.api.baseUrl}${conf.api.services.product.available}`
         );
-        this.products = response.data;
+        this.products = response.data.map((r) => ({
+          ...r,
+          amount: 1,
+        }));
         this.loading = false;
       } catch (error: unknown) {
         console.error(error);
@@ -80,6 +92,7 @@ export const useProductsStore = defineStore("products", {
         const response = await $fetch(
           `${conf.api.baseUrl}${conf.api.services.product.byId}/${id}`
         );
+        if (response) response.amount = 1
         this.current = response as Product;
         this.loading = false;
       } catch (error: unknown) {
@@ -97,7 +110,10 @@ export const useProductsStore = defineStore("products", {
         const response: { data: Product[] } = await $fetch(
           `${conf.api.baseUrl}${conf.api.services.product.available}?page=${page}&size=${size}&category_id=${category_id}&available=true`
         );
-        this.related = response.data as Product[];
+        this.related = response.data.map((r) => ({
+          ...r,
+          amount: 1,
+        }));
         this.loading = false;
       } catch (error: unknown) {
         console.error(error);
