@@ -1,11 +1,9 @@
 <script setup lang="ts">
 const props = defineProps<{
   modelValue: string | object;
-  paymentGateways: PaymentGateways;
 }>();
 
 const paymentMethod = toRef(props, 'modelValue');
-const activePaymentMethod = computed<PaymentGateway>(() => paymentMethod.value as PaymentGateway);
 const emits = defineEmits(['update:modelValue']);
 
 const updatePaymentMethod = (value: any) => {
@@ -14,13 +12,13 @@ const updatePaymentMethod = (value: any) => {
 
 onMounted(() => {
   // Emit first payment method
-  if (props.paymentGateways?.nodes.length) updatePaymentMethod(props.paymentGateways?.nodes[0]);
+  // if (props.paymentGateways?.nodes.length) updatePaymentMethod(props.paymentGateways?.nodes[0]);
 });
 </script>
 
 <template>
   <div class="flex gap-4 leading-tight flex-wrap">
-    <div
+    <!-- <div
       v-for="gateway in paymentGateways?.nodes"
       :key="gateway.id"
       class="option"
@@ -35,7 +33,7 @@ onMounted(() => {
     </div>
     <div v-if="activePaymentMethod.description" class="prose block w-full">
       <p class="text-sm text-gray-500" v-html="activePaymentMethod.description" />
-    </div>
+    </div> -->
   </div>
 </template>
 

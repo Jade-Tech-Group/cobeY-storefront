@@ -4,9 +4,8 @@ const { debounce } = useHelpers();
 
 const { item } = defineProps({ item: { type: Object, required: true } });
 
-const productType = computed(() => (item.variation ? item.variation?.node : item.product?.node));
-const quantity = ref(item.quantity);
-const hasNoMoreStock = computed(() => (productType.value.stockQuantity ? productType.value.stockQuantity <= quantity.value : false));
+const quantity = ref(item.amount);
+const hasNoMoreStock = computed(() => (item.stock? 10 <= quantity.value : false));
 
 const incrementQuantity = () => quantity.value++;
 const decrementQuantity = () => quantity.value--;
@@ -21,10 +20,10 @@ watch(
 );
 
 const onFocusOut = () => {
-  if (quantity.value === "") { // If the quantity is empty, set it to the cart item quantity
-    const cartItem = cart.value?.contents?.nodes?.find(node => node.key === item.key);
+  if (quantity.value === "") { 
+    const cartItem = cart.value?.products?.find(node => node.id === item.id);
     if (cartItem) {
-      quantity.value = cartItem.quantity;
+      quantity.value = cartItem.amount;
     }
   }
 };
@@ -45,10 +44,10 @@ const onFocusOut = () => {
       v-model.number="quantity"
       type="number"
       min="0"
-      :max="productType.stockQuantity"
+      :max="item.stock"
       aria-label="Quantity"
       @focusout="onFocusOut"
-      class="flex items-center justify-center w-8 px-2 text-right text-xs focus:outline-none border-y border-gray-300" />
+      class="flex items-center justify-center w-8  text-center text-xs focus:outline-none border-y border-gray-300" />
     <button
       title="Increase Quantity"
       aria-label="Increase Quantity"
