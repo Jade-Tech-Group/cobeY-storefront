@@ -41,7 +41,9 @@ export default defineNuxtConfig({
       "/order-summary/**": { ssr: false },
     },
   },
-
+  runtimeConfig: {
+    apiUrl: process.env.API_URL,
+  },
   app: {
     head: {
       htmlAttrs: { lang: "es" },
