@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@pinia/nuxt",
     "nuxt-keen-slider",
+    '@nuxtjs/dotenv'
   ],
   pinia: {
     storesDirs: ["./stores/**", "./custom-folder/stores/**"],
@@ -42,7 +43,7 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    apiUrl: process.env.API_URL,
+    apiUrl: process.env.BASE_URL,
   },
   app: {
     head: {
