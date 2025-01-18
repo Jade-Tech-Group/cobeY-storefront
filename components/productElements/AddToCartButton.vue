@@ -5,10 +5,6 @@ const props = defineProps({
 });
 const isLoading = ref(false);
 const { t } = useI18n();
-const addToCartButtonText = computed(() =>
-  isLoading.value ? t("messages.shop.adding") : t("messages.shop.addToCart")
-);
-
 // stop loading when cart is updated
 watch(cart, (val) => {
   isLoading.value = false;
@@ -23,15 +19,15 @@ watch(cart, (val) => {
     :disabled="disabled"
     @click="isLoading = true"
   >
-    <img
+  <LoadingIcon v-if="isLoading" stroke="4" size="12" color="#fff" />
+    <img v-else
       src="/icons/cart.svg"
       width="20"
       height="20"
       alt="Free Shipping"
       loading="lazy"
     />
-    <span>{{ addToCartButtonText }}</span>
-    <LoadingIcon v-if="isLoading" stroke="4" size="12" color="#fff" />
+    <span>{{ $t("messages.shop.addToCart") }}</span>
   </button>
 </template>
 
