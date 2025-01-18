@@ -188,13 +188,28 @@ export function useCart() {
   }
 
   // remove an item from the cart
-  async function removeItem(key: string) {
-    isUpdatingCart.value = true;
-    // const { updateItemQuantities } = await GqlUpDateCartQuantity({ key, quantity: 0 });
-    // updateCart(updateItemQuantities?.cart);
+  async function removeItem(productId: string) {
+      const tokenCookie = useCookie('accessToken');
+      isUpdatingCart.value = true;
+      try {
+        const response = await $fetch(
+          `${useConf.api.baseUrl}${useConf.api.services.cart.delete}/${productId}`,
+          {
+            method: "DELETE",
+            body: JSON.stringify({ productId }),
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${tokenCookie.value}`,
+            },
+          }
+        );
+        updateCart(response)
+      } catch (error: any) {
+        console.log(error)
+      }
   }
 
-  async function updateItemQuantity(productId: string): Promise<void> {
+  async function updateItemQuantity(productId: string, quantity:number): Promise<void> {
     const tokenCookie = useCookie('accessToken');
     isUpdatingCart.value = true;
     try {

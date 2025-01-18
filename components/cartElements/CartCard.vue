@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type Product  from '~/types';
 
-const { updateItemQuantity } = useCart();
+const { removeItem } = useCart();
 const { FALLBACK_IMG } = useHelpers();
 const { storeSettings } = useAppConfig();
 const {locale } = useI18n();
@@ -12,8 +12,8 @@ const props = defineProps<{
 
 const productSlug = computed(() => `/product/${decodeURIComponent(props.item.id)}`);
 
-const removeItem = () => {
-  updateItemQuantity(props.item.id);
+const remove = () => {
+  removeItem(props.item.id);
 };
 </script>
 
@@ -42,7 +42,7 @@ const removeItem = () => {
           <button
             title="Remove Item"
             aria-label="Remove Item"
-            @click="removeItem"
+            @click="remove"
             type="button"
             class="flex items-center gap-1 hover:text-red-500 cursor-pointer">
             <Icon name="ion:trash" class="hidden md:inline-block" size="18" />
