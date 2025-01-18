@@ -14,7 +14,7 @@ const { cart, toggleCart, isUpdatingCart } = useCart();
 
     <ClientOnly>
       <template v-if="cart && cart.products.length > 0">
-        <ul class="flex flex-col flex-1 gap-4 p-6 overflow-hidden sm:p-4.5 xs:p-4">
+        <ul class="flex flex-col flex-1 gap-4 p-6 overflow-hidden sm:p-4.5 xs:p-4 mt-4">
           <CartCard v-for="(item, index) in cart.products" :key="index" :item />
         </ul>
         <div class="flex xs:flex-col sm:flex-row w-full sm:p-4.5 xs:p-4 sm:mb-4 gap-4 justify-center">

@@ -33,6 +33,9 @@ export default <Partial<Config>>{
       screens: {
         xs: "360px",
         sm: "768px",
+        md:"1024px",
+        lg: "1240px",
+
         "2xl": "1400px",
       },
     },
