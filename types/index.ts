@@ -125,6 +125,16 @@ export interface NuxtFilter {
   showCount: boolean;
   openByDefault: boolean;
 }
+export interface Coupon {
+  id: string;
+  discount_type: string;
+  amount: number;
+  use_limit: number;
+  code: string;
+  expiration_date: string;
+  min_cost: string;
+  max_cost: string;
+}
 
 export interface Banner {
   id: string;

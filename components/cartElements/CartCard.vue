@@ -11,10 +11,9 @@ const props = defineProps<{
 }>();
 
 const productSlug = computed(() => `/product/${decodeURIComponent(props.item.id)}`);
-const isLowStock = computed(() => (props.item.stock ? 10 >= props.item.stock : false));
 
 const removeItem = () => {
-  updateItemQuantity(props.item.id, 0);
+  updateItemQuantity(props.item.id);
 };
 </script>
 
@@ -46,7 +45,7 @@ const removeItem = () => {
             @click="removeItem"
             type="button"
             class="flex items-center gap-1 hover:text-red-500 cursor-pointer">
-            <Icon name="ion:trash" class="hidden md:inline-block" size="12" />
+            <Icon name="ion:trash" class="hidden md:inline-block" size="18" />
           </button>
         </div>
       </div>

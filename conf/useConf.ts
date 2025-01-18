@@ -26,7 +26,8 @@ export default {
       },
       cart: {
         list: "/cart",
-        add: '/cart'
+        add: '/cart',
+        delete: '/cart'
       },
     },
   },

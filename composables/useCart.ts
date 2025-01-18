@@ -1,6 +1,6 @@
 import useConf from '~/conf/useConf';
 import type Product from '~/types';
-import type { Cart, ProductCart } from '~/types';
+import type { Cart, Coupon, ProductCart } from '~/types';
 /**
  * @name useCart
  * @description A composable that handles the cart in local storage
@@ -17,7 +17,9 @@ export function useCart() {
     coupon_id: '',
     delivery_cost: '0'
   }));
+  const cartTotal = useCookie<Number | null>("cartTotal");
   const cartOnCoockie = useCookie<Cart | null>("cartOnCoockie");
+  const couponOnCoockie = useCookie<Coupon | null>("couponOnCoockie");
   const isShowingCart = useState<boolean>('isShowingCart', () => false);
   const isUpdatingCart = useState<boolean>('isUpdatingCart', () => false);
   const isUpdatingCoupon = useState<boolean>('isUpdatingCoupon', () => false);
@@ -73,12 +75,12 @@ export function useCart() {
     }
 
     // Calculate prices
-    const cartTotal = cart.value.products.reduce((accumulator: number, object: Product) => {
+    cartTotal.value = cart.value.products.reduce((accumulator: number, object: Product) => {
       return accumulator + (object.sale_price ? parseFloat(object.sale_price) * object.amount : parseFloat(object.price) * object.amount);
     }, 0);
 
-    cart.value.subtotal_price = cartTotal.toFixed(2);
-    cart.value.total_price = cartTotal.toFixed(2);
+    cart.value.subtotal_price =  cartTotal.value.toFixed(2);
+    cart.value.total_price =  cartTotal.value.toFixed(2);
     // this.updateLocalStore();
     if (auth) addToCart(cart.value.products);
   }
@@ -86,7 +88,7 @@ export function useCart() {
   async function refreshCart(): Promise<boolean> {
     const tokenCookie = useCookie('accessToken');
     try {
-      const response: Cart = await $fetch(
+      const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.list}`,
         {
           method: 'GET',
@@ -130,8 +132,30 @@ export function useCart() {
     };
   }
 
-  function updateCart(payload?: Cart | null): void {
-    // cart.value = payload || null;
+  function resetCoupon() {
+    couponOnCoockie.value = {
+      id: '',
+      discount_type: '',
+      amount: 0,
+      use_limit: 0,
+      code: '',
+      expiration_date: '',
+      min_cost: '',
+      max_cost: '',
+    };
+  }
+
+  function updateCart(payload: Cart): void {
+    cart.value = payload || {
+      id: '',
+      products: [],
+      subtotal_price: '0',
+      total_price: '0',
+      amount: 0,
+      coupon_discount: '0',
+      coupon_id: '',
+      delivery_cost: '0'
+    };
   }
   // toggle the cart visibility
   function toggleCart(state: boolean | undefined = undefined): void {
@@ -145,7 +169,7 @@ export function useCart() {
     isUpdatingCart.value = true;
 
     try {
-      const response: Cart = await $fetch(
+      const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.add}`,
         {
           method: "POST",
@@ -171,25 +195,51 @@ export function useCart() {
     // updateCart(updateItemQuantities?.cart);
   }
 
-  // update the quantity of an item in the cart
-  async function updateItemQuantity(key: string, quantity: number): Promise<void> {
+  async function updateItemQuantity(productId: string): Promise<void> {
+    const tokenCookie = useCookie('accessToken');
     isUpdatingCart.value = true;
     try {
-      // const { updateItemQuantities } = await GqlUpDateCartQuantity({ key, quantity });
-      // updateCart(updateItemQuantities?.cart);
+      const response = await $fetch(
+        `${useConf.api.baseUrl}${useConf.api.services.cart.delete}/${productId}`,
+        {
+          method: "DELETE",
+          body: JSON.stringify({ productId }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${tokenCookie.value}`,
+          },
+        }
+      );
+      updateCart(response)
+      isUpdatingCart.value = false;
     } catch (error: any) {
       console.log(error)
+      isUpdatingCart.value = false;
     }
   }
 
-  // empty the cart
   async function emptyCart(): Promise<void> {
+    const tokenCookie = useCookie('accessToken');
+    isUpdatingCart.value = true;
     try {
-      isUpdatingCart.value = true;
-      // const { emptyCart } = await GqlEmptyCart();
-      // updateCart(emptyCart?.cart);
+      await $fetch<Cart>(
+        `${useConf.api.baseUrl}${useConf.api.services.cart.delete}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${tokenCookie.value}`,
+          },
+        }
+      );
+      resetInitialState()
+      resetCoupon()
+      await refreshCart()
+      cartTotal.value = 0
+      isUpdatingCart.value = false;
     } catch (error: any) {
-      // logGQLError(error);
+      console.log(error)
+      isUpdatingCart.value = false;
     }
   }
 

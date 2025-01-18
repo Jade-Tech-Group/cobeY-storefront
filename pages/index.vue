@@ -65,7 +65,7 @@ const [container] = useKeenSlider({
 
 <template>
   <main>
-    <HeroBanner :nodes="stBanners.getAll"/>
+    <HeroBanner :nodes="stBanners.getAll" />
     <section class="container my-16">
       <div class="flex items-end justify-between">
         <h2 class="text-lg font-semibold md:text-2xl">
