@@ -81,7 +81,6 @@ export function useCart() {
 
     cart.value.subtotal_price =  cartTotal.value.toFixed(2);
     cart.value.total_price =  cartTotal.value.toFixed(2);
-    // this.updateLocalStore();
     if (auth) addToCart(cart.value.products);
   }
 
@@ -126,7 +125,7 @@ export function useCart() {
       subtotal_price: '0',
       total_price: '0',
       amount: 0,
-      coupon_discount: '0',
+      coupon_discount: '0', 
       coupon_id: '',
       delivery_cost: '0'
     };
@@ -156,6 +155,7 @@ export function useCart() {
       coupon_id: '',
       delivery_cost: '0'
     };
+    cartOnCoockie.value = cart.value
   }
   // toggle the cart visibility
   function toggleCart(state: boolean | undefined = undefined): void {
@@ -165,7 +165,6 @@ export function useCart() {
   // add an item to the cart
   async function addToCart(products: ProductCart[]): Promise<void> {
     const tokenCookie = useCookie('accessToken');
-    console.log(tokenCookie)
     isUpdatingCart.value = true;
 
     try {
@@ -211,10 +210,8 @@ export function useCart() {
         }
       );
       updateCart(response)
-      isUpdatingCart.value = false;
     } catch (error: any) {
       console.log(error)
-      isUpdatingCart.value = false;
     }
   }
 
@@ -222,7 +219,7 @@ export function useCart() {
     const tokenCookie = useCookie('accessToken');
     isUpdatingCart.value = true;
     try {
-      await $fetch<Cart>(
+      const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.delete}`,
         {
           method: "DELETE",
@@ -232,14 +229,11 @@ export function useCart() {
           },
         }
       );
-      resetInitialState()
-      resetCoupon()
-      await refreshCart()
+      updateCart(response)
       cartTotal.value = 0
-      isUpdatingCart.value = false;
+      await refreshCart()
     } catch (error: any) {
       console.log(error)
-      isUpdatingCart.value = false;
     }
   }
 
