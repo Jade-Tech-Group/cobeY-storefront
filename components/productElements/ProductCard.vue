@@ -72,7 +72,7 @@ const addToCart = async (item: Product) => {
         :regular-price="node.price"
       />
     </div>
-    <div class="w-full flex gap-2 items-center border-t pt-2">
+    <div class="w-full flex xs:flex-col sm:flex-row gap-2 items-center border-t pt-2">
       <div>
         <QuantityInput :item="node"/>
       </div>
