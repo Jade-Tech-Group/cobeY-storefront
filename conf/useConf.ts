@@ -1,6 +1,6 @@
 export default {
   api: {
-    baseUrl: "http://localhost:3000/api/v1",
+    baseUrl: import.meta.env.BASE_URL,
     services: {
       auth: {
         login: "/auth/login",
