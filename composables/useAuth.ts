@@ -5,25 +5,24 @@ export const useAuth = () => {
   const user = useCookie<User | null>("user");
   const accessToken = useCookie<string | null>("accessToken");
   const isPending = useState<boolean>("isPending", () => false);
-  // const { refreshCart } = useCart();
+  const { refreshCart } = useCart()
   const { clearAllCookies } = useHelpers();
-  const { t } = useI18n();
   const router = useRouter();
-  
+
   const loginUser = async (
     credentials: Login
   ): Promise<{ success: boolean; error: any } | undefined> => {
     isPending.value = true;
     try {
-      const response: Customer | null = await $fetch(`${conf.api.baseUrl}${conf.api.services.auth.login}`, {
+      const response = await $fetch<Customer>(`${conf.api.baseUrl}${conf.api.services.auth.login}`, {
         method: "POST",
         body: JSON.stringify(credentials),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      updateCustomer(response);
-      // await refreshCart();
+      await updateCustomer(response);
+      refreshCart()
       return {
         success: true,
         error: null,
@@ -31,7 +30,7 @@ export const useAuth = () => {
     } catch (error: any) {
       return {
         success: false,
-        error: t("messages.error.invalidUsernameAndPassword"),
+        error: "Invalid username or password",
       };
     } finally {
       isPending.value = false;
@@ -42,7 +41,7 @@ export const useAuth = () => {
   const logoutUser = async (): Promise<{ success: boolean; error: any }> => {
     isPending.value = true;
     try {
-      // await refreshCart();
+      await refreshCart();
       clearAllCookies();
       isPending.value = false;
       return { success: true, error: null };
@@ -81,11 +80,11 @@ export const useAuth = () => {
       return { success: true, error: null };
     } catch (error: any) {
       isPending.value = false;
-      return { success: false, error: t("messages.error.notRegistered") };
+      return { success: false, error: "Invalid email or paswword" };
     }
   };
   // Update the user state
-  const updateCustomer = (payload: Customer | null) => {
+  const updateCustomer = async (payload: Customer | null) => {
     user.value = payload;
     accessToken.value = payload?.accessToken ?? null;
     isPending.value = false;

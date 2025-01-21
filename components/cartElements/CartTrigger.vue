@@ -1,5 +1,6 @@
 <script setup>
-const { toggleCart, cart } = useCart();
+const { toggleCart, cartOnCoockie } = useCart();
+const { accessToken } = useAuth();
 </script>
 
 <template>
@@ -9,13 +10,14 @@ const { toggleCart, cart } = useCart();
     @click="toggleCart"
   >
     <Icon name="ion:cart-outline" size="22" class="mr-1 md:mr-0" />
+    {{ accessToken }}
     <ClientOnly>
       <Transition name="popIn" mode="out-in">
         <span
-          v-if="cart?.amount > 0"
+          v-if="cartOnCoockie && cartOnCoockie.products.length > 0"
           class="bg-primary rounded-full text-white leading-none min-w-[16px] p-[3px] -top-1 -right-1 md:-right-2 text-[10px] absolute inline-flex justify-center items-center"
         >
-          {{ cart?.amount }}
+          {{ cartOnCoockie.products.length }}
         </span>
       </Transition>
     </ClientOnly>

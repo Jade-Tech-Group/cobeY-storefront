@@ -17,8 +17,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxt/icon",
     "@pinia/nuxt",
-    "nuxt-keen-slider",
-    '@nuxtjs/dotenv'
+    "nuxt-keen-slider"
   ],
   pinia: {
     storesDirs: ["./stores/**", "./custom-folder/stores/**"],

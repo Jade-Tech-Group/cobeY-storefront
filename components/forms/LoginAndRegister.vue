@@ -75,7 +75,11 @@
         />
       </label>
       <div class="w-full flex flex-row gap-4">
-        <label for="password" v-if="formView !== 'forgotPassword'" class="w-full">
+        <label
+          for="password"
+          v-if="formView !== 'forgotPassword'"
+          class="w-full"
+        >
           {{ passwordLabel }} <span class="text-red-500">*</span> <br />
           <PasswordInput
             id="password"
@@ -88,7 +92,11 @@
             :required="true"
           />
         </label>
-        <label for="passwordConfirm" v-if="formView === 'register'" class="w-full">
+        <label
+          for="passwordConfirm"
+          v-if="formView === 'register'"
+          class="w-full"
+        >
           {{ passwordConfirmLabel }} <span class="text-red-500">*</span> <br />
           <PasswordInput
             id="password"
@@ -142,6 +150,7 @@ import type { User } from "~/types";
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
+const { cartOnCoockie, cartManager } = useCart();
 const { loginUser, isPending, registerUser, sendResetPasswordEmail } =
   useAuth();
 const userInfo = ref<User>({
@@ -183,6 +192,9 @@ const login = async (userInfo: User) => {
 
   if (result) {
     if (result.success) {
+      if(cartOnCoockie.value && cartOnCoockie.value.products.length > 0){
+        cartManager(cartOnCoockie.value.products)
+      }
       errorMessage.value = "";
       message.value = t("messages.account.loggingIn");
     } else {
@@ -260,7 +272,9 @@ const usernameLabel = computed(() => t("messages.account.emailOrUsername"));
 
 const passwordLabel = computed(() => t("messages.account.password"));
 
-const passwordConfirmLabel = computed(() => t("messages.account.passwordConfirm"));
+const passwordConfirmLabel = computed(() =>
+  t("messages.account.passwordConfirm")
+);
 
 const inputPlaceholder = computed(() => {
   return {

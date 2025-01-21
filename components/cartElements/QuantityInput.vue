@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { updateItemQuantity, isUpdatingCart, cart } = useCart();
+const { updateItemQuantity, isUpdatingCart, cartOnCoockie } = useCart();
 const { debounce } = useHelpers();
 
 const { item } = defineProps({ item: { type: Object, required: true } });
@@ -21,7 +21,7 @@ watch(
 
 const onFocusOut = () => {
   if (quantity.value === "") { 
-    const cartItem = cart.value?.products?.find(node => node.id === item.id);
+    const cartItem = cartOnCoockie.value?.products?.find(node => node.id === item.id);
     if (cartItem) {
       quantity.value = cartItem.amount;
     }

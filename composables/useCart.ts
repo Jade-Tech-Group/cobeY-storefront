@@ -7,125 +7,89 @@ import type { Cart, Coupon, ProductCart } from '~/types';
  */
 export function useCart() {
   const { storeSettings } = useAppConfig();
-  const cart = useState<Cart>('cart', () => ({
-    id: '',
-    products: [],
-    subtotal_price: '0',
-    total_price: '0',
-    amount: 0,
-    coupon_discount: '0',
-    coupon_id: '',
-    delivery_cost: '0'
-  }));
   const cartTotal = useCookie<Number | null>("cartTotal");
-  const cartOnCoockie = useCookie<Cart | null>("cartOnCoockie");
+  const cartOnCoockie = useCookie<Cart>('cartOnCoockie', {
+    default: () => ({
+      id: '',
+      products: [] as Product[],
+      subtotal_price: '0',
+      total_price: '0',
+      amount: 0,
+      coupon_discount: '0',
+      coupon_id: '',
+      delivery_cost: '0'
+    })
+  });
   const couponOnCoockie = useCookie<Coupon | null>("couponOnCoockie");
   const isShowingCart = useState<boolean>('isShowingCart', () => false);
   const isUpdatingCart = useState<boolean>('isUpdatingCart', () => false);
   const isUpdatingCoupon = useState<boolean>('isUpdatingCoupon', () => false);
 
-  async function cartManager(product: Product, toAdd: boolean, cartOrigin: boolean, onLoad: boolean) {
-    const auth = useCookie('user');
-    if (auth) {
-      await refreshCart();
-      cart.value = cart.value || {
-        id: '',
-        products: [],
-        subtotal_price: '0',
-        total_price: '0',
-        amount: 0,
-        coupon_discount: '0',
-        coupon_id: '',
-        delivery_cost: '0'
-      };
-      cartOnCoockie.value?.products.forEach((localProduct: Product) => {
-        const existingProduct = cart.value.products.find(
-          (obj: Product) => obj.id === localProduct.id
-        );
-        if (existingProduct) {
-          existingProduct.amount += localProduct.amount;
-        } else {
-          cart.value?.products.push(localProduct);
+  async function cartManager(item: Product | Product[]) {
+    const isAuth = useCookie('user');
+
+    if (Array.isArray(item)) {
+      item.forEach((value) => {
+        if (!cartOnCoockie.value.products.find((e) => e.id === value.id)) {
+          cartOnCoockie.value.products.push(value);
         }
       });
-    }
-
-    if (toAdd) {
-      if (!cartOrigin) {
-        let repeat = cart.value?.products.filter((obj: Product) => obj.id === product.id);
-
-        if (repeat.length > 0) {
-          const existingProduct = repeat[0];
-          if (existingProduct) {
-            existingProduct.amount += product.amount;
-            if (product.stock <= existingProduct.amount) {
-              existingProduct.amount = product.stock;
-            }
-          }
-        } else {
-          cart.value?.products.push(product);
-        }
-      }
     } else {
-      cart.value?.products.forEach((obj: ProductCart) => {
-        if (obj.id === product.id) {
-          product.amount = obj.amount;
-        }
-      });
+      if (!cartOnCoockie.value?.products.find((e) => e.id === item.id)) {
+        cartOnCoockie.value?.products.push(item)
+      } else {
+        cartOnCoockie.value?.products.map((value) => {
+          if (value.id === item.id) {
+            value.amount += item.amount
+          }
+        })
+      }
     }
-
-    // Calculate prices
-    cartTotal.value = cart.value.products.reduce((accumulator: number, object: Product) => {
-      return accumulator + (object.sale_price ? parseFloat(object.sale_price) * object.amount : parseFloat(object.price) * object.amount);
-    }, 0);
-
-    cart.value.subtotal_price =  cartTotal.value.toFixed(2);
-    cart.value.total_price =  cartTotal.value.toFixed(2);
-    if (auth) addToCart(cart.value.products);
+    if (isAuth.value) addToCart(cartOnCoockie.value.products)
   }
 
-  async function refreshCart(): Promise<boolean> {
+  async function refreshCart() {
     const tokenCookie = useCookie('accessToken');
-    try {
-      const response = await $fetch<Cart>(
-        `${useConf.api.baseUrl}${useConf.api.services.cart.list}`,
-        {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${tokenCookie.value}`
+    if (tokenCookie.value) {
+      try {
+        const response = await $fetch<Cart>(
+          `${useConf.api.baseUrl}${useConf.api.services.cart.list}`,
+          {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${tokenCookie.value}`
+            }
           }
-        }
-      );
-
-      if (response) {
-        const sortedProducts = response.products.sort((a, b) =>
-          a.name.es.localeCompare(b.name.es)
         );
 
-        cart.value = {
-          ...response,
-          products: sortedProducts,
-        };
-      }
+        if (response) {
+          const sortedProducts = response.products.sort((a, b) =>
+            a.name.es.localeCompare(b.name.es)
+          );
 
-      return true;
-    } catch (error: any) {
-      console.log(error);
-      resetInitialState();
-      throw new Error('Cart could not be refreshed');
-    } finally {
-      isUpdatingCart.value = false;
+          cartOnCoockie.value = {
+            ...response,
+            products: sortedProducts,
+          };
+        }
+      } catch (error: any) {
+        console.log(error);
+        resetInitialState();
+        throw new Error('Cart could not be refreshed');
+      } finally {
+        isUpdatingCart.value = false;
+      }
     }
   }
 
   function resetInitialState() {
-    cart.value = {
+    cartOnCoockie.value = {
       id: '',
       products: [],
       subtotal_price: '0',
       total_price: '0',
       amount: 0,
-      coupon_discount: '0', 
+      coupon_discount: '0',
       coupon_id: '',
       delivery_cost: '0'
     };
@@ -145,7 +109,7 @@ export function useCart() {
   }
 
   function updateCart(payload: Cart): void {
-    cart.value = payload || {
+    cartOnCoockie.value = payload || {
       id: '',
       products: [],
       subtotal_price: '0',
@@ -155,7 +119,6 @@ export function useCart() {
       coupon_id: '',
       delivery_cost: '0'
     };
-    cartOnCoockie.value = cart.value
   }
   // toggle the cart visibility
   function toggleCart(state: boolean | undefined = undefined): void {
@@ -166,8 +129,8 @@ export function useCart() {
   async function addToCart(products: ProductCart[]): Promise<void> {
     const tokenCookie = useCookie('accessToken');
     isUpdatingCart.value = true;
-
     try {
+      resetInitialState()
       const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.add}`,
         {
@@ -179,7 +142,7 @@ export function useCart() {
           },
         }
       );
-      cart.value = response;
+      cartOnCoockie.value = response;
       const { storeSettings } = useAppConfig();
       if (storeSettings.autoOpenCart && !isShowingCart.value) toggleCart(true);
     } catch (error: any) {
@@ -189,8 +152,9 @@ export function useCart() {
 
   // remove an item from the cart
   async function removeItem(productId: string) {
-      const tokenCookie = useCookie('accessToken');
-      isUpdatingCart.value = true;
+    const tokenCookie = useCookie('accessToken');
+    isUpdatingCart.value = true;
+    if (tokenCookie.value) {
       try {
         const response = await $fetch(
           `${useConf.api.baseUrl}${useConf.api.services.cart.delete}/${productId}`,
@@ -207,48 +171,63 @@ export function useCart() {
       } catch (error: any) {
         console.log(error)
       }
+    } else {
+      removeProductById(productId)
+    }
   }
 
-  async function updateItemQuantity(productId: string, quantity:number): Promise<void> {
+  function removeProductById(productId: string): void {
+    cartOnCoockie.value.products = cartOnCoockie.value.products.filter(product => product.id !== productId);
+  }
+
+  async function updateItemQuantity(productId: string, quantity: number): Promise<void> {
     const tokenCookie = useCookie('accessToken');
     isUpdatingCart.value = true;
-    try {
-      const response = await $fetch(
-        `${useConf.api.baseUrl}${useConf.api.services.cart.delete}/${productId}`,
-        {
-          method: "DELETE",
-          body: JSON.stringify({ productId }),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${tokenCookie.value}`,
-          },
-        }
-      );
-      updateCart(response)
-    } catch (error: any) {
-      console.log(error)
+    if (tokenCookie.value) {
+      try {
+        const response = await $fetch(
+          `${useConf.api.baseUrl}${useConf.api.services.cart.delete}/${productId}`,
+          {
+            method: "DELETE",
+            body: JSON.stringify({ productId }),
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${tokenCookie.value}`,
+            },
+          }
+        );
+        updateCart(response)
+      } catch (error: any) {
+        console.log(error)
+      }
+    } else {
+      removeProductById(productId)
     }
   }
 
   async function emptyCart(): Promise<void> {
     const tokenCookie = useCookie('accessToken');
     isUpdatingCart.value = true;
-    try {
-      const response = await $fetch<Cart>(
-        `${useConf.api.baseUrl}${useConf.api.services.cart.delete}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${tokenCookie.value}`,
-          },
-        }
-      );
-      updateCart(response)
-      cartTotal.value = 0
-      await refreshCart()
-    } catch (error: any) {
-      console.log(error)
+    if (tokenCookie.value) {
+      try {
+        const response = await $fetch<Cart>(
+          `${useConf.api.baseUrl}${useConf.api.services.cart.delete}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${tokenCookie.value}`,
+            },
+          }
+        );
+        updateCart(response)
+        cartTotal.value = 0
+        await refreshCart()
+      } catch (error: any) {
+        console.log(error)
+      }
+    } else {
+      resetInitialState()
     }
   }
 
@@ -285,14 +264,14 @@ export function useCart() {
   }
 
   // Stop the loading spinner when the cart is updated
-  watch(cart, (val) => {
+  watch(cartOnCoockie, (val) => {
     isUpdatingCart.value = false;
   });
 
   const isBillingAddressEnabled = computed(() => (storeSettings.hideBillingAddressForVirtualProducts));
 
   return {
-    cart,
+    cartOnCoockie,
     isShowingCart,
     isUpdatingCart,
     isUpdatingCoupon,

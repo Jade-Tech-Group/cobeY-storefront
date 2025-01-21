@@ -1,14 +1,9 @@
 <script setup>
-const { cart } = useCart();
+const { isUpdatingCart } = useCart();
 const props = defineProps({
   disabled: { type: Boolean, default: false },
 });
 const isLoading = ref(false);
-const { t } = useI18n();
-// stop loading when cart is updated
-watch(cart, (val) => {
-  isLoading.value = false;
-});
 </script>
 
 <template>
@@ -19,7 +14,7 @@ watch(cart, (val) => {
     :disabled="disabled"
     @click="isLoading = true"
   >
-  <LoadingIcon v-if="isLoading" stroke="4" size="12" color="#fff" />
+  <LoadingIcon v-if="isUpdatingCart" stroke="4" size="12" color="#fff" />
     <img v-else
       src="/icons/cart.svg"
       width="20"

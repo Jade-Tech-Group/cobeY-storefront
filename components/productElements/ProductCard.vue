@@ -28,7 +28,7 @@ watch(
 );
 
 const addToCart = async (item: Product) => {
-  await cartManager(item, true, false, false);
+  await cartManager(item);
 };
 </script>
 
