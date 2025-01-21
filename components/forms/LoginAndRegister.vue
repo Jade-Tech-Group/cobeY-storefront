@@ -150,7 +150,7 @@ import type { User } from "~/types";
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
-const { cartOnCoockie, cartManager } = useCart();
+const { cart, addToCart } = useCart();
 const { loginUser, isPending, registerUser, sendResetPasswordEmail } =
   useAuth();
 const userInfo = ref<User>({
@@ -192,8 +192,8 @@ const login = async (userInfo: User) => {
 
   if (result) {
     if (result.success) {
-      if(cartOnCoockie.value && cartOnCoockie.value.products.length > 0){
-        cartManager(cartOnCoockie.value.products)
+      if(cart.value && cart.value.products.length > 0){
+        addToCart(cart.value.products)
       }
       errorMessage.value = "";
       message.value = t("messages.account.loggingIn");

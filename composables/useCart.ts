@@ -8,8 +8,7 @@ import { getItem, setItem } from './localStorage';
  */
 export function useCart() {
   const { storeSettings } = useAppConfig();
-  const cartTotal = useCookie<Number | null>("cartTotal");
-  const cart = useState<Cart>('cart', () => ({
+  const initialCart = {
     id: '',
     products: [],
     subtotal_price: '0',
@@ -18,12 +17,13 @@ export function useCart() {
     coupon_discount: '0',
     coupon_id: '',
     delivery_cost: '0'
-  }));
+  };
+  const cart = useState<Cart>('cart', () => (initialCart));
+  const cartTotal = useCookie<Number | null>("cartTotal");
   const couponOnCoockie = useCookie<Coupon | null>("couponOnCoockie");
   const isShowingCart = useState<boolean>('isShowingCart', () => false);
   const isUpdatingCart = useState<boolean>('isUpdatingCart', () => false);
   const isUpdatingCoupon = useState<boolean>('isUpdatingCoupon', () => false);
-
   /**
    * @description Manages the cart by adding or updating products.
    * @param item - The product or array of products to add or update in the cart.
@@ -62,9 +62,9 @@ export function useCart() {
     const isAuth = useCookie('user');
     const existingProduct = cart.value.products.find((e) => e.id === item.id);
     if (existingProduct) {
-      existingProduct.amount = quantity; 
+      existingProduct.amount = quantity;
     }
-  
+
     if (isAuth.value) {
       addToCart(cart.value.products);
     } else {
@@ -135,17 +135,8 @@ export function useCart() {
   }
 
   function resetInitialState() {
-    cart.value = {
-      id: '',
-      products: [],
-      subtotal_price: '0',
-      total_price: '0',
-      amount: 0,
-      coupon_discount: '0',
-      coupon_id: '',
-      delivery_cost: '0'
-    };
-    setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value))
+    cart.value = initialCart;
+    setItem('COBEY_PRODUCT_CART', JSON.stringify(initialCart))
   }
 
   function resetCoupon() {
@@ -197,7 +188,6 @@ export function useCart() {
         }
       );
       cart.value = response;
-      setItem('COBEY_PRODUCT_CART', JSON.stringify(response))
       const { storeSettings } = useAppConfig();
       if (storeSettings.autoOpenCart && !isShowingCart.value) toggleCart(true);
     } catch (error: any) {

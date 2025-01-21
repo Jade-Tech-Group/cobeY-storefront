@@ -47,7 +47,7 @@ export const useAuth = () => {
     } catch (error: any) {
       return { success: false, error };
     } finally {
-      updateViewer(null);
+      refreshCart()
       if (
         router.currentRoute.value.path === "/my-account" &&
         user.value === null
@@ -88,10 +88,6 @@ export const useAuth = () => {
     accessToken.value = payload?.accessToken ?? null;
     isPending.value = false;
   };
-
-  const updateViewer = (payload: any): void => {
-
-  };
   const sendResetPasswordEmail = async () => { };
 
   const resetPasswordWithKey = async ({
@@ -104,7 +100,6 @@ export const useAuth = () => {
     password: string;
   }) => { };
 
-  const getDownloads = async () => { };
 
   return {
     user,
@@ -112,11 +107,9 @@ export const useAuth = () => {
     isPending,
     loginUser,
     updateCustomer,
-    updateViewer,
     logoutUser,
     registerUser,
     sendResetPasswordEmail,
     resetPasswordWithKey,
-    getDownloads,
   };
 };
