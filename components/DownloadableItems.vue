@@ -1,9 +1,7 @@
 <script setup lang="ts">
 const { formatDate } = useHelpers();
 
-const props = defineProps({
-  downloadableItems: { type: Object as PropType<DownloadableItem[]>, default: [] },
-});
+
 </script>
 
 <template>
@@ -17,16 +15,7 @@ const props = defineProps({
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in props.downloadableItems" :key="item.id">
-        <td class="rounded-l-lg">
-          <NuxtLink v-if="item.product" :to="`/product/${item.product.id}`" class="hover:underline">{{ item.product.name }}</NuxtLink>
-        </td>
-        <td>{{ item.downloadsRemaining || '∞' }}</td>
-        <td>{{ item.accessExpires ? formatDate(item.accessExpires) : 'Never' }}</td>
-        <td v-if="item.url">
-          <a :href="item.url" :download="item.name" class="text-primary hover:text-primary-dark hover:underline">{{ item.name }}</a>
-        </td>
-      </tr>
+     
     </tbody>
   </table>
 </template>

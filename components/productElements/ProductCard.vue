@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type Product from "~/types";
-import QuantityInput from "../cartElements/QuantityInput.vue";
 
 const route = useRoute();
 const props = defineProps({
@@ -72,9 +71,14 @@ const addToCart = async (item: Product) => {
         :regular-price="node.price"
       />
     </div>
-    <div class="w-full flex xs:flex-col sm:flex-row gap-2 items-center border-t pt-2">
+    <div
+      class="w-full flex xs:flex-col sm:flex-row gap-2 items-center border-t pt-2"
+    >
       <div>
-        <QuantityInput :item="node"/>
+        <QuantityCard
+          :item="node"
+          @increment="(quantity: number)=> node.amount = quantity"
+        />
       </div>
       <AddToCartButton class="flex-1 w-full" @click="addToCart(node)" />
     </div>

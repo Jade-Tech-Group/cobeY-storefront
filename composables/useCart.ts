@@ -1,6 +1,7 @@
 import useConf from '~/conf/useConf';
 import type Product from '~/types';
 import type { Cart, Coupon, ProductCart } from '~/types';
+import { getItem, setItem } from './localStorage';
 /**
  * @name useCart
  * @description A composable that handles the cart in local storage
@@ -8,50 +9,94 @@ import type { Cart, Coupon, ProductCart } from '~/types';
 export function useCart() {
   const { storeSettings } = useAppConfig();
   const cartTotal = useCookie<Number | null>("cartTotal");
-  const cartOnCoockie = useCookie<Cart>('cartOnCoockie', {
-    default: () => ({
-      id: '',
-      products: [] as Product[],
-      subtotal_price: '0',
-      total_price: '0',
-      amount: 0,
-      coupon_discount: '0',
-      coupon_id: '',
-      delivery_cost: '0'
-    })
-  });
+  const cart = useState<Cart>('cart', () => ({
+    id: '',
+    products: [],
+    subtotal_price: '0',
+    total_price: '0',
+    amount: 0,
+    coupon_discount: '0',
+    coupon_id: '',
+    delivery_cost: '0'
+  }));
   const couponOnCoockie = useCookie<Coupon | null>("couponOnCoockie");
   const isShowingCart = useState<boolean>('isShowingCart', () => false);
   const isUpdatingCart = useState<boolean>('isUpdatingCart', () => false);
   const isUpdatingCoupon = useState<boolean>('isUpdatingCoupon', () => false);
 
-  async function cartManager(item: Product | Product[]) {
+  /**
+   * @description Manages the cart by adding or updating products.
+   * @param item - The product or array of products to add or update in the cart.
+   */
+  async function cartManager(item: Product | Product[], decrement: boolean = false) {
+    // Check if the item is an array of products or a single product
     const isAuth = useCookie('user');
+    const products = Array.isArray(item) ? item : [item];
 
-    if (Array.isArray(item)) {
-      item.forEach((value) => {
-        if (!cartOnCoockie.value.products.find((e) => e.id === value.id)) {
-          cartOnCoockie.value.products.push(value);
+    // Iterate through each product to add or update its quantity in the cart
+    products.forEach((product) => {
+      const existingProduct = cart.value.products.find((e) => e.id === product.id);
+      if (existingProduct) {
+        if (decrement) {
+          existingProduct.amount = product.amount;
+        } else {
+          existingProduct.amount += product.amount;
         }
-      });
-    } else {
-      if (!cartOnCoockie.value?.products.find((e) => e.id === item.id)) {
-        cartOnCoockie.value?.products.push(item)
       } else {
-        cartOnCoockie.value?.products.map((value) => {
-          if (value.id === item.id) {
-            value.amount += item.amount
-          }
-        })
+        // If the product does not exist in the cart, add it
+        cart.value.products.push(product);
       }
+    });
+
+    // Determine how to update the cart based on the user's authentication status
+    if (isAuth.value) {
+      // If the user is authenticated, add the products to the cart through the API
+      addToCart(cart.value.products);
+    } else {
+      updateTotal()
+      setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
     }
-    if (isAuth.value) addToCart(cartOnCoockie.value.products)
   }
 
-  async function refreshCart() {
+  async function updateItemQuantity(item: Product, quantity: number) {
+    const isAuth = useCookie('user');
+    const existingProduct = cart.value.products.find((e) => e.id === item.id);
+    if (existingProduct) {
+      existingProduct.amount = quantity; 
+    }
+  
+    if (isAuth.value) {
+      addToCart(cart.value.products);
+    } else {
+      updateTotal()
+      setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
+    }
+  }
+
+  function updateTotal() {
+    const total = cart.value.products.reduce((accumulator, object) => {
+      return accumulator + (
+        object.sale_price
+          ? parseFloat(object.sale_price) * object.amount
+          : parseFloat(object.price) * object.amount
+      );
+    }, 0);
+
+    cart.value.subtotal_price = total.toFixed(2);
+    cart.value.total_price = total.toFixed(2);
+  }
+
+  /**
+   * Refreshes the cart by fetching the latest cart data from the server or local storage.
+   * @returns A promise that resolves to a boolean indicating the success of the operation.
+   */
+  async function refreshCart(): Promise<boolean> {
+    // Retrieve the access token from the cookie
     const tokenCookie = useCookie('accessToken');
+    // Check if the access token is present
     if (tokenCookie.value) {
       try {
+        // Attempt to fetch the cart data from the server
         const response = await $fetch<Cart>(
           `${useConf.api.baseUrl}${useConf.api.services.cart.list}`,
           {
@@ -62,28 +107,35 @@ export function useCart() {
           }
         );
 
+        // If the response is successful, update the cart state with the fetched data
         if (response) {
-          const sortedProducts = response.products.sort((a, b) =>
-            a.name.es.localeCompare(b.name.es)
-          );
-
-          cartOnCoockie.value = {
+          cart.value = {
             ...response,
-            products: sortedProducts,
+            // Sort the products by their Spanish name for consistency
+            products: response.products.sort((a, b) => a.name.es.localeCompare(b.name.es)),
           };
+          // Save the updated cart to local storage
+          setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
         }
+        // Indicate success
+        return true;
       } catch (error: any) {
-        console.log(error);
-        resetInitialState();
+        // Throw an error if the cart refresh fails
         throw new Error('Cart could not be refreshed');
       } finally {
+        // Ensure the cart update indicator is set to false after the operation
         isUpdatingCart.value = false;
       }
+    } else {
+      // If no access token is present, attempt to retrieve the cart from local storage
+      cart.value = JSON.parse(getItem('COBEY_PRODUCT_CART') as any);
+      // Indicate success
+      return true;
     }
   }
 
   function resetInitialState() {
-    cartOnCoockie.value = {
+    cart.value = {
       id: '',
       products: [],
       subtotal_price: '0',
@@ -93,6 +145,7 @@ export function useCart() {
       coupon_id: '',
       delivery_cost: '0'
     };
+    setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value))
   }
 
   function resetCoupon() {
@@ -109,7 +162,7 @@ export function useCart() {
   }
 
   function updateCart(payload: Cart): void {
-    cartOnCoockie.value = payload || {
+    cart.value = payload || {
       id: '',
       products: [],
       subtotal_price: '0',
@@ -119,6 +172,7 @@ export function useCart() {
       coupon_id: '',
       delivery_cost: '0'
     };
+    setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value))
   }
   // toggle the cart visibility
   function toggleCart(state: boolean | undefined = undefined): void {
@@ -142,7 +196,8 @@ export function useCart() {
           },
         }
       );
-      cartOnCoockie.value = response;
+      cart.value = response;
+      setItem('COBEY_PRODUCT_CART', JSON.stringify(response))
       const { storeSettings } = useAppConfig();
       if (storeSettings.autoOpenCart && !isShowingCart.value) toggleCart(true);
     } catch (error: any) {
@@ -172,37 +227,15 @@ export function useCart() {
         console.log(error)
       }
     } else {
-      removeProductById(productId)
+      removeFromLocalById(productId)
     }
   }
 
-  function removeProductById(productId: string): void {
-    cartOnCoockie.value.products = cartOnCoockie.value.products.filter(product => product.id !== productId);
-  }
-
-  async function updateItemQuantity(productId: string, quantity: number): Promise<void> {
-    const tokenCookie = useCookie('accessToken');
-    isUpdatingCart.value = true;
-    if (tokenCookie.value) {
-      try {
-        const response = await $fetch(
-          `${useConf.api.baseUrl}${useConf.api.services.cart.delete}/${productId}`,
-          {
-            method: "DELETE",
-            body: JSON.stringify({ productId }),
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${tokenCookie.value}`,
-            },
-          }
-        );
-        updateCart(response)
-      } catch (error: any) {
-        console.log(error)
-      }
-    } else {
-      removeProductById(productId)
-    }
+  function removeFromLocalById(productId: string): void {
+    cart.value.products = cart.value.products.filter(product => product.id !== productId);
+    updateTotal()
+    setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
+    isUpdatingCart.value = false
   }
 
   async function emptyCart(): Promise<void> {
@@ -264,14 +297,14 @@ export function useCart() {
   }
 
   // Stop the loading spinner when the cart is updated
-  watch(cartOnCoockie, (val) => {
+  watch(cart, (val) => {
     isUpdatingCart.value = false;
   });
 
   const isBillingAddressEnabled = computed(() => (storeSettings.hideBillingAddressForVirtualProducts));
 
   return {
-    cartOnCoockie,
+    cart,
     isShowingCart,
     isUpdatingCart,
     isUpdatingCoupon,
@@ -282,10 +315,10 @@ export function useCart() {
     toggleCart,
     addToCart,
     removeItem,
-    updateItemQuantity,
     emptyCart,
     updateShippingMethod,
     applyCoupon,
     removeCoupon,
+    updateItemQuantity,
   };
 }

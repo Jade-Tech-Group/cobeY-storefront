@@ -1,21 +1,21 @@
 <script setup lang="ts">
-const { cartOnCoockie, toggleCart, isUpdatingCart } = useCart();
+const { cart, toggleCart, isUpdatingCart } = useCart();
 </script>
 
 <template>
   <div class="fixed top-0 bottom-0 right-0 z-50 flex flex-col w-11/12 max-w-lg overflow-x-hidden bg-white shadow-lg">
     <Icon name="ion:close-outline" class="absolute p-1 rounded-lg shadow-lg top-8 left-6 md:left-8 cursor-pointer" size="24" @click="toggleCart(false)" />
-    <EmptyCart v-if="cartOnCoockie && cartOnCoockie.products.length > 0" class="rounded-lg shadow-lg p-1.5 hover:bg-red-400 hover:text-white" />
+    <EmptyCart v-if="cart && cart.products.length > 0" class="rounded-lg shadow-lg p-1.5 hover:bg-red-400 hover:text-white" />
 
     <div class="mt-8 text-center">
       {{ $t('messages.shop.cart') }}
-      <span v-if="cartOnCoockie?.amount"> ({{ cartOnCoockie?.amount }}) </span>
+      <span v-if="cart?.products.length > 0"> ({{ cart?.products.length }}) </span>
     </div>
 
     <ClientOnly>
-      <template v-if="cartOnCoockie && cartOnCoockie.products.length > 0">
+      <template v-if="cart && cart.products.length > 0">
         <ul class="flex flex-col flex-1 gap-4 p-6 overflow-hidden sm:p-4.5 xs:p-4 mt-4">
-          <CartCard v-for="(item, index) in cartOnCoockie.products" :key="index" :item />
+          <CartCard v-for="(item, index) in cart.products" :key="index" :item />
         </ul>
         <div class="flex xs:flex-col sm:flex-row w-full sm:p-4.5 xs:p-4 sm:mb-4 gap-4 justify-center">
           <NuxtLink
@@ -23,7 +23,7 @@ const { cartOnCoockie, toggleCart, isUpdatingCart } = useCart();
             to="/checkout"
             @click.prevent="toggleCart()">
             <span class="mx-2">{{ $t('messages.shop.checkout') }}</span>
-            <span v-html="cartOnCoockie.total_price" />
+            <span v-html="cart.total_price" />
           </NuxtLink>
           <NuxtLink
             class="sm:w-52 xs:w-full block p-3 text-lg text-center text-white bg-secondary rounded-lg shadow-md justify-evenly hover:bg-secondary-dark"
@@ -34,7 +34,7 @@ const { cartOnCoockie, toggleCart, isUpdatingCart } = useCart();
         </div>
       </template>
       <!-- Empty Cart Message -->
-      <EmptyCartMessage v-else-if="cartOnCoockie && cartOnCoockie.products.length === 0" />
+      <EmptyCartMessage v-else-if="cart && cart.products.length === 0" />
       <!-- Cart Loading -->
       <div v-else class="flex flex-col items-center justify-center flex-1 mb-20">
         <LoadingIcon />

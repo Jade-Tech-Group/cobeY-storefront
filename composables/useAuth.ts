@@ -41,7 +41,6 @@ export const useAuth = () => {
   const logoutUser = async (): Promise<{ success: boolean; error: any }> => {
     isPending.value = true;
     try {
-      await refreshCart();
       clearAllCookies();
       isPending.value = false;
       return { success: true, error: null };

@@ -4,7 +4,7 @@ import type { Stripe, StripeElements, CreateSourceData, StripeCardElement } from
 
 const { t } = useI18n();
 const { query } = useRoute();
-const { cart, isUpdatingCart } = useCart();
+const { cartOnCoockie, isUpdatingCart } = useCart();
 const { orderInput, isProcessingOrder, proccessCheckout } = useCheckout();
 const runtimeConfig = useRuntimeConfig();
 const stripeKey = runtimeConfig.public?.STRIPE_PUBLISHABLE_KEY || null;
@@ -47,8 +47,8 @@ useSeoMeta({
 
 <template>
   <div class="flex flex-col min-h-[600px]">
-    <template v-if="cart">
-      <div v-if="cart.products.length === 0" class="flex flex-col items-center justify-center flex-1 mb-12">
+    <template v-if="cartOnCoockie">
+      <div v-if="cartOnCoockie.products.length === 0" class="flex flex-col items-center justify-center flex-1 mb-12">
         <Icon name="ion:cart-outline" size="156" class="opacity-25 mb-5" />
         <h2 class="text-2xl font-bold mb-2">{{ $t('messages.shop.cartEmpty') }}</h2>
         <span class="text-gray-400 mb-4">{{ $t('messages.shop.addProductsInYourCart') }}</span>

@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import type  Product  from "~/types";
+import { defineEmits } from 'vue';
+const { isUpdatingCart, cart } = useCart();
 
-const {isUpdatingCart, cart,updateItemQuantity } = useCart();
+const { item } = defineProps({ item: { type: Object, required: true } });
 
+const quantity = ref(item.amount);
+const hasNoMoreStock = computed(() => (item.stock? 10 <= quantity.value : false));
 
-const props = defineProps<{
-  item: Product
-}>();
-
-const quantity = ref(props.item.amount);
-const hasNoMoreStock = computed(() => (props.item.stock? 10 <= quantity.value : false));
 
 const emit = defineEmits<{
   (e: 'increment', amount: number): void;
@@ -17,16 +14,21 @@ const emit = defineEmits<{
 
 const incrementQuantity = () => {
   quantity.value++;
-  updateItemQuantity(props.item, quantity.value)
+  emit('increment', quantity.value);
+
 };
 
 const decrementQuantity = () => {
   quantity.value--;
-  updateItemQuantity(props.item, quantity.value)
 };
 
 const onFocusOut = () => {
-  updateItemQuantity(props.item, quantity.value)
+  if (quantity.value === "") { 
+    const cartItem = cart.value?.products?.find(node => node.id === item.id);
+    if (cartItem) {
+      quantity.value = cartItem.amount;
+    }
+  }
 };
 </script>
 
@@ -45,7 +47,7 @@ const onFocusOut = () => {
       v-model.number="quantity"
       type="number"
       min="0"
-      :max="props.item.stock"
+      :max="item.stock"
       aria-label="Quantity"
       @focusout="onFocusOut"
       class="flex items-center justify-center w-8  text-center text-xs focus:outline-none border-y border-gray-300" />
