@@ -24,10 +24,14 @@ export default {
       order: {
         list: "/order",
       },
+      profile: {
+        customer: 'user/profile'
+      },
       cart: {
         list: "/cart",
         add: '/cart',
-        delete: '/cart'
+        delete: '/cart',
+        updateShipping: '/cart/shippingMethod'
       },
     },
   },

@@ -148,6 +148,7 @@
       "downloadsRemaining": "Downloads remaining",
       "expires": "Expires",
       "productNotFound": "Product not found",
+      "billing_address": "Billing address",
       "productResultCount": {
         "showing": "Showing",
         "to": "to",
@@ -172,6 +173,7 @@
       "country": "Country",
       "countryCode": "Country Code",
       "phone": "Phone",
+      "address": "Address",
       "email": "Email",
       "paymentOptions": "Payment Options",
       "creditCard": "Credit Card",

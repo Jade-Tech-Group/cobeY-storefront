@@ -1,3 +1,5 @@
+import type { GeoLocation } from "~/types";
+
 export const countries: GeoLocation[] = [
   { name: 'Afghanistan', code: 'AF' },
   { name: 'Åland Islands', code: 'AX' },
@@ -244,3 +246,8 @@ export const countries: GeoLocation[] = [
   { name: 'Zambia', code: 'ZM' },
   { name: 'Zimbabwe', code: 'ZW' },
 ];
+
+export const delivery_method = {
+  STORE_PICKUP: 'STORE_PICKUP',
+  DELIVERY: 'DELIVERY',
+}

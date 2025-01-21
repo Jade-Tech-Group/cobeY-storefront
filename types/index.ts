@@ -31,6 +31,24 @@ export interface DeliveryAddress {
   id: string;
 }
 
+export interface Profile {
+  name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  country_code?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  address?: string;
+  postCode?: string;
+  id: string;
+}
+export interface GeoLocation {
+  name: string;
+  code: string
+}
+
 export interface User {
   name: string;
   last_name: string;
@@ -56,6 +74,7 @@ export interface Cart {
   coupon_discount: string,
   coupon_id: string,
   delivery_cost: string,
+  delivery_method: string,
   subtotal_price: string,
   total_price: string,
   products: Product[];
@@ -125,6 +144,7 @@ export interface NuxtFilter {
   showCount: boolean;
   openByDefault: boolean;
 }
+
 export interface Coupon {
   id: string;
   discount_type: string;

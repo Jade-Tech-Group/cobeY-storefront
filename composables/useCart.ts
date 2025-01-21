@@ -2,6 +2,7 @@ import useConf from '~/conf/useConf';
 import type Product from '~/types';
 import type { Cart, Coupon, ProductCart } from '~/types';
 import { getItem, setItem } from './localStorage';
+import { delivery_method } from '~/constants';
 /**
  * @name useCart
  * @description A composable that handles the cart in local storage
@@ -16,7 +17,8 @@ export function useCart() {
     amount: 0,
     coupon_discount: '0',
     coupon_id: '',
-    delivery_cost: '0'
+    delivery_cost: '0',
+    delivery_method: delivery_method.STORE_PICKUP
   };
   const cart = useState<Cart>('cart', () => (initialCart));
   const cartTotal = useCookie<Number | null>("cartTotal");
@@ -255,9 +257,29 @@ export function useCart() {
   }
 
   // Update shipping method
-  async function updateShippingMethod(shippingMethods: string) {
+  async function updateShippingMethod(method: string) {
     isUpdatingCart.value = true;
-    // updateCart(updateShippingMethod?.cart);
+    const tokenCookie = useCookie('accessToken');
+    try {
+      const response = await $fetch<Cart>(
+        `${useConf.api.baseUrl}${useConf.api.services.cart.updateShipping}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ method }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${tokenCookie.value}`,
+          },
+        }
+      );
+      cart.value = response;
+      const { storeSettings } = useAppConfig();
+      if (storeSettings.autoOpenCart && !isShowingCart.value) toggleCart(true);
+    } catch (error: any) {
+      console.error(error);
+    }
+
+    isUpdatingCart.value = false;
   }
 
   // Apply coupon

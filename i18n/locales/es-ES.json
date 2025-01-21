@@ -148,6 +148,7 @@
       "downloadsRemaining": "Descargas restantes",
       "expires": "Expira",
       "productNotFound": "Producto no encontrado",
+      "billing_address": "Dirección de facturación",
       "productResultCount": {
         "showing": "Mostrando de",
         "to": "a",
@@ -172,6 +173,7 @@
       "country": "País",
       "countryCode": "Código de país",
       "phone": "Teléfono",
+      "address": "Dirección",
       "email": "Correo electrónico",
       "paymentOptions": "Opciones de pago",
       "creditCard": "Tarjeta de crédito",
