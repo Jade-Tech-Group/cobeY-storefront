@@ -68,6 +68,7 @@ export interface ProductCart {
   id: string;
   amount: number;
 }
+
 export interface Cart {
   id: string,
   amount: number,

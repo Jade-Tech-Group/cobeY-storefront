@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import { loadStripe } from "@stripe/stripe-js";
-import type {
-  Stripe,
-  StripeElements,
-  CreateSourceData,
-  StripeCardElement,
-} from "@stripe/stripe-js";
+import type { DeliveryAddress } from '~/types';
+
 
 const { t } = useI18n();
-const { query } = useRoute();
 const { cart, isUpdatingCart } = useCart();
 const { orderInput, isProcessingOrder, proccessCheckout } = useCheckout();
 
@@ -23,39 +17,81 @@ const isCheckoutDisabled = computed<boolean>(
     isUpdatingCart.value ||
     !orderInput.value.paymentMethod
 );
-
-const isInvalidEmail = ref<boolean>(false);
-const elements = ref();
+const newDeliveryAddress = ref<DeliveryAddress>({
+  id: '',
+  name: '',
+  last_name: '',
+  title: '',
+  dni: '',
+  deliveryAddress_street: '',
+  country: '',
+  state: '',
+  city: '',
+  postal_code: '',
+  phone_number: '',
+  email: '',
+});
 const isPaid = ref<boolean>(false);
-const { fetchProfile, getBillingData } = useProfileStore();
+const editDeliveryAddress = ref<boolean>(false);
+const updatingDeliveryAddress = ref<boolean>(false);
+const stProfile = useProfileStore();
+const activeDeliveryAddress = ref(stProfile.getDeliveryData[0]?.id || "");
 
-onMounted(() => {
-  fetchProfile();
+onBeforeMount(() => {
+  stProfile.fetchBillingData();
+  stProfile.fetchDeliveryAddress();
 });
 
-onBeforeMount(async () => {
-  if (query.cancel_order) window.close();
-});
+function changeDeliveryAddress(id: string) {
+  activeDeliveryAddress.value = id;
+}
+
+async function updateDeliveryAddress(id: string) {
+  editDeliveryAddress.value = true;
+  await stProfile.fetchDeliveryAdderessById(id);
+}
+
+async function deleteDeliveryAddress(id: string) {
+  await stProfile.deleteDeliveryAddress(id);
+  await stProfile.fetchDeliveryAddress();
+}
 
 const payNow = async () => {
   buttonText.value = t("messages.general.processing");
-
   proccessCheckout(isPaid.value);
 };
 
+interface ShippingOption {
+  id: string;
+  label: string;
+  cost: number;
+}
+interface PaymentOptions {
+  id: string;
+  label: string;
+}
 
-const shippingOption = [
+const shippingOption: ShippingOption[] = [
   {
     id: "STORE_PICKUP",
     label: "Recogida en tienda",
-    cost: "0.00",
+    cost: 0.0,
   },
   {
     id: "DELIVERY",
     label: "Entrega a domicilio",
-    cost: "5.00",
+    cost: 5.0,
   },
 ];
+
+const paymentMethods: PaymentOptions[] = [
+  {
+    id: "Tropipay",
+    label: "Tropipay",
+  },
+];
+
+const activePaymentMethod = ref(paymentMethods[0]?.id || "");
 
 useSeoMeta({
   title: t("messages.shop.checkout"),
@@ -94,7 +130,7 @@ useSeoMeta({
             <h2 class="w-full mb-3 text-2xl font-semibold">
               {{ $t("messages.billing.billingDetails") }}
             </h2>
-            <BillingDetails v-model="getBillingData" />
+            <BillingDetails v-model="stProfile.getBillingData" />
           </div>
 
           <div>
@@ -103,16 +139,45 @@ useSeoMeta({
             </h3>
             <ShippingOptions
               :options="shippingOption"
-              :active-option="shippingOption[0]?.id"
+              :active-option="cart.delivery_method"
             />
           </div>
 
           <Transition name="scale-y" mode="out-in">
-            <div>
+            <div v-if="cart.delivery_method === 'DELIVERY'">
               <h2 class="mb-4 text-xl font-semibold">
                 {{ $t("messages.general.shippingDetails") }}
               </h2>
-              <ShippingDetails v-model="getBillingData" />
+              <div
+                v-if="
+                  stProfile.deliveryAddress.length > 0 && !editDeliveryAddress
+                "
+              >
+                <DeliveryOptions
+                  :options="stProfile.getDeliveryData"
+                  :active-option="activeDeliveryAddress"
+                  @update:change="changeDeliveryAddress"
+                  @update:delivery="updateDeliveryAddress"
+                  @delete:delivery="deleteDeliveryAddress"
+                />
+              </div>
+              <div v-else-if="editDeliveryAddress">
+                <ShippingDetails
+                  v-model="stProfile.getCurrentDeliveryData"
+                  v-if="editDeliveryAddress"
+                  :isLoading="stProfile.loading"
+                  action="edit"
+                  @close="editDeliveryAddress = false"
+                />
+              </div>
+              <div v-else>
+                <ShippingDetails
+                  v-model="newDeliveryAddress"
+                  action="add"
+                  :isLoading="stProfile.loading"
+                  @close="editDeliveryAddress = false"
+                />
+              </div>
             </div>
           </Transition>
 
@@ -121,7 +186,12 @@ useSeoMeta({
             <h2 class="mb-4 text-xl font-semibold">
               {{ $t("messages.billing.paymentOptions") }}
             </h2>
-            <PaymentOptions v-model="orderInput.paymentMethod" class="mb-4" />
+            <PaymentOptions 
+              v-model="paymentMethods" 
+              :activePaymentMethod="activePaymentMethod"
+              class="sm:w-1/2 xs:w-full mb-4" 
+              @update:model-value="method => orderInput.paymentMethod = method.id"
+            />
           </div>
 
           <!-- Order note -->

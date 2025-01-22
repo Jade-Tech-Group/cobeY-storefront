@@ -1,4 +1,4 @@
-import type { Customer, User } from "~/types";
+import type { Customer, Profile, User } from "~/types";
 import type { Login } from "~/types";
 import conf from "~/conf/useConf";
 export const useAuth = () => {

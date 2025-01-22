@@ -25,7 +25,8 @@ export default {
         list: "/order",
       },
       profile: {
-        customer: 'user/profile'
+        customer: 'user/profile',
+        deliveryAddress: 'deliveryAddress'
       },
       cart: {
         list: "/cart",

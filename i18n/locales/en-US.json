@@ -82,6 +82,8 @@
       "personalInfo": "Personal Information",
       "updating": "Updating",
       "updateDetails": "Update Details",
+      "update": "Update",
+      "save": "¨Save",
       "updateSuccess": "Updated successfully",
       "failed": "Failed to update",
       "verification": "Vetify your email",

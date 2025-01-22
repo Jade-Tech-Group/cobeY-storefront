@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-const { updateShippingLocation } = useCheckout();
-
 const props = defineProps({
   modelValue: { type: Object, required: true },
 });
@@ -37,7 +35,7 @@ const billing = toRef(props, 'modelValue');
 
     <div class="w-full">
       <label for="country">{{ $t('messages.billing.country') }}</label>
-      <CountrySelect id="country" v-model="billing.country" :default-value="billing.country" @change="updateShippingLocation" autocomplete="country" />
+      <CountrySelect id="country" v-model="billing.country" :default-value="billing.country" autocomplete="country" />
     </div>
 
     

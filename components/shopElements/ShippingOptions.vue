@@ -1,13 +1,19 @@
-<script setup>
+<script setup lang="ts">
+interface ShippingOption {
+  id: string;
+  label: string;
+  cost: number;
+}
+
 const { updateShippingMethod } = useCart();
 const runtimeConfig = useRuntimeConfig();
 const currencySymbol = runtimeConfig?.public?.CURRENCY_SYMBOL || '$';
-const props = defineProps({
-  options: { type: Array, required: true },
-  activeOption: { type: String, required: true },
-});
+const props = defineProps<{
+  options: ShippingOption[];
+  activeOption: string;
+}>();
 
-const setActiveOption = async (id) => {
+const setActiveOption = async (id: string) => {
   await updateShippingMethod(id);
 };
 </script>
@@ -38,7 +44,7 @@ const setActiveOption = async (id) => {
     @apply bg-white border rounded-lg text-gray-600 cursor-pointer flex flex-1 text-sm py-3 px-4 gap-2 items-center hover:border-purple-300;
 
     &.active-option {
-      @apply border-primary cursor-default border-opacity-50 shadow-sm pointer-events-none;
+      @apply border-primary border-opacity-50 shadow-sm;
 
       & .checkmark {
         @apply opacity-100;
