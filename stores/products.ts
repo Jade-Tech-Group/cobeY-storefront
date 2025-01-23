@@ -22,7 +22,7 @@ export const useProductsStore = defineStore("products", {
     async fetchFeatured(): Promise<void> {
       this.loading = true;
       try {
-        const response: { data: Product[] } = await $fetch(
+        const response = await $fetch<{data: Product[]}>(
           `${conf.api.baseUrl}${conf.api.services.product.available}?featured=true`
         );
         this.featured = response.data.map((r) => ({
@@ -35,10 +35,11 @@ export const useProductsStore = defineStore("products", {
         this.loading = false;
       }
     },
+
     async fetchByCategory(category_id: string): Promise<void> {
       this.loading = true;
       try {
-        const response: { data: Product[] } = await $fetch(
+        const response = await $fetch<{data: Product[]}>(
           `${conf.api.baseUrl}${conf.api.services.product.available}?&category_id=${category_id}`
         );
         this.byCategory = response.data.map((r) => ({
@@ -55,7 +56,7 @@ export const useProductsStore = defineStore("products", {
     async fetchOnSale(): Promise<void> {
       this.loading = true;
       try {
-        const response: { data: Product[] } = await $fetch(
+        const response = await $fetch<{data: Product[]}>(
           `${conf.api.baseUrl}${conf.api.services.product.available}?on_sale=true`
         );
         this.onSale = response.data.map((r) => ({
@@ -72,7 +73,7 @@ export const useProductsStore = defineStore("products", {
     async fetchAll(): Promise<void> {
       this.loading = true;
       try {
-        const response: { data: Product[] } = await $fetch(
+        const response = await $fetch<{data: Product[]}>(
           `${conf.api.baseUrl}${conf.api.services.product.available}`
         );
         this.products = response.data.map((r) => ({
@@ -100,6 +101,7 @@ export const useProductsStore = defineStore("products", {
         this.loading = false;
       }
     },
+
     async fetchRelatedCategory(
       category_id: string,
       page: number = 1,
@@ -107,7 +109,7 @@ export const useProductsStore = defineStore("products", {
     ): Promise<void> {
       this.loading = true;
       try {
-        const response: { data: Product[] } = await $fetch(
+        const response = await $fetch<{data: Product[]}>(
           `${conf.api.baseUrl}${conf.api.services.product.available}?page=${page}&size=${size}&category_id=${category_id}&available=true`
         );
         this.related = response.data.map((r) => ({

@@ -12,10 +12,10 @@ const { toggleCart, cart } = useCart();
     <ClientOnly>
       <Transition name="popIn" mode="out-in">
         <span
-          v-if="cart?.amount > 0"
+          v-if="cart.products && cart.products.length"
           class="bg-primary rounded-full text-white leading-none min-w-[16px] p-[3px] -top-1 -right-1 md:-right-2 text-[10px] absolute inline-flex justify-center items-center"
         >
-          {{ cart?.amount }}
+          {{ cart.products.length}}
         </span>
       </Transition>
     </ClientOnly>

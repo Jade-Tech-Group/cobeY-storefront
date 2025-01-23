@@ -1,6 +1,11 @@
 <script setup lang="ts">
+interface PaymentOptions {
+  id: string;
+  label: string;
+}
 const props = defineProps<{
-  modelValue: string | object;
+  modelValue: PaymentOptions[];
+  activePaymentMethod: string;
 }>();
 
 const paymentMethod = toRef(props, 'modelValue');
@@ -10,30 +15,23 @@ const updatePaymentMethod = (value: any) => {
   emits('update:modelValue', value);
 };
 
-onMounted(() => {
-  // Emit first payment method
-  // if (props.paymentGateways?.nodes.length) updatePaymentMethod(props.paymentGateways?.nodes[0]);
-});
 </script>
 
 <template>
   <div class="flex gap-4 leading-tight flex-wrap">
-    <!-- <div
-      v-for="gateway in paymentGateways?.nodes"
+    <div
+      v-for="gateway in paymentMethod"
       :key="gateway.id"
       class="option"
-      :class="{ 'active-option': gateway.id === activePaymentMethod.id }"
+      :class="{ 'active-option': gateway.id === activePaymentMethod }"
       @click="updatePaymentMethod(gateway)"
-      :title="gateway?.description || gateway?.title || 'Payment Method'">
+      :title="gateway?.label || gateway?.label || 'Payment Method'">
       <icon v-if="gateway.id === 'stripe'" name="ion:card-outline" size="20" />
       <icon v-else-if="gateway.id === 'paypal'" name="ion:logo-paypal" size="20" />
       <icon v-else name="ion:cash-outline" size="20" />
-      <span class="whitespace-nowrap" v-html="gateway.title" />
+      <span class="whitespace-nowrap" v-html="gateway.label" />
       <icon name="ion:checkmark-circle" size="20" class="ml-auto text-primary checkmark opacity-0" />
     </div>
-    <div v-if="activePaymentMethod.description" class="prose block w-full">
-      <p class="text-sm text-gray-500" v-html="activePaymentMethod.description" />
-    </div> -->
   </div>
 </template>
 

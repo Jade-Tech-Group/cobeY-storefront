@@ -15,23 +15,23 @@ const { cart, isUpdatingCart } = useCart();
     <div class="grid gap-1 text-sm font-semibold text-gray-500">
       <div class="flex justify-between">
         <span>{{ $t('messages.shop.subtotal') }}</span>
-        <span class="text-gray-700 tabular-nums" v-html="cart.subtotal" />
+        <span class="text-gray-700 tabular-nums" v-html="cart.subtotal_price" />
       </div>
       <div class="flex justify-between">
         <span>{{ $t('messages.general.shipping') }}</span>
         <span class="text-gray-700 tabular-nums">
-          <!-- {{ parseFloat(cart.shippingTotal) > 0 ? '+' : '' }} {{ cart.shippingTotal }} -->
+          {{ cart.delivery_cost }}
         </span>
       </div>
-      <Transition name="scale-y" mode="out-in">
+      <!-- <Transition name="scale-y" mode="out-in">
         <div v-if="cart && cart.appliedCoupons" class="flex justify-between">
           <span>{{ $t('messages.shop.discount') }}</span>
-          <!-- <span class="text-primary tabular-nums">- <span v-html="cart.discountTotal" /></span> -->
+          <span class="text-primary tabular-nums">- <span v-html="cart.discountTotal" /></span>
         </div>
-      </Transition>
+      </Transition> -->
       <div class="flex justify-between mt-4">
         <span>{{ $t('messages.shop.total') }}</span>
-        <span class="text-lg font-bold text-gray-700 tabular-nums" v-html="cart.total" />
+        <span class="text-lg font-bold text-gray-700 tabular-nums" v-html="cart.total_price" />
       </div>
     </div>
 

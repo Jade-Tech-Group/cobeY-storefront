@@ -20,10 +20,6 @@ watch(
   () => closeCartAndMenu()
 );
 
-onMounted(() => {
-  refreshCart();
-});
-
 useHead({
   titleTemplate: `${siteName}`,
 });

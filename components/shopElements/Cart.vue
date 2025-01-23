@@ -9,7 +9,7 @@ const { cart, toggleCart, isUpdatingCart } = useCart();
 
     <div class="mt-8 text-center">
       {{ $t('messages.shop.cart') }}
-      <span v-if="cart?.amount"> ({{ cart?.amount }}) </span>
+      <span v-if="cart?.products.length > 0"> ({{ cart?.products.length }}) </span>
     </div>
 
     <ClientOnly>

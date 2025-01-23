@@ -37,7 +37,7 @@ const remove = () => {
         <ProductPrice class="mt-1 text-xs" :sale-price="props.item.sale_price" :regular-price="props.item.price" />
       </div>
       <div class="inline-flex gap-2 flex-col items-end">
-        <QuantityInput :item />
+        <QuantityInput :item/>
         <div class="text-xs text-gray-400 group-hover:text-gray-700 flex leading-none items-center">
           <button
             title="Remove Item"
