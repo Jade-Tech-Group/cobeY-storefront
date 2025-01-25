@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type Product from "~/types";
+import Toast from "../common/Toast.vue";
+import { useToast } from "~/composables/useToast";
 
+const { toastList, showToast } = useToast()
 const route = useRoute();
 const props = defineProps({
   node: { type: Object as PropType<Product>, required: true },
@@ -28,6 +31,10 @@ watch(
 
 const addToCart = async (item: Product) => {
   await cartManager(item);
+};
+
+const notify = () => {
+  showToast('¡Esto es una notificación!', 'success', 3000);
 };
 </script>
 
@@ -83,4 +90,11 @@ const addToCart = async (item: Product) => {
       <AddToCartButton class="flex-1 w-full" @click="addToCart(node)" />
     </div>
   </div>
+  <Toast
+      v-for="(toast, index) in toastList"
+      :key="index"
+      :message="toast.message"
+      :type="toast.type"
+      :duration="toast.duration"
+    />
 </template>

@@ -8,13 +8,12 @@ const props = defineProps<{
   activePaymentMethod: string;
 }>();
 
-const paymentMethod = toRef(props, 'modelValue');
-const emits = defineEmits(['update:modelValue']);
+const paymentMethod = toRef(props, "modelValue");
+const emits = defineEmits(["update:modelValue"]);
 
 const updatePaymentMethod = (value: any) => {
-  emits('update:modelValue', value);
+  emits("update:modelValue", value);
 };
-
 </script>
 
 <template>
@@ -25,12 +24,22 @@ const updatePaymentMethod = (value: any) => {
       class="option"
       :class="{ 'active-option': gateway.id === activePaymentMethod }"
       @click="updatePaymentMethod(gateway)"
-      :title="gateway?.label || gateway?.label || 'Payment Method'">
-      <icon v-if="gateway.id === 'stripe'" name="ion:card-outline" size="20" />
-      <icon v-else-if="gateway.id === 'paypal'" name="ion:logo-paypal" size="20" />
-      <icon v-else name="ion:cash-outline" size="20" />
+      :title="gateway?.label || gateway?.label || 'Payment Method'"
+    >
+      <img
+        v-if="gateway.id === 'Tropipay'"
+        src="/icons/tropipay.svg"
+        width="20"
+        height="20"
+        alt="Add address"
+        loading="lazy"
+      />
       <span class="whitespace-nowrap" v-html="gateway.label" />
-      <icon name="ion:checkmark-circle" size="20" class="ml-auto text-primary checkmark opacity-0" />
+      <icon
+        name="ion:checkmark-circle"
+        size="20"
+        class="ml-auto text-primary checkmark opacity-0"
+      />
     </div>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <script setup>
 const { cart, isUpdatingCart } = useCart();
+const { formatPrice } = useHelpers();
 </script>
 
 <template>
@@ -10,28 +11,28 @@ const { cart, isUpdatingCart } = useCart();
       <CartCard v-for="item in cart.products" :key="item.key" :item />
     </ul>
 
-    <AddCoupon class="my-8" />
+    <AddCoupon class="my-4" />
 
     <div class="grid gap-1 text-sm font-semibold text-gray-500">
       <div class="flex justify-between">
         <span>{{ $t('messages.shop.subtotal') }}</span>
-        <span class="text-gray-700 tabular-nums" v-html="cart.subtotal_price" />
+        <span class="text-gray-700 tabular-nums" v-html="formatPrice(cart.subtotal_price)" />
       </div>
       <div class="flex justify-between">
         <span>{{ $t('messages.general.shipping') }}</span>
         <span class="text-gray-700 tabular-nums">
-          {{ cart.delivery_cost }}
+          {{ formatPrice(cart.delivery_cost) }}
         </span>
       </div>
-      <!-- <Transition name="scale-y" mode="out-in">
-        <div v-if="cart && cart.appliedCoupons" class="flex justify-between">
+      <Transition name="scale-y" mode="out-in">
+        <div v-if="cart && cart.coupon_id" class="flex justify-between">
           <span>{{ $t('messages.shop.discount') }}</span>
-          <span class="text-primary tabular-nums">- <span v-html="cart.discountTotal" /></span>
+          <span class="text-primary tabular-nums">- <span v-html="formatPrice(cart.coupon_discount)" /></span>
         </div>
-      </Transition> -->
+      </Transition>
       <div class="flex justify-between mt-4">
         <span>{{ $t('messages.shop.total') }}</span>
-        <span class="text-lg font-bold text-gray-700 tabular-nums" v-html="cart.total_price" />
+        <span class="text-lg font-bold text-gray-700 tabular-nums" v-html="formatPrice(cart.total_price)" />
       </div>
     </div>
 

@@ -19,7 +19,7 @@ if (!stProduct.getCurrent) {
 }
 
 const addToCart = async (item: Product) => {
-  await cartManager(item, true, false, false);
+  await cartManager(item);
 };
 
 const quantity = ref<number>(1);
@@ -93,7 +93,7 @@ const quantity = ref<number>(1);
               class="fixed bottom-0 left-0 z-10 flex items-center w-full gap-4 p-4 mt-12 bg-white md:static md:bg-transparent bg-opacity-90 md:p-0"
             >
               <input
-                v-model="quantity"
+                v-model="stProduct.getCurrent.amount"
                 type="number"
                 min="1"
                 aria-label="Quantity"

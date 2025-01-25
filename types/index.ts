@@ -59,6 +59,37 @@ export interface User {
   passwordConfirm: string;
   id: string;
 }
+
+export interface Order {
+  id: string;
+  number: number;
+  order_number: string;
+  year: number;
+  user: User;
+  products: { id: string; amount: number; sale_price: number, standard_image: string, name: { es: string, en: string } }[];
+  coupon_id: string;
+  note: string;
+  payment_method: string;
+  status: string;
+  subtotal_price: number;
+  total_price: number;
+  delivery_address_id: string;
+  delivery_address: DeliveryAddress;
+  createdAt: string;
+  updatedAt: string;
+  billing_address: {
+    name: string;
+    lastName: string;
+    address: string;
+    countryId: number;
+    state: string;
+    city: string;
+    phone: string;
+    email: string;
+    postCode: string;
+  };
+}
+
 export interface Login {
   email: string;
   password: string;
@@ -74,6 +105,7 @@ export interface Cart {
   amount: number,
   coupon_discount: string,
   coupon_id: string,
+  coupon_code: string,
   delivery_cost: string,
   delivery_method: string,
   subtotal_price: string,
@@ -83,6 +115,7 @@ export interface Cart {
 
 export interface BillingAddress {
   name: string;
+  last_name: string;
   lastName: string;
   address: string;
   countryId: number;
@@ -121,21 +154,6 @@ export default interface Product {
   id: string;
   category: Category;
   amount: number
-}
-
-export interface Order {
-  delivery_address: DeliveryAddress;
-  billing_address: BillingAddress;
-  visible: boolean;
-  payment_method: string;
-  product_price: number;
-  delivery_price: number;
-  subtotal_price: number;
-  total_price: number;
-  status: string;
-  createdAt: string;
-  order_number: string;
-  id: string;
 }
 
 export interface NuxtFilter {

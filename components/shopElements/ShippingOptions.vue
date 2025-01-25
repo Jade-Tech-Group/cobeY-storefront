@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { formatPrice } = useHelpers();
 interface ShippingOption {
   id: string;
   label: string;
@@ -28,7 +29,7 @@ const setActiveOption = async (id: string) => {
       @click="setActiveOption(option.id)">
       <div>
         <div class="text-sm leading-tight text-gray-500" v-html="option.label"></div>
-        <div class="font-semibold text-gray-600">{{ currencySymbol }} {{ option.cost }}</div>
+        <div class="font-semibold text-gray-600">{{ formatPrice(String(option.cost)) }}</div>
       </div>
 
       <icon name="ion:checkmark-circle" size="20" class="ml-auto text-primary checkmark opacity-0" />

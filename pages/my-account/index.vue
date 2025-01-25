@@ -38,10 +38,7 @@ useSeoMeta({
               <Icon name="ion:bag-check-outline" size="22" />
               {{ $t('messages.shop.order', 2) }}
             </NuxtLink>
-            <NuxtLink to="/my-account?tab=downloads" class="flex items-center gap-4 p-2 px-4" :class="{ active: activeTab == 'downloads' }">
-              <Icon name="ion:cloud-download-outline" size="22" />
-              {{ $t('messages.general.downloads') }}
-            </NuxtLink>
+
             <NuxtLink to="/my-account?tab=wishlist" class="flex items-center gap-4 p-2 px-4" :class="{ active: activeTab == 'wishlist' }">
               <Icon name="ion:heart-outline" size="22" />
               {{ $t('messages.general.wishlist') }}
@@ -60,7 +57,6 @@ useSeoMeta({
         <main class="flex-1 w-full lg:my-8 rounded-lg max-w-screen-lg lg:sticky top-24">
           <AccountMyDetails v-if="activeTab === 'my-details'" :user="user" />
           <OrderList v-else-if="activeTab === 'orders'" />
-          <DownloadList v-else-if="activeTab === 'downloads'" />
           <WishList v-else-if="activeTab === 'wishlist'" />
         </main>
       </div>

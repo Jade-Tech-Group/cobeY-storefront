@@ -1,24 +1,26 @@
 import useConf from "~/conf/useConf";
-import type { DeliveryAddress, Profile } from "~/types";
+import type { BillingAddress, DeliveryAddress, Profile } from "~/types";
 
 export const useProfileStore = defineStore("profile", {
     state: () => ({
         loading: false,
-        billing: {} as Profile,
+        billing: {} as BillingAddress,
         deliveryAddress: [] as DeliveryAddress[],
         currentDeliveryAddress: {} as DeliveryAddress,
+        newDeliveryAddress: {} as DeliveryAddress,
     }),
     getters: {
         getBillingData: (state) => state.billing,
         getDeliveryData: (state) => state.deliveryAddress,
         getCurrentDeliveryData: (state) => state.currentDeliveryAddress,
+        getNewDeliveryData: (state) => state.newDeliveryAddress,
     },
     actions: {
         async fetchBillingData(): Promise<void> {
             const tokenCookie = useCookie('accessToken');
             this.loading = true;
             try {
-                const response = await $fetch<Profile>(
+                const response = await $fetch<BillingAddress>(
                     `${useConf.api.baseUrl}/${useConf.api.services.profile.customer}`,
                     {
                         method: "GET",
@@ -27,6 +29,8 @@ export const useProfileStore = defineStore("profile", {
                         },
                     }
                 );
+                // Modifying the response to change 'last_name' to 'lastName'
+                response.lastName = response.last_name;
                 this.billing = response;
                 this.loading = false;
             } catch (error: unknown) {
@@ -81,7 +85,7 @@ export const useProfileStore = defineStore("profile", {
             const tokenCookie = useCookie('accessToken');
             this.loading = true;
             try {
-                const response = await $fetch<DeliveryAddress>(
+                await $fetch<DeliveryAddress>(
                     `${useConf.api.baseUrl}/${useConf.api.services.profile.deliveryAddress}/${id}`,
                     {
                         method: "DELETE",
@@ -90,7 +94,7 @@ export const useProfileStore = defineStore("profile", {
                         },
                     }
                 );
-                this.currentDeliveryAddress = response;
+                this.currentDeliveryAddress = {} as DeliveryAddress;
                 this.loading = false;
             } catch (error: unknown) {
                 console.error(error);
@@ -121,7 +125,7 @@ export const useProfileStore = defineStore("profile", {
             const tokenCookie = useCookie('accessToken');
             this.loading = true;
             try {
-                await $fetch<DeliveryAddress>(
+                const response = await $fetch<DeliveryAddress>(
                     `${useConf.api.baseUrl}/${useConf.api.services.profile.deliveryAddress}`,
                     {
                         method: "POST",
@@ -131,6 +135,7 @@ export const useProfileStore = defineStore("profile", {
                         },
                     }
                 );
+                this.newDeliveryAddress = response
                 this.loading = false;
             } catch (error: unknown) {
                 console.error(error);

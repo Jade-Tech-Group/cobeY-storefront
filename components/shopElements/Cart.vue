@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { formatPrice } = useHelpers();
 const { cart, toggleCart, isUpdatingCart } = useCart();
 </script>
 
@@ -23,7 +24,7 @@ const { cart, toggleCart, isUpdatingCart } = useCart();
             to="/checkout"
             @click.prevent="toggleCart()">
             <span class="mx-2">{{ $t('messages.shop.checkout') }}</span>
-            <span v-html="cart.total_price" />
+            <span v-html="formatPrice(cart.total_price)" />
           </NuxtLink>
           <NuxtLink
             class="sm:w-52 xs:w-full block p-3 text-lg text-center text-white bg-secondary rounded-lg shadow-md justify-evenly hover:bg-secondary-dark"

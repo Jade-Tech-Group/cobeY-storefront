@@ -57,6 +57,7 @@
       "password": "Password",
       "passwordConfirm": "Password",
       "newPassword": "New Password",
+      "newAddress": "New address",
       "confirmNewPassword": "Confirm New Password",
       "updatePassword": "Update Password",
       "forgotPassword": "Forgot password?",
@@ -93,6 +94,13 @@
       "resendEmail": "Resend email"
     },
     "shop": {
+      "goToTropipay":"Go to Tropipay",
+      "perfect": "Perfect",
+      "required_redirect": "Actions outside the store are needed to continue payment.",
+      "order_error":{
+        "title":"Error when paying the order. Try again later",
+        "subtitle":"An error occurred while trying to generate payment for the order. You can review the order details and try payment again"
+      },
       "shopByCategory": "Shop by Category",
       "popularProducts": "Popular Products",
       "availability": "Availability",
@@ -108,6 +116,7 @@
       "wishlistAdd": "Add to Wishlist",
       "wishlistNoItems": "You have no items in your wishlist",
       "addToCart": "Add",
+      "coupon_applied": "Coupon applied",
       "adding": "Adding...",
       "productDescription": "Description",
       "productImage": "Product Image",

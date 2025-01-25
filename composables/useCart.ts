@@ -17,12 +17,12 @@ export function useCart() {
     amount: 0,
     coupon_discount: '0',
     coupon_id: '',
+    coupon_code: '',
     delivery_cost: '0',
     delivery_method: delivery_method.STORE_PICKUP
   };
   const cart = useState<Cart>('cart', () => (initialCart));
   const cartTotal = useCookie<Number | null>("cartTotal");
-  const couponOnCoockie = useCookie<Coupon | null>("couponOnCoockie");
   const isShowingCart = useState<boolean>('isShowingCart', () => false);
   const isUpdatingCart = useState<boolean>('isUpdatingCart', () => false);
   const isUpdatingCoupon = useState<boolean>('isUpdatingCoupon', () => false);
@@ -139,19 +139,6 @@ export function useCart() {
   function resetInitialState() {
     cart.value = initialCart;
     setItem('COBEY_PRODUCT_CART', JSON.stringify(initialCart))
-  }
-
-  function resetCoupon() {
-    couponOnCoockie.value = {
-      id: '',
-      discount_type: '',
-      amount: 0,
-      use_limit: 0,
-      code: '',
-      expiration_date: '',
-      min_cost: '',
-      max_cost: '',
-    };
   }
 
   function updateCart(payload: Cart): void {
@@ -283,11 +270,22 @@ export function useCart() {
   }
 
   // Apply coupon
-  async function applyCoupon(code: string): Promise<{ message: string | null }> {
+  async function applyCoupon(coupon: string): Promise<{ message: string | null }> {
+    isUpdatingCoupon.value = true;
+    const tokenCookie = useCookie('accessToken');
     try {
-      isUpdatingCoupon.value = true;
-      // const { applyCoupon } = await GqlApplyCoupon({ code });
-      // updateCart(applyCoupon?.cart);
+      const response = await $fetch<Cart>(
+        `${useConf.api.baseUrl}${useConf.api.services.cart.apply_coupon}`,
+        {
+          method: "POST",
+          body: JSON.stringify({ coupon }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${tokenCookie.value}`,
+          },
+        }
+      );
+      updateCart(response);
       isUpdatingCoupon.value = false;
     } catch (error: any) {
       isUpdatingCoupon.value = false;
@@ -297,11 +295,21 @@ export function useCart() {
   }
 
   // Remove coupon
-  async function removeCoupon(code: string): Promise<void> {
+  async function removeCoupon(): Promise<void> {
+    const tokenCookie = useCookie('accessToken');
     try {
       isUpdatingCart.value = true;
-      // const { removeCoupons } = await GqlRemoveCoupons({ codes: [code] });
-      // updateCart(removeCoupons?.cart);
+      const response = await $fetch<Cart>(
+        `${useConf.api.baseUrl}${useConf.api.services.cart.delete_coupon}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${tokenCookie.value}`,
+          },
+        }
+      );
+      updateCart(response);
     } catch (error) {
       console.log(error);
       isUpdatingCart.value = false;
@@ -322,6 +330,7 @@ export function useCart() {
     isUpdatingCoupon,
     isBillingAddressEnabled,
     updateCart,
+    resetInitialState,
     refreshCart,
     cartManager,
     toggleCart,

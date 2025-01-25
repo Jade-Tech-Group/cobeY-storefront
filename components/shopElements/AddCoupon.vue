@@ -16,7 +16,7 @@ async function submitCoupon(): Promise<void> {
 
 <template>
   <div>
-    <form class="flex gap-1" @submit.prevent="submitCoupon">
+    <form class="flex gap-1" @submit.prevent="submitCoupon" v-if="!cart.coupon_id">
       <input
         id="couponCode"
         v-model="couponCode"
@@ -33,11 +33,12 @@ async function submitCoupon(): Promise<void> {
       <div v-if="errorMessage" class="mt-2 text-xs text-red-600" v-html="errorMessage"></div>
     </Transition>
     <Transition name="scale-y" mode="out-in">
-      <div v-if="cart && cart.appliedCoupons" class="text-xs font-semibold uppercase flex flex-wrap gap-2">
-        <div v-for="(coupon, index) in cart.appliedCoupons" :key="coupon?.code || index" class="flex flex-wrap mt-2 flex-2">
-          <div v-if="coupon?.code" class="bg-primary border-primary border rounded-md flex bg-opacity-5 border-opacity-10 text-primary leading-none p-1.5 gap-1 items-center">
-            <span v-html="coupon.code" />
-            <Icon name="ion:close" class="rounded-full cursor-pointer hover:bg-primary hover:text-white" @click="removeCoupon(coupon.code)" />
+      <div v-if="cart && cart.coupon_id" class="text-xs font-semibold uppercase flex flex-wrap gap-2">
+        <div class="w-full flex flex-row items-center justify-center gap-2">
+          <span v-html="$t('messages.shop.coupon_applied')+':'" />
+          <div class="bg-primary border-primary border rounded-md flex bg-opacity-5 border-opacity-10 text-primary leading-none p-1.5 gap-1 items-center">
+            <span v-html="cart.coupon_code" />
+            <Icon name="ion:close" class="rounded-full cursor-pointer hover:bg-primary hover:text-white" @click="removeCoupon()" />
           </div>
         </div>
       </div>
