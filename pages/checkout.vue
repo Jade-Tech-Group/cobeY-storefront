@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { DeliveryAddress } from '~/types';
-
+import type { BillingAddress, DeliveryAddress } from "~/types";
 
 const { t } = useI18n();
-const { cart, isUpdatingCart } = useCart();
-const { orderInput, isProcessingOrder, proccessCheckout } = useCheckout();
+const { cart } = useCart();
+const { isProcessingOrder, proccessCheckout, errorOrder } = useCheckout();
 
 const buttonText = ref<string>(
   isProcessingOrder.value
@@ -14,32 +13,50 @@ const buttonText = ref<string>(
 const isCheckoutDisabled = computed<boolean>(
   () =>
     isProcessingOrder.value ||
-    isUpdatingCart.value ||
-    !orderInput.value.paymentMethod
+    !activePaymentMethod.value ||
+    !activeDeliveryAddress.value
 );
 const newDeliveryAddress = ref<DeliveryAddress>({
-  id: '',
-  name: '',
-  last_name: '',
-  title: '',
-  dni: '',
-  deliveryAddress_street: '',
-  country: '',
-  state: '',
-  city: '',
-  postal_code: '',
-  phone_number: '',
-  email: '',
+  id: "",
+  name: "",
+  last_name: "",
+  title: "",
+  dni: "",
+  deliveryAddress_street: "",
+  country: "",
+  state: "",
+  city: "",
+  postal_code: "",
+  phone_number: "",
+  email: "",
 });
-const isPaid = ref<boolean>(false);
+
+const billingData = ref<BillingAddress>({
+  name: "",
+  lastName: "",
+  last_name: "",
+  address: "",
+  countryId: 53,
+  country: "",
+  state: "",
+  city: "",
+  phone: "",
+  email: "",
+  postCode: "",
+  id: "",
+});
+const customerNote = ref<string>("");
 const editDeliveryAddress = ref<boolean>(false);
-const updatingDeliveryAddress = ref<boolean>(false);
+const addDeliveryAddress = ref<boolean>(false);
 const stProfile = useProfileStore();
 const activeDeliveryAddress = ref(stProfile.getDeliveryData[0]?.id || "");
 
-onBeforeMount(() => {
-  stProfile.fetchBillingData();
-  stProfile.fetchDeliveryAddress();
+onBeforeMount(async () => {
+  await stProfile.fetchBillingData();
+  await stProfile.fetchDeliveryAddress();
+  activeDeliveryAddress.value = stProfile.getDeliveryData[0]?.id || "";
+  isProcessingOrder.value = false;
+  billingData.value = stProfile.getBillingData;
 });
 
 function changeDeliveryAddress(id: string) {
@@ -51,14 +68,39 @@ async function updateDeliveryAddress(id: string) {
   await stProfile.fetchDeliveryAdderessById(id);
 }
 
+async function closeAddShipping() {
+  addDeliveryAddress.value = false;
+  activeDeliveryAddress.value = stProfile.getNewDeliveryData.id;
+}
+
 async function deleteDeliveryAddress(id: string) {
   await stProfile.deleteDeliveryAddress(id);
   await stProfile.fetchDeliveryAddress();
+  editDeliveryAddress.value = false;
 }
 
+watch(stProfile.getDeliveryData, () => {
+  if (stProfile.getDeliveryData.length === 0) {
+    activeDeliveryAddress.value = "";
+  }
+});
+
+const router = useRouter();
 const payNow = async () => {
   buttonText.value = t("messages.general.processing");
-  proccessCheckout(isPaid.value);
+  await proccessCheckout(
+    billingData.value,
+    activeDeliveryAddress.value,
+    activePaymentMethod.value,
+    customerNote.value,
+    cart.value.coupon_id,
+    cart.value.delivery_method
+  );
+  if (errorOrder.value) {
+    router.push("/paymentFailure");
+  } else {
+    router.push('/redirectPayment')
+  }
 };
 
 interface ShippingOption {
@@ -130,7 +172,7 @@ useSeoMeta({
             <h2 class="w-full mb-3 text-2xl font-semibold">
               {{ $t("messages.billing.billingDetails") }}
             </h2>
-            <BillingDetails v-model="stProfile.getBillingData" />
+            <BillingDetails v-model="billingData" />
           </div>
 
           <div>
@@ -142,15 +184,33 @@ useSeoMeta({
               :active-option="cart.delivery_method"
             />
           </div>
-
           <Transition name="scale-y" mode="out-in">
             <div v-if="cart.delivery_method === 'DELIVERY'">
-              <h2 class="mb-4 text-xl font-semibold">
-                {{ $t("messages.general.shippingDetails") }}
-              </h2>
+              <div class="w-full flex flex-row justify-between items-center">
+                <h2 class="mb-4 text-xl font-semibold">
+                  {{ $t("messages.general.shippingDetails") }}
+                </h2>
+                <div
+                  class="flex flex-row gap-1.5 hover:underline cursor-pointer"
+                  @click="addDeliveryAddress = true"
+                >
+                  <img
+                    src="/icons/plus.svg"
+                    width="18"
+                    height="18"
+                    alt="Add address"
+                    loading="lazy"
+                  />
+                  <h2 class="text-sm font-semibold">
+                    {{ $t("messages.account.newAddress") }}
+                  </h2>
+                </div>
+              </div>
               <div
                 v-if="
-                  stProfile.deliveryAddress.length > 0 && !editDeliveryAddress
+                  stProfile.deliveryAddress.length > 0 &&
+                  !editDeliveryAddress &&
+                  !addDeliveryAddress
                 "
               >
                 <DeliveryOptions
@@ -161,40 +221,41 @@ useSeoMeta({
                   @delete:delivery="deleteDeliveryAddress"
                 />
               </div>
-              <div v-else-if="editDeliveryAddress">
+              <div v-if="editDeliveryAddress">
                 <ShippingDetails
                   v-model="stProfile.getCurrentDeliveryData"
-                  v-if="editDeliveryAddress"
                   :isLoading="stProfile.loading"
                   action="edit"
                   @close="editDeliveryAddress = false"
                 />
               </div>
-              <div v-else>
+              <div
+                v-if="
+                  stProfile.deliveryAddress.length === 0 || addDeliveryAddress
+                "
+              >
                 <ShippingDetails
                   v-model="newDeliveryAddress"
-                  action="add"
                   :isLoading="stProfile.loading"
-                  @close="editDeliveryAddress = false"
+                  action="add"
+                  @close="closeAddShipping()"
                 />
               </div>
             </div>
           </Transition>
-
-          <!-- Pay methods -->
           <div class="mt-2 col-span-full">
             <h2 class="mb-4 text-xl font-semibold">
               {{ $t("messages.billing.paymentOptions") }}
             </h2>
-            <PaymentOptions 
-              v-model="paymentMethods" 
+            <PaymentOptions
+              v-model="paymentMethods"
               :activePaymentMethod="activePaymentMethod"
-              class="sm:w-1/2 xs:w-full mb-4" 
-              @update:model-value="method => orderInput.paymentMethod = method.id"
+              class="sm:w-1/2 xs:w-full mb-4"
+              @update:model-value="
+                (method) => (activePaymentMethod = method.id)
+              "
             />
           </div>
-
-          <!-- Order note -->
           <div>
             <h2 class="mb-4 text-xl font-semibold">
               {{ $t("messages.shop.orderNote") }} ({{
@@ -203,7 +264,7 @@ useSeoMeta({
             </h2>
             <textarea
               id="order-note"
-              v-model="orderInput.customerNote"
+              v-model="customerNote"
               name="order-note"
               class="w-full min-h-[100px]"
               rows="4"
@@ -211,7 +272,6 @@ useSeoMeta({
             ></textarea>
           </div>
         </div>
-
         <OrderSummary>
           <button
             class="flex items-center justify-center w-full gap-3 p-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-gray-400"

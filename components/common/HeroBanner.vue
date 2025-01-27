@@ -4,7 +4,7 @@
       <div class="navigation-wrapper">
         <div ref="container" class="keen-slider">
           <div
-            v-for="(node, index) in images"
+            v-for="(node, index) in nodes"
             :key="index"
             class="keen-slider__slide fader__slide"
             :style="{ opacity: opacities[index] }"
@@ -13,7 +13,7 @@
               width="1400"
               height="800"
               class="object-cover w-full h-[420px] lg:h-[560px] xl:h-[640px]"
-              :src="node"
+              :src="node.desktop_image"
               alt="Hero image"
               loading="eager"
               sizes="sm:100vw md:1400px"
@@ -22,29 +22,6 @@
               placeholder
               placeholder-class="blur-xl"
             />
-            <div
-              class="container absolute sm:left-40 inset-0 flex flex-col sm:items-start xs:items-center justify-center bg-gradient-to-l from-gray-200"
-            >
-              <h1 class="text-3xl font-bold md:mb-4 md:text-4xl lg:text-6xl">
-                Acaba de aterrizar.
-              </h1>
-              <h2 class="text-lg font-bold md:mb-4 lg:text-3xl">
-                La nueva colección de año
-              </h2>
-              <div
-                class="max-w-sm mb-8 text-md font-light lg:max-w-md text-balance"
-              >
-                <p>
-                  Nuestra última colección está aquí. Descubre las últimas
-                  tendencias y estilos para el nuevo año
-                </p>
-              </div>
-              <NuxtLink
-                class="px-6 py-3 font-bold text-white bg-gray-800 rounded-xl hover:bg-gray-800"
-                to="/products"
-                >Comprar ahora</NuxtLink
-              >
-            </div>
           </div>
         </div>
         <svg
