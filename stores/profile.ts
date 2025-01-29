@@ -1,9 +1,10 @@
 import useConf from "~/conf/useConf";
-import type { BillingAddress, DeliveryAddress, Profile } from "~/types";
+import type { BillingAddress, DeliveryAddress, Profile, Security } from "~/types";
 
 export const useProfileStore = defineStore("profile", {
     state: () => ({
         loading: false,
+        hasError: false,
         billing: {} as BillingAddress,
         deliveryAddress: [] as DeliveryAddress[],
         currentDeliveryAddress: {} as DeliveryAddress,
@@ -101,6 +102,7 @@ export const useProfileStore = defineStore("profile", {
                 this.loading = false;
             }
         },
+
         async updateDeliveryAddress(id: string, params: DeliveryAddress): Promise<void> {
             const tokenCookie = useCookie('accessToken');
             this.loading = true;
@@ -116,11 +118,14 @@ export const useProfileStore = defineStore("profile", {
                     }
                 );
                 this.loading = false;
+                this.hasError = false;
             } catch (error: unknown) {
                 console.error(error);
+                this.hasError = true;
                 this.loading = false;
             }
         },
+
         async addDeliveryAddress(params: DeliveryAddress): Promise<void> {
             const tokenCookie = useCookie('accessToken');
             this.loading = true;
@@ -142,5 +147,51 @@ export const useProfileStore = defineStore("profile", {
                 this.loading = false;
             }
         },
+
+        async updateBilling(params: Profile) {
+            const tokenCookie = useCookie('accessToken');
+            this.loading = true;
+            try {
+                await $fetch<DeliveryAddress>(
+                    `${useConf.api.baseUrl}/${useConf.api.services.profile.billingData}/${params.id}`,
+                    {
+                        method: "PATCH",
+                        body: JSON.stringify(params),
+                        headers: {
+                            "Authorization": `Bearer ${tokenCookie.value}`,
+                        },
+                    }
+                );
+                this.loading = false;
+                this.hasError = false;
+            } catch (error: unknown) {
+                console.error(error);
+                this.hasError = true;
+                this.loading = false;
+            }
+        },
+
+        async changePassword(params: Security) {
+            const tokenCookie = useCookie('accessToken');
+            this.loading = true;
+            try {
+                await $fetch<DeliveryAddress>(
+                    `${useConf.api.baseUrl}/${useConf.api.services.profile.security}`,
+                    {
+                        method: "PATCH",
+                        body: JSON.stringify(params),
+                        headers: {
+                            "Authorization": `Bearer ${tokenCookie.value}`,
+                        },
+                    }
+                );
+                this.loading = false;
+                this.hasError = false;
+            } catch (error: unknown) {
+                console.error(error);
+                this.hasError = true;
+                this.loading = false;
+            }
+        }
     },
 });

@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { Notivue } from "notivue";
+import Notify from "./components/common/Notify.vue";
 const { siteName } = useAppConfig();
 const route = useRoute();
-const { isShowingCart, toggleCart, refreshCart } = useCart();
+const { isShowingCart, toggleCart } = useCart();
 const { isShowingMobileMenu, toggleMobileMenu, addBodyClass, removeBodyClass } =
   useHelpers();
 const closeCartAndMenu = () => {
@@ -23,6 +25,7 @@ watch(
 useHead({
   titleTemplate: `${siteName}`,
 });
+
 </script>
 <template>
   <div class="flex flex-col min-h-screen">
@@ -30,6 +33,9 @@ useHead({
       color="repeating-linear-gradient(to right,#7f54b2
     0%,#94a3b8 100%)"
     />
+    <Notivue v-slot="item">
+      <Notify v-if="item" :item="item" />
+    </Notivue>
     <AppHeader />
 
     <Transition name="slide-from-right">
@@ -49,7 +55,6 @@ useHead({
         @click="closeCartAndMenu"
       />
     </Transition>
-
     <AppFooter />
   </div>
 </template>

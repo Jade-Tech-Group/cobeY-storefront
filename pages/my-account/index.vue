@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { logoutUser, user, isPending, accessToken } = useAuth();
+const { logoutUser, user, isPending } = useAuth();
 const route = useRoute();
 const showLoader = computed(() => !user);
 const activeTab = computed(() => route.query.tab || 'my-details');
@@ -29,6 +29,7 @@ useSeoMeta({
             </button>
           </section>
           <hr class="my-8" />
+
           <nav class="flex text-gray-700 lg:grid flex-wrap w-full gap-1.5 my-8 min-w-[240px] lg:w-auto items-start">
             <NuxtLink to="/my-account?tab=my-details" class="flex items-center gap-4 p-2 px-4" :class="{ active: activeTab == 'my-details' }">
               <Icon name="ion:information-circle-outline" size="22" />
@@ -38,12 +39,18 @@ useSeoMeta({
               <Icon name="ion:bag-check-outline" size="22" />
               {{ $t('messages.shop.order', 2) }}
             </NuxtLink>
+           
+            <NuxtLink to="/my-account?tab=delivery" class="flex items-center gap-4 p-2 px-4" :class="{ active: activeTab == 'delivery' }">
+              <Icon name="ion:person-outline" size="22" />
+              {{ $t('messages.shop.delvery_address') }}
+            </NuxtLink>
 
             <NuxtLink to="/my-account?tab=wishlist" class="flex items-center gap-4 p-2 px-4" :class="{ active: activeTab == 'wishlist' }">
               <Icon name="ion:heart-outline" size="22" />
               {{ $t('messages.general.wishlist') }}
             </NuxtLink>
           </nav>
+
           <template class="hidden lg:block">
             <hr class="my-8" />
             <button class="flex text-gray-700 items-center gap-4 p-2 px-4 w-full rounded-lg hover:bg-white hover:text-red-700" @click="logoutUser">
@@ -58,6 +65,7 @@ useSeoMeta({
           <AccountMyDetails v-if="activeTab === 'my-details'" :user="user" />
           <OrderList v-else-if="activeTab === 'orders'" />
           <WishList v-else-if="activeTab === 'wishlist'" />
+          <DeliveryAddress v-else-if="activeTab === 'delivery'" />
         </main>
       </div>
     </template>

@@ -3,7 +3,7 @@ import type Product from "~/types";
 import Toast from "../common/Toast.vue";
 import { useToast } from "~/composables/useToast";
 
-const { toastList, showToast } = useToast()
+const { toastList, showToast } = useToast();
 const route = useRoute();
 const props = defineProps({
   node: { type: Object as PropType<Product>, required: true },
@@ -18,8 +18,7 @@ const paColor = ref(
   filterQuery.value?.split("pa_color[")[1]?.split("]")[0]?.split(",") || []
 );
 const { t, locale } = useI18n();
-const { cartManager } = useCart();
-// watch filterQuery
+const { cartManager, hasError } = useCart();
 watch(
   () => route.query,
   () => {
@@ -31,10 +30,17 @@ watch(
 
 const addToCart = async (item: Product) => {
   await cartManager(item);
-};
-
-const notify = () => {
-  showToast('¡Esto es una notificación!', 'success', 3000);
+  !hasError.value
+    ? push.success({
+        duration: 2000,
+        title: t("messages.notification.perfect"),
+        message: t("messages.notification.updatedCart"),
+      })
+    : push.success({
+        duration: 2000,
+        title: t("messages.notification.error"),
+        message: t("messages.notification.updatedCartError"),
+      });
 };
 </script>
 
@@ -91,10 +97,10 @@ const notify = () => {
     </div>
   </div>
   <Toast
-      v-for="(toast, index) in toastList"
-      :key="index"
-      :message="toast.message"
-      :type="toast.type"
-      :duration="toast.duration"
-    />
+    v-for="(toast, index) in toastList"
+    :key="index"
+    :message="toast.message"
+    :type="toast.type"
+    :duration="toast.duration"
+  />
 </template>

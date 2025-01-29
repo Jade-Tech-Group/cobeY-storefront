@@ -14,10 +14,10 @@ const linkTitle = computed<string>(() => user.value?.email || 'Sign In');
           height="22"
           :alt="linkTitle" />
         <div class="account-dropdown">
-          <NuxtLink to="/my-account" class="hover:bg-gray-100"><Icon name="ion:person-outline" size="16" /><span>My Account</span></NuxtLink>
+          <NuxtLink to="/my-account" class="hover:bg-gray-100"><Icon name="ion:person-outline" size="16" /><span>{{$t('messages.account.myAccount')}}</span></NuxtLink>
           <button class="text-red-600 hover:bg-red-50" @click.prevent="logoutUser">
             <Icon name="ion:log-out-outline" size="16" />
-            <span>Logout</span>
+            <span>{{ $t('messages.account.logout')}}</span>
           </button>
         </div>
       </span>

@@ -11,10 +11,10 @@
       <div>
         <button
           class="bg-primary rounded-lg font-bold mt-8 text-center text-white text-sm w-full p-2 px-3 inline-block hover:bg-primary-dark"
-          :title="$t('messages.shop.noProductsFound.clearFiltersAndSearch')"
+          :title="$t('messages.general.goHome')"
           aria-label="Clear all filters and search"
-          @click="$router.push(`/my-account?tab=orders`);">
-          {{ $t('messages.shop.noProductsFound.clearFiltersAndSearch') }}
+          @click="$router.push(`/`);">
+          {{ $t('messages.general.goHome') }}
         </button>
       </div>
     </div>

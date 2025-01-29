@@ -5,15 +5,11 @@ const { formatDate, formatPrice } = useHelpers();
 const { t } = useI18n();
 const storeOrder = useOrdersStore();
 const order = ref<Order | null>(null);
-const fetchDelay = ref<boolean>(query.fetch_delay === "true");
-const delayLength = 2500;
 const isLoaded = ref<boolean>(false);
 const errorMessage = ref("");
-
+const { locale } = useI18n();
 const isSummaryPage = computed<boolean>(() => name === "order-summary");
 const isCheckoutPage = computed<boolean>(() => name === "order-received");
-// const orderIsNotCompleted = computed<boolean>(() => order.value?.status !== OrderStatusEnum.COMPLETED);
-// const hasDiscount = computed<boolean>(() => !!parseFloat(order.value?.rawDiscountTotal || '0'));
 
 onBeforeMount(() => {
   if (
@@ -128,9 +124,13 @@ useSeoMeta({
             <div
               v-for="item in order.products"
               :key="item.id"
-              class="flex items-center justify-between gap-8"
+              class="flex items-center justify-between"
             >
-              <NuxtLink v-if="item" :to="`/product/${item.id}`">
+              <NuxtLink
+                v-if="item"
+                :to="`/product/${item.id}`"
+                class="w-1/2 flex flex-row items-center gap-4"
+              >
                 <NuxtImg
                   class="w-16 h-16 rounded-xl"
                   :src="item.standard_image || '/images/placeholder.png'"
@@ -140,8 +140,9 @@ useSeoMeta({
                   height="64"
                   loading="lazy"
                 />
+                <div class="text-sm text-gray-600">{{ item.name[locale] }}</div>
               </NuxtLink>
-              <div class="text-sm text-gray-600">Qty. {{ item.amount }}</div>
+              <div class="text-sm text-gray-600">{{$t('messages.general.qty')}} {{ item.amount }}</div>
               <span class="text-sm font-semibold">{{
                 formatPrice(String(item.sale_price))
               }}</span>
@@ -153,24 +154,36 @@ useSeoMeta({
         <div>
           <div class="flex justify-between">
             <span>{{ $t("messages.shop.subtotal") }}</span>
-            <!-- <span>{{ order.sub_total }}</span> -->
+            <span>{{
+              formatPrice(String(storeOrder.getCurrent.subtotal_price))
+            }}</span>
           </div>
-          <div class="flex justify-between">
-            <span>{{ $t("messages.general.tax") }}</span>
-            <!-- <span>{{ order.totalTax }}</span> -->
-          </div>
+          
           <div class="flex justify-between">
             <span>{{ $t("messages.general.shipping") }}</span>
-            <!-- <span>{{ order.shippingTotal }}</span> -->
+            <span  v-if="storeOrder.getCurrent.shipping_method !== 'STORE_PICKUP'">{{
+              formatPrice(String(storeOrder.getCurrent.total_price))
+            }}</span>
+            <span  v-else>{{
+              formatPrice(String(0.00))
+            }}</span>
           </div>
-          <!-- <div v-if="hasDiscount" class="flex justify-between text-primary">
-            <span>{{ $t('messages.shop.discount') }}</span>
-            <span>- {{ order.discountTotal }}</span>
-          </div> -->
+          <div
+            v-if="storeOrder.getCurrent.coupon_id"
+            class="flex justify-between text-primary"
+          >
+            <span>{{ $t("messages.shop.discount") }}</span>
+            <span
+              >-
+              {{ formatPrice(String(storeOrder.getCurrent.total_price)) }}</span
+            >
+          </div>
           <hr class="my-8" />
           <div class="flex justify-between">
             <span class>{{ $t("messages.shop.total") }}</span>
-            <!-- <span class="font-semibold">{{ order.total }}</span> -->
+            <span class="font-semibold">{{
+              formatPrice(String(storeOrder.getCurrent.total_price))
+            }}</span>
           </div>
         </div>
       </div>

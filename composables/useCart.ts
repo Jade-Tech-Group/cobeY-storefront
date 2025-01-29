@@ -26,6 +26,7 @@ export function useCart() {
   const isShowingCart = useState<boolean>('isShowingCart', () => false);
   const isUpdatingCart = useState<boolean>('isUpdatingCart', () => false);
   const isUpdatingCoupon = useState<boolean>('isUpdatingCoupon', () => false);
+  const hasError = useState<boolean>('hasError', () => false);
   /**
    * @description Manages the cart by adding or updating products.
    * @param item - The product or array of products to add or update in the cart.
@@ -83,7 +84,7 @@ export function useCart() {
           : parseFloat(object.price) * object.amount
       );
     }, 0);
-
+    hasError.value = false;
     cart.value.subtotal_price = total.toFixed(2);
     cart.value.total_price = total.toFixed(2);
   }
@@ -161,8 +162,8 @@ export function useCart() {
 
   // add an item to the cart
   async function addToCart(products: ProductCart[]): Promise<void> {
-    const tokenCookie = useCookie('accessToken');
     isUpdatingCart.value = true;
+    const tokenCookie = useCookie('accessToken');
     try {
       resetInitialState()
       const response = await $fetch<Cart>(
@@ -176,10 +177,12 @@ export function useCart() {
           },
         }
       );
+      hasError.value = false;
       cart.value = response;
       const { storeSettings } = useAppConfig();
       if (storeSettings.autoOpenCart && !isShowingCart.value) toggleCart(true);
     } catch (error: any) {
+      hasError.value = true;
       console.error(error);
     }
   }
@@ -202,7 +205,9 @@ export function useCart() {
           }
         );
         updateCart(response)
+        hasError.value = false;
       } catch (error: any) {
+        hasError.value = true;
         console.log(error)
       }
     } else {
@@ -234,8 +239,10 @@ export function useCart() {
         );
         updateCart(response)
         cartTotal.value = 0
+        hasError.value = false;
         await refreshCart()
       } catch (error: any) {
+        hasError.value = true;
         console.log(error)
       }
     } else {
@@ -286,8 +293,10 @@ export function useCart() {
         }
       );
       updateCart(response);
+      hasError.value = false
       isUpdatingCoupon.value = false;
     } catch (error: any) {
+      hasError.value = true
       isUpdatingCoupon.value = false;
       console.log(error);
     }
@@ -310,8 +319,10 @@ export function useCart() {
         }
       );
       updateCart(response);
+      hasError.value = false;
     } catch (error) {
       console.log(error);
+      hasError.value = true;
       isUpdatingCart.value = false;
     }
   }
@@ -329,6 +340,7 @@ export function useCart() {
     isUpdatingCart,
     isUpdatingCoupon,
     isBillingAddressEnabled,
+    hasError,
     updateCart,
     resetInitialState,
     refreshCart,
