@@ -6,9 +6,9 @@
 export default defineAppConfig({
   siteName: "COBE Y +",
   shortDescription:
-    "This is an example of store. It provides a modern, fast, and SEO friendly ecommerce store built with Nuxt.",
+    "Tienda online. Proveemos productos de alta calidad garantizada y con precios muy competentes",
   description: `
-      This is an example of a store. It provides a modern, fast, and SEO friendly ecommerce store built with Nuxt.`,
+      Aquí encontrarás los mejores productos del mercado`,
   baseUrl: "https://cobey-api.onrender.com/api/v1",
   siteImage:
     "https://user-images.githubusercontent.com/5116925/218879668-f4c1f9fd-bef4-44b0-bc7f-e87d994aa3a1.png",
