@@ -29,14 +29,14 @@ const [container] = useKeenSlider(
   {
     loop: true,
     breakpoints: {
-      "(min-width: 400px)": {
-        slides: { perView: 2, spacing: 5 },
+      "(min-width: 360px)": {
+        slides: { perView: 3, spacing: 5 },
       },
       "(min-width: 1000px)": {
-        slides: { perView: 4, spacing: 10 },
+        slides: { perView: 6, spacing: 10 },
       },
       "(min-width: 1244px)": {
-        slides: { perView: 5, spacing: 20 },
+        slides: { perView: 7, spacing: 20 },
       },
     },
 

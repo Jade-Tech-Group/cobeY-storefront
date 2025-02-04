@@ -15,7 +15,7 @@ const { locale } = useI18n();
   <NuxtLink
     v-if="node"
     :to="`/product-category/${decodeURIComponent(node.id)}`"
-    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x min-w-[220px] min-h-[240px]"
+    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x sm:min-w-[160px] sm:min-h-[180px]"
   >
     <NuxtImg
       :width="imgWidth"
@@ -33,7 +33,7 @@ const { locale } = useI18n();
       class="absolute inset-x-0 bottom-0 opacity-50 bg-gradient-to-t from-black to-transparent h-1/2"
     />
     <span
-      class="relative z-10 mt-auto mb-2 text-sm font-semibold text-white capitalize md:text-base md:mb-4"
+      class="relative z-10 mt-auto mb-2 text-sm font-semibold text-white capitalize md:text-base md:mb-4 text-center"
       v-html="node.name[locale]"
     />
   </NuxtLink>
