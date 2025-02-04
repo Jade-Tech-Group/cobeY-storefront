@@ -14,7 +14,7 @@ export const useCategoriesStore = defineStore("categories", {
     async fetch(): Promise<void> {
       this.loading = true;
       try {
-        const response: { data: Category[]  } = await $fetch(
+        const response = await $fetch<{data: Category[]}>(
           `${conf.api.baseUrl}${conf.api.services.categories.list}`
         );
         this.categories = response.data;
