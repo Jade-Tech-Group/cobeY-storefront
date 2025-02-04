@@ -15,7 +15,7 @@ const { locale } = useI18n();
   <NuxtLink
     v-if="node"
     :to="`/product-category/${decodeURIComponent(node.id)}`"
-    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x"
+    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x min-w-[220px] min-h-[240px]"
   >
     <NuxtImg
       :width="imgWidth"

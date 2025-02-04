@@ -25,42 +25,53 @@ useSeoMeta({
 import { useKeenSlider } from "keen-slider/vue.es";
 import "keen-slider/keen-slider.min.css";
 
-const animation = { duration: 15000, easing: (t: number) => t };
-const [container] = useKeenSlider({
-  loop: true,
-  renderMode: "performance",
-  drag: false,
-  /**
-   * @description This hook is called when the slider is created.
-   * It moves the slider to the specified index with animation.
-   * @param {Object} s - The slider instance.
-   */
-  created(s) {
-    // Move to the 5th index with animation
-    s.moveToIdx(5, true, animation);
-  },
-  /**
-   * @description This hook is called when the slider is updated.
-   * It moves the slider to the specified index with animation.
-   * @param {Object} s - The slider instance.
-   */
-  animationEnded(s) {
-    s.moveToIdx(s.track.details.abs + 5, true, animation);
-  },
+const [container] = useKeenSlider(
+  {
+    loop: true,
+    breakpoints: {
+      "(min-width: 400px)": {
+        slides: { perView: 2, spacing: 5 },
+      },
+      "(min-width: 1000px)": {
+        slides: { perView: 4, spacing: 10 },
+      },
+      "(min-width: 1244px)": {
+        slides: { perView: 5, spacing: 20 },
+      },
+    },
 
-  breakpoints: {
-    "(min-width: 400px)": {
-      slides: { perView: 2, spacing: 5 },
-    },
-    "(min-width: 1000px)": {
-      slides: { perView: 4, spacing: 10 },
-    },
-    "(min-width: 1244px)": {
-      slides: { perView: 5, spacing: 20 },
-    },
   },
-  slides: { perView: 1 },
-});
+  [
+    (slider: any) => {
+      let timeout: any;
+      let mouseOver = false;
+      function clearNextTimeout() {
+        clearTimeout(timeout);
+      }
+      function nextTimeout() {
+        clearTimeout(timeout);
+        if (mouseOver) return;
+        timeout = setTimeout(() => {
+          slider.next();
+        }, 3000);
+      }
+      slider.on("created", () => {
+        slider.container.addEventListener("mouseover", () => {
+          mouseOver = true;
+          clearNextTimeout();
+        });
+        slider.container.addEventListener("mouseout", () => {
+          mouseOver = false;
+          nextTimeout();
+        });
+        nextTimeout();
+      });
+      slider.on("dragStarted", clearNextTimeout);
+      slider.on("animationEnded", nextTimeout);
+      slider.on("updated", nextTimeout);
+    },
+  ]
+);
 </script>
 
 <template>
@@ -76,7 +87,7 @@ const [container] = useKeenSlider({
         }}</NuxtLink>
       </div>
 
-      <div ref="container" class="keen-slider mt-8">
+      <div ref="container" class="keen-slider mt-8 w-full">
         <CategoryCard
           v-for="(category, i) in stCategories.getAll"
           :key="i"
