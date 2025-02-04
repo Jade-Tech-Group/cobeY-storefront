@@ -4,21 +4,27 @@ const { resolve } = createResolver(import.meta.url);
 
 export default defineNuxtConfig({
   components: [{ path: resolve("./components"), pathPrefix: false }],
-  // compatibilityDate: '2024-11-01',
   compatibilityDate: "2024-07-09",
   devtools: { enabled: true },
+ 
   future: {
     compatibilityVersion: 4,
   },
+
   plugins: [resolve("./plugins/init.ts")],
+ 
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxt/image",
     "@nuxtjs/i18n",
     "@nuxt/icon",
     "@pinia/nuxt",
-    "nuxt-keen-slider"
+    "nuxt-keen-slider",
+    "notivue/nuxt"
   ],
+
+  css: ['notivue/notification.css', 'notivue/animations.css'],
+
   pinia: {
     storesDirs: ["./stores/**", "./custom-folder/stores/**"],
   },

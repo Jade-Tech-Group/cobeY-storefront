@@ -1,16 +1,9 @@
 <script setup lang="ts">
-const { cart, isUpdatingCoupon, applyCoupon, removeCoupon } = useCart();
+const { cart, isUpdatingCoupon, applyCoupon, removeCoupon, hasError } = useCart();
 const couponCode = ref<string>('');
-const errorMessage = ref<string>('');
 
 async function submitCoupon(): Promise<void> {
-  const { message } = await applyCoupon(couponCode.value);
-  if (message) {
-    errorMessage.value = message;
-  } else {
-    couponCode.value = '';
-    errorMessage.value = '';
-  }
+ await applyCoupon(couponCode.value);
 }
 </script>
 
@@ -30,7 +23,7 @@ async function submitCoupon(): Promise<void> {
       </button>
     </form>
     <Transition name="scale-y" mode="out-in">
-      <div v-if="errorMessage" class="mt-2 text-xs text-red-600" v-html="errorMessage"></div>
+      <div v-if="hasError" class="mt-2 text-xs text-red-600" v-html="$t('messages.shop.invalidCupon')"></div>
     </Transition>
     <Transition name="scale-y" mode="out-in">
       <div v-if="cart && cart.coupon_id" class="text-xs font-semibold uppercase flex flex-wrap gap-2">

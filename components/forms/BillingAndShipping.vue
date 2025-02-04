@@ -1,108 +1,126 @@
 <template>
   <form class="bg-white rounded-lg shadow" @submit.prevent="saveChanges">
     <div class="grid p-8 gap-6 md:grid-cols-2">
-      <h3 class="font-semibold text-xl col-span-full">{{ $t('messages.billing.billing') }}</h3>
+      <h3 class="font-semibold text-xl col-span-full">
+        {{ $t("messages.billing.billing") }}
+      </h3>
 
       <div class="w-full">
-        <label for="billing-first-name">{{ $t('messages.billing.firstName') }}</label>
-        <input id="billing-first-name" v-model="customer.billing.firstName" placeholder="John" autocomplete="given-name" type="text" required />
+        <label for="billing-first-name">{{
+          $t("messages.billing.firstName")
+        }}</label>
+        <input
+          id="billing-first-name"
+          v-model="storeProfile.getBillingData.name"
+          placeholder="John"
+          autocomplete="given-name"
+          type="text"
+          required
+        />
       </div>
 
       <div class="w-full">
-        <label for="billing-last-name">{{ $t('messages.billing.lastName') }}</label>
-        <input id="billing-last-name" v-model="customer.billing.lastName" placeholder="Doe" autocomplete="family-name" type="text" required />
+        <label for="billing-last-name">{{
+          $t("messages.billing.lastName")
+        }}</label>
+        <input
+          id="billing-last-name"
+          v-model="storeProfile.getBillingData.lastName"
+          placeholder="Doe"
+          autocomplete="family-name"
+          type="text"
+          required
+        />
       </div>
 
       <div class="w-full">
-        <label for="billing-phone">{{ $t('messages.billing.phone') }}</label>
-        <input id="billing-phone" v-model="customer.billing.phone" placeholder="+1 234 567 8901" autocomplete="tel" type="tel" />
+        <label for="billing-phone">{{ $t("messages.billing.phone") }}</label>
+        <input
+          id="billing-phone"
+          v-model="storeProfile.getBillingData.phone"
+          placeholder="+1 234 567 8901"
+          autocomplete="tel"
+          type="tel"
+        />
       </div>
 
       <div class="w-full">
-        <label for="billing-company">Company ({{ $t('messages.general.optional') }})</label>
-        <input id="billing-company" v-model="customer.billing.company" placeholder="Company Name" autocomplete="organization" type="text" />
-      </div>
-
-      <div class="w-full">
-        <label for="billing-address">{{ $t('messages.billing.address1') }}</label>
-        <input id="billing-address" v-model="customer.billing.address1" placeholder="123 Main St" autocomplete="address-line1" type="text" />
-      </div>
-
-      <div class="w-full">
-        <label for="billing-address-2">{{ $t('messages.billing.address2') }} ({{ $t('messages.general.optional') }})</label>
-        <input id="billing-address-2" v-model="customer.billing.address2" placeholder="Apartment, studio, or floor" autocomplete="address-line2" type="text" />
-      </div>
-
-      <div class="w-full">
-        <label for="billing-city">{{ $t('messages.billing.city') }}</label>
-        <input id="billing-city" v-model="customer.billing.city" placeholder="New York" autocomplete="address-level2" type="text" />
-      </div>
-
-      <div class="w-full">
-        <label for="billing-zip">{{ $t('messages.billing.zip') }}</label>
-        <input id="billing-zip" v-model="customer.billing.postcode" placeholder="10001" autocomplete="postal-code" type="text" />
+        <label for="billing-email">{{ $t("messages.billing.email") }}</label>
+        <input
+          id="billing-email"
+          v-model="storeProfile.getBillingData.email"
+          placeholder="johndoe@email.com"
+          autocomplete="email"
+          type="email"
+          required
+        />
       </div>
 
       <div class="w-full col-span-full">
-        <label for="billing-email">{{ $t('messages.billing.email') }}</label>
-        <input id="billing-email" v-model="customer.billing.email" placeholder="johndoe@email.com" autocomplete="email" type="email" required />
-      </div>
-    </div>
-
-    <div class="grid p-8 gap-6 md:grid-cols-2">
-      <h3 class="font-semibold text-xl col-span-full">{{ $t('messages.general.shipping') }}</h3>
-
-      <div class="w-full">
-        <label for="shipping-first-name">{{ $t('messages.billing.firstName') }}</label>
-        <input id="shipping-first-name" v-model="customer.shipping.firstName" placeholder="John" autocomplete="given-name" type="text" required />
-      </div>
-
-      <div class="w-full">
-        <label for="shipping-last-name">{{ $t('messages.billing.lastName') }}</label>
-        <input id="shipping-last-name" v-model="customer.shipping.lastName" placeholder="Doe" autocomplete="family-name" type="text" required />
-      </div>
-
-      <div class="w-full">
-        <label for="shipping-phone">{{ $t('messages.billing.phone') }}</label>
-        <input id="shipping-phone" v-model="customer.shipping.phone" placeholder="+1 234 567 8901" autocomplete="tel" type="tel" />
-      </div>
-
-      <div class="w-full">
-        <label for="shipping-company">Company ({{ $t('messages.general.optional') }})</label>
-        <input id="shipping-company" v-model="customer.shipping.company" placeholder="Company Name" autocomplete="organization" type="text" />
-      </div>
-
-      <div class="w-full">
-        <label for="shipping-address">{{ $t('messages.billing.address1') }}</label>
-        <input id="shipping-address" v-model="customer.shipping.address1" placeholder="O'Connell Street 47" autocomplete="address-line1" type="text" />
-      </div>
-
-      <div class="w-full">
-        <label for="shipping-address-2">{{ $t('messages.billing.address2') }} ({{ $t('messages.general.optional') }})</label>
+        <label for="billing-address">{{
+          $t("messages.billing.address1")
+        }}</label>
         <input
-          id="shipping-address-2"
-          v-model="customer.shipping.address2"
-          placeholder="Apartment, studio, or floor"
-          autocomplete="address-line2"
-          type="text" />
+          id="billing-address"
+          v-model="storeProfile.getBillingData.address"
+          placeholder="123 Main St"
+          autocomplete="address-line1"
+          type="text"
+        />
       </div>
 
       <div class="w-full">
-        <label for="shipping-city">{{ $t('messages.billing.city') }}</label>
-        <input id="shipping-city" v-model="customer.shipping.city" placeholder="New York" autocomplete="address-level2" type="text" />
+        <label for="billing-city">{{ $t("messages.billing.country") }}</label>
+        <input
+          id="billing-city"
+          v-model="storeProfile.getBillingData.country"
+          placeholder="EEUU"
+          autocomplete="address-level2"
+          type="text"
+        />
       </div>
 
       <div class="w-full">
-        <label for="shipping-zip">{{ $t('messages.billing.zip') }}</label>
-        <input id="shipping-zip" v-model="customer.shipping.postcode" placeholder="10001" autocomplete="postal-code" type="text" />
+        <label for="billing-city">{{ $t("messages.billing.state") }}</label>
+        <input
+          id="billing-city"
+          v-model="storeProfile.getBillingData.state"
+          placeholder="Florida"
+          autocomplete="address-level2"
+          type="text"
+        />
+      </div>
+
+      <div class="w-full">
+        <label for="billing-city">{{ $t("messages.billing.city") }}</label>
+        <input
+          id="billing-city"
+          v-model="storeProfile.getBillingData.city"
+          placeholder="Miami"
+          autocomplete="address-level2"
+          type="text"
+        />
+      </div>
+
+      <div class="w-full">
+        <label for="billing-zip">{{ $t("messages.billing.zip") }}</label>
+        <input
+          id="billing-zip"
+          v-model="storeProfile.getBillingData.postCode"
+          placeholder="10001"
+          autocomplete="postal-code"
+          type="text"
+        />
       </div>
     </div>
-
-    <div class="bg-white backdrop-blur-sm bg-opacity-75 border-t col-span-full p-4 sticky bottom-0 rounded-b-lg">
+    <div
+      class="bg-white backdrop-blur-sm bg-opacity-75 border-t col-span-full p-4 sticky bottom-0 rounded-b-lg"
+    >
       <button
         class="rounded-md flex font-semibold ml-auto text-white py-2 px-4 gap-4 items-center disabled:bg-gray-400 disabled:cursor-not-allowed"
         :class="button.color"
-        :disabled="loading">
+        :disabled="loading"
+      >
         <LoadingIcon v-if="loading" color="#fff" size="20" />
         <span>{{ button.text }}</span>
       </button>
@@ -111,45 +129,33 @@
 </template>
 
 <script setup lang="ts">
-const viewer = {
-  id: 1,
-  username: 'John Doe',
-  firstName: 'John Doe',
-  email: '1Y0rG@example.com',
-}
-
-const customer = {
-  billing: {
-    email: '1Y0rG@example.com',
-    firstName: 'John',
-    lastName: 'Doe',
-    phone: '+1 234 567 8901',
-    company: 'Company Name',
-    address1: 'O\'Connell Street 47',
-    address2: 'Apartment, studio, or floor',
-    city: 'New York',
-    state: 'NY',
-    country: 'US',
-    postcode: '10001',
-  },
-  shipping: {
-    firstName: 'John',
-    lastName: 'Doe',
-    phone: '+1 234 567 8901',
-    company: 'Company Name',
-    address1: 'O\'Connell Street 47',
-    address2: 'Apartment, studio, or floor',
-    city: 'New York',
-    state: 'NY',
-    country: 'US',
-    postcode: '10001',
-  },
-}
+import LoadingIcon from "../common/LoadingIcon.vue";
 const { t } = useI18n();
+const storeProfile = useProfileStore();
+
+onMounted(() => {
+  storeProfile.fetchBillingData();
+});
 
 const loading = ref<boolean>(false);
-const button = ref<{ text: string; color: string }>({ text: t('messages.account.updateDetails'), color: 'bg-primary hover:bg-primary-dark' });
+const button = ref<{ text: string; color: string }>({
+  text: t("messages.account.updateDetails"),
+  color: "bg-primary hover:bg-primary-dark",
+});
 
 async function saveChanges(): Promise<void> {
+  loading.value = true;
+  await storeProfile.updateBilling(storeProfile.getBillingData);
+  !storeProfile.hasError ? push.success({
+        duration: 1500,
+        title: t('messages.notification.perfect'),
+        message: t('messages.notification.updatedBilling'),
+      })
+    : push.success({
+        duration: 1500,
+        title:  t('messages.notification.error'),
+        message: t('messages.notification.updatedBillingError'),
+      });
+  loading.value = false;
 }
 </script>

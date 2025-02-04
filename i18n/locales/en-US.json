@@ -1,6 +1,7 @@
 {
   "messages": {
     "general": {
+      "qty":"Qty:",
       "viewAll": "View All",
       "share": "Share",
       "date": "Date",
@@ -52,6 +53,7 @@
       "refresh": "Refresh list"
     },
     "account": {
+      "noOrder":"No orders found.",
       "changePassword": "Change Password",
       "currentPassword": "Current Password",
       "password": "Password",
@@ -94,6 +96,8 @@
       "resendEmail": "Resend email"
     },
     "shop": {
+      "invalidCupon": "Invalid Cupon",
+      "delvery_address": "Delivery Address",
       "goToTropipay":"Go to Tropipay",
       "perfect": "Perfect",
       "required_redirect": "Actions outside the store are needed to continue payment.",
@@ -179,6 +183,7 @@
       "address1": "Address 1",
       "address2": "Address 2",
       "city": "City",
+      "dni": "Identity",
       "state": "State",
       "zip": "Postal Code / ZIP",
       "country": "Country",
@@ -200,6 +205,16 @@
       "general": "Something went wrong",
       "noOrder": "We could not find your order. Please try again later.",
       "notRegistered": "We could not create your account. Please try again later."
+    }, 
+    "notification":{
+      "perfect": "Perfect",
+      "error": "Error",
+      "updatedBilling": "Your billing information has been updated!",
+      "updatedCart": "Product added to your cart.",
+      "updatedCartError": "Your cart wasn't updated!",
+      "updatedBillingError": "Your billing information wasn't updated!",
+      "updatedPwd": "Your password has been updated!",
+      "updatedPwdError": "Your password wasn't updated!"
     }
   }
 }

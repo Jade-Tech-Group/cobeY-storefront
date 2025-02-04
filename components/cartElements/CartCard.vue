@@ -2,8 +2,6 @@
 import type Product  from '~/types';
 
 const { removeItem } = useCart();
-const { FALLBACK_IMG } = useHelpers();
-const { storeSettings } = useAppConfig();
 const {locale } = useI18n();
 
 const props = defineProps<{

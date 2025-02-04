@@ -44,6 +44,13 @@ export interface Profile {
   postCode?: string;
   id: string;
 }
+
+export interface Security {
+  user_id: string,
+  oldPassword: string,
+  newPassword: string
+}
+
 export interface GeoLocation {
   name: string;
   code: string
@@ -71,6 +78,7 @@ export interface Order {
   note: string;
   payment_method: string;
   status: string;
+  shipping_method: string;
   subtotal_price: number;
   total_price: number;
   delivery_address_id: string;

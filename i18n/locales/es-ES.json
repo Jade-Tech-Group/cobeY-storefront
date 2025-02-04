@@ -1,6 +1,7 @@
 {
   "messages": {
     "general": {
+      "qty":"Cant:",
       "viewAll": "Ver todo",
       "share": "Compartir",
       "date": "Fecha",
@@ -52,6 +53,7 @@
       "refresh": "Refrescar lista"
     },
     "account": {
+      "noOrder":"No tiene órdenes registradas.",
       "changePassword": "Cambiar contraseña",
       "currentPassword": "Contraseña actual",
       "password": "Contraseña",
@@ -94,11 +96,13 @@
       "resendEmail": "Reenviar correo"
     },
     "shop": {
+      "invalidCupon": "Cupón no valido",
+      "delvery_address": "Direcciones de entrega",
       "goToTropipay":"Ir a Tropipay",
       "perfect": "Perfecto",
       "required_redirect": "Se necesitan acciones fuera de la tienda para continuar con el pago.",
       "order_error":{
-        "title":"Error al realizar el pago de la ordern. Intentelo más tarde",
+        "title":"Error al realizar el pago de la orden. Intentelo más tarde",
         "subtitle":"Ha ocurrido un error mientras se intentaba generar el pago de la orden. Puede revisar los detalles de la misma e intentar el pago nuevamente"
       },
       "shopByCategory": "Comprar por categoría",
@@ -182,6 +186,7 @@
       "state": "Estado",
       "zip": "Código Postal / ZIP",
       "country": "País",
+      "dni": "Carnét de identidad",
       "countryCode": "Código de país",
       "phone": "Teléfono",
       "address": "Dirección",
@@ -200,6 +205,16 @@
       "general": "Ha ocurrido un error",
       "noOrder": "No hemos podido encontrar tu pedido. Por favor, inténtalo de nuevo más tarde.",
       "notRegistered": "No hemos podido crear su cuenta. Por favor, inténtalo de nuevo más tarde."
+    },
+    "notification":{
+      "perfect": "Perfecto",
+      "error": "Error",
+      "updatedBilling": "¡Se ha actualizado tus datos de facturación!",
+      "updatedCart": "Producto añadido al carrito",
+      "updatedCartError": "No se pudo actualizar tu carrito!",
+      "updatedBillingError": "Tus datos de facturación no fueron actualizados!",
+      "updatedPwd": "¡Se ha actualizado tu contraseña!",
+      "updatedPwdError": "¡No se ha actualizado tu contraseña!"
     }
   }
 }
