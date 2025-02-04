@@ -11,7 +11,7 @@ export default defineAppConfig({
       Aquí encontrarás los mejores productos del mercado`,
   baseUrl: "https://cobey-api.onrender.com/api/v1",
   siteImage:
-    "https://user-images.githubusercontent.com/5116925/218879668-f4c1f9fd-bef4-44b0-bc7f-e87d994aa3a1.png",
+    "https://github.com/Jade-Tech-Group/cobeY-storefront/blob/master/public/images/tienda.png",
   storeSettings: {
     autoOpenCart: false,
     showReviews: true,
