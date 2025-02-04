@@ -131,7 +131,7 @@ export function useCart() {
       }
     } else {
       // If no access token is present, attempt to retrieve the cart from local storage
-      cart.value = JSON.parse(getItem('COBEY_PRODUCT_CART') as any);
+      cart.value = JSON.parse(getItem('COBEY_PRODUCT_CART') as any) || initialCart; ;
       // Indicate success
       return true;
     }
