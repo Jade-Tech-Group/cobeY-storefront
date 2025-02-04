@@ -3,7 +3,7 @@ import { Notivue } from "notivue";
 import Notify from "./components/common/Notify.vue";
 const { siteName } = useAppConfig();
 const route = useRoute();
-const { isShowingCart, toggleCart } = useCart();
+const { isShowingCart, toggleCart,refreshCart } = useCart();
 const { isShowingMobileMenu, toggleMobileMenu, addBodyClass, removeBodyClass } =
   useHelpers();
 const closeCartAndMenu = () => {
@@ -16,6 +16,10 @@ watch([isShowingCart, isShowingMobileMenu], () => {
     ? addBodyClass("overflow-hidden")
     : removeBodyClass("overflow-hidden");
 });
+
+onMounted(()=>{
+  refreshCart()
+})
 
 watch(
   () => route.path,
