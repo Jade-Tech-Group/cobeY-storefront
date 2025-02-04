@@ -12,7 +12,7 @@ export default <Partial<Config>>{
   theme: {
     container: {
       center: true,
-      padding: "1rem",
+      padding: "0.5rem",
     },
     extend: {
       colors: {

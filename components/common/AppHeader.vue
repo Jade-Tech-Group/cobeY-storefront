@@ -14,7 +14,7 @@
         class="flex justify-end items-center md:w-[160px] flex-1 ml-auto gap-4 md:gap-6"
       >
         <ProductSearch class="hidden sm:inline-flex max-w-[320px] w-[60%]" />
-        <SearchTrigger />
+        <LangSwitcherSmall />
         <div class="flex gap-4 items-center">
           <SignInLink />
           <div class="flex flex-col items-center justify-center">
