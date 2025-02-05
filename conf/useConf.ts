@@ -41,6 +41,7 @@ export default {
         delete_coupon: '/cart/delete-coupon',
         updateShipping: '/cart/shippingMethod'
       },
+      aboutUs: '/aboutUs',
     },
   },
 };
