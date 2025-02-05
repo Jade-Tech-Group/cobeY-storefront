@@ -63,7 +63,7 @@ const goToOrder = (id: string): void => {
       v-else-if="stOrders.orders && stOrders.orders.length === 0"
       class="min-h-[250px] flex items-center justify-center text-gray-500 text-lg"
     >
-      ^{{ $t("messages.account.noOrder") }}
+      {{ $t("messages.account.noOrder") }}
     </div>
     <LoadingIcon v-else size="24" stroke="2" />
   </div>
