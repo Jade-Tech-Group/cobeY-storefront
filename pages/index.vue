@@ -102,7 +102,7 @@ const [container] = useKeenSlider(
         <h2 class="text-lg font-semibold md:text-2xl">
           {{ $t("messages.shop.popularProducts") }}
         </h2>
-        <NuxtLink to="/products">{{ $t("messages.general.viewAll") }}</NuxtLink>
+        <NuxtLink to="/products?filter=featured[true]">{{ $t("messages.general.viewAll") }}</NuxtLink>
       </div>
       <ProductRow
         :products="stProducts.getFeatured"
@@ -170,7 +170,7 @@ const [container] = useKeenSlider(
         <h2 class="text-lg font-semibold md:text-2xl">
           {{ $t("messages.general.productsOnSale") }}
         </h2>
-        <NuxtLink to="/products">{{ $t("messages.general.viewAll") }}</NuxtLink>
+        <NuxtLink to="/products?filter=onSale[true]">{{ $t("messages.general.viewAll") }}</NuxtLink>
       </div>
       <ProductRow
         :products="stProducts.getOnSale"

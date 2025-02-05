@@ -7,7 +7,7 @@ export default {
         register: "/auth/register",
       },
       categories: {
-        list: "/category",
+        list: "/category/with-products",
         add: "/category",
         edit: "/category",
         del: "/category",
@@ -20,6 +20,7 @@ export default {
         available: "/product/available/web",
         byCategory: "/product",
         byId: "/product",
+        favorites: "/product/favorites",
       },
       order: {
         list: "/order/client",
@@ -40,6 +41,7 @@ export default {
         delete_coupon: '/cart/delete-coupon',
         updateShipping: '/cart/shippingMethod'
       },
+      aboutUs: '/aboutUs',
     },
   },
 };

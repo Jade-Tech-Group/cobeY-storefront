@@ -141,7 +141,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     </div>
 
     <div class="w-full">
-      <label for="city">{{ $t("messages.billing.country") }}</label>
+      <label for="city">{{ $t("messages.billing.city") }}</label>
       <input
         id="city"
         v-model="shipping.city"

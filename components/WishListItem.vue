@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type Product from '~/types';
 const { product } = defineProps<{ product: Product }>();
+const {locale} = useI18n()
+const  storeProducts = useProductsStore()
 </script>
 
 <template>
@@ -17,11 +19,11 @@ const { product } = defineProps<{ product: Product }>();
         loading="lazy" />
     </NuxtLink>
     <div>
-      <NuxtLink v-if="product.id" class="text-lg leading-tight" :to="`/product/${decodeURIComponent(product.id)}`">{{ product.name }}</NuxtLink>
+      <NuxtLink v-if="product.id" class="text-lg leading-tight" :to="`/product/${decodeURIComponent(product.id)}`">{{ product.name[locale] }}</NuxtLink>
       <ProductPrice :sale-price="product.sale_price" :regular-price="product.price" class="ml-auto" />
     </div>
     <div class="ml-auto">
-      <button v-if="product.id" title="Remove Item">
+      <button v-if="product.id" title="Remove Item" @click="storeProducts.deleteFav(product.id)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24">
           <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368" />
         </svg>

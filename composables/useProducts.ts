@@ -1,3 +1,4 @@
+import useConf from "~/conf/useConf";
 import type Product from "~/types";
 
 let allProducts = [] as Product[];
@@ -34,6 +35,7 @@ export function useProducts() {
       console.error(error);
     }
   };
+
 
   return { products, allProducts, setProducts, updateProductList };
 }

@@ -22,6 +22,7 @@ const addToCart = async (item: Product) => {
   await cartManager(item);
 };
 
+const storeAuth = useAuth()
 const quantity = ref<number>(1);
 </script>
 
@@ -128,7 +129,9 @@ const quantity = ref<number>(1);
           </div>
 
           <div class="flex flex-wrap gap-4">
-            <WishlistButton :product="stProduct.getCurrent" />
+            <div v-if="storeAuth.user">
+              <WishlistButton :product="stProduct.getCurrent" />
+            </div>
             <ShareButton :product="stProduct.getCurrent" />
           </div>
         </div>
