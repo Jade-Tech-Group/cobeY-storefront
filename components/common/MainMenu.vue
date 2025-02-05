@@ -8,7 +8,7 @@
     <NuxtLink to="/about-us">{{ $t("messages.general.aboutUs") }}</NuxtLink>
     <NuxtLink to="/contact">{{ $t("messages.general.contact") }}</NuxtLink>
     <NuxtLink class="lg:hidden" to="/my-account" :prefetch="false"
-      >My Account</NuxtLink
+      >{{ $t('messages.account.myAccount') }}</NuxtLink
     >
   </nav>
 </template>

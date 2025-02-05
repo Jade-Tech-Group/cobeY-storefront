@@ -7,7 +7,7 @@ export default {
         register: "/auth/register",
       },
       categories: {
-        list: "/category",
+        list: "/category/with-products",
         add: "/category",
         edit: "/category",
         del: "/category",
