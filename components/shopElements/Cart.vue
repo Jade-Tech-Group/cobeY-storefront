@@ -14,7 +14,7 @@ const { cart, toggleCart, isUpdatingCart } = useCart();
     </div>
 
     <ClientOnly>
-      <template v-if="cart && cart.products.length > 0">
+      <template v-if="cart.products.length > 0">
         <ul class="flex flex-col flex-1 gap-4 p-6 overflow-hidden sm:p-4.5 xs:p-4 mt-4">
           <CartCard v-for="(item, index) in cart.products" :key="index" :item />
         </ul>
@@ -35,15 +35,12 @@ const { cart, toggleCart, isUpdatingCart } = useCart();
         </div>
       </template>
       <!-- Empty Cart Message -->
-      <EmptyCartMessage v-else-if="cart && cart.products.length === 0" />
-      <!-- Cart Loading -->
-      <div v-else class="flex flex-col items-center justify-center flex-1 mb-20">
-        <LoadingIcon />
-      </div>
+      <EmptyCartMessage v-else />
     </ClientOnly>
     <!-- Cart Loading Overlay -->
     <div v-if="isUpdatingCart" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-25">
       <LoadingIcon />
     </div>
   </div>
+
 </template>

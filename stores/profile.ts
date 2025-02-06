@@ -192,6 +192,15 @@ export const useProfileStore = defineStore("profile", {
                 this.hasError = true;
                 this.loading = false;
             }
+        },
+
+        resetState() {
+            this.loading = false;
+            this.hasError = false;
+            this.billing = {} as BillingAddress;
+            this.deliveryAddress = [] as DeliveryAddress[];
+            this.currentDeliveryAddress = {} as DeliveryAddress;
+            this.newDeliveryAddress = {} as DeliveryAddress;
         }
     },
 });

@@ -16,7 +16,7 @@ const remove = () => {
 </script>
 
 <template>
-  <SwipeCard @remove="removeItem">
+  <SwipeCard @remove="remove">
     <div v-if="props.item" class="w-full h-full flex items-center justify-center gap-2 group px-4">
       <NuxtLink :to="productSlug">
         <NuxtImg

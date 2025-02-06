@@ -4,7 +4,9 @@ import conf from "~/conf/useConf";
 export const useAuth = () => {
   const user = useCookie<User | null>("user");
   const accessToken = useCookie<string | null>("accessToken");
+  const returnUrl = useCookie<string>("returnUrl");
   const isPending = useState<boolean>("isPending", () => false);
+  const unlogging = useState<boolean>("isPending", () => false);
   const { refreshCart } = useCart()
   const { clearAllCookies } = useHelpers();
   const router = useRouter();
@@ -23,6 +25,7 @@ export const useAuth = () => {
       });
       await updateCustomer(response);
       refreshCart()
+      router.push(returnUrl.value ?? '/my-account')
       return {
         success: true,
         error: null,
@@ -39,10 +42,9 @@ export const useAuth = () => {
 
   // Log out the user
   const logoutUser = async (): Promise<{ success: boolean; error: any }> => {
-    isPending.value = true;
     try {
       clearAllCookies();
-      isPending.value = false;
+      returnUrl.value = "/"
       return { success: true, error: null };
     } catch (error: any) {
       return { success: false, error };
@@ -105,9 +107,11 @@ export const useAuth = () => {
     user,
     accessToken,
     isPending,
+    returnUrl,
     loginUser,
     updateCustomer,
     logoutUser,
+    unlogging,
     registerUser,
     sendResetPasswordEmail,
     resetPasswordWithKey,

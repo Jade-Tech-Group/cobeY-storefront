@@ -10,7 +10,7 @@ import { delivery_method } from '~/constants';
 export function useCart() {
   const { storeSettings } = useAppConfig();
   const initialCart = {
-    id: '',
+    id: 'empty_cart',
     products: [],
     subtotal_price: '0',
     total_price: '0',
@@ -95,6 +95,7 @@ export function useCart() {
    */
   async function refreshCart(): Promise<boolean> {
     // Retrieve the access token from the cookie
+    isUpdatingCart.value = true;
     const tokenCookie = useCookie('accessToken');
     // Check if the access token is present
     if (tokenCookie.value) {
@@ -111,7 +112,7 @@ export function useCart() {
         );
 
         // If the response is successful, update the cart state with the fetched data
-        if (response) {
+        if (response.products.length > 0) {
           cart.value = {
             ...response,
             // Sort the products by their Spanish name for consistency
@@ -119,6 +120,8 @@ export function useCart() {
           };
           // Save the updated cart to local storage
           setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
+        } else {
+          cart.value = initialCart
         }
         // Indicate success
         return true;
@@ -131,7 +134,8 @@ export function useCart() {
       }
     } else {
       // If no access token is present, attempt to retrieve the cart from local storage
-      cart.value = JSON.parse(getItem('COBEY_PRODUCT_CART') as any) || initialCart; ;
+      cart.value = JSON.parse(getItem('COBEY_PRODUCT_CART') as any) || initialCart;;
+      isUpdatingCart.value = false;
       // Indicate success
       return true;
     }
@@ -143,16 +147,7 @@ export function useCart() {
   }
 
   function updateCart(payload: Cart): void {
-    cart.value = payload || {
-      id: '',
-      products: [],
-      subtotal_price: '0',
-      total_price: '0',
-      amount: 0,
-      coupon_discount: '0',
-      coupon_id: '',
-      delivery_cost: '0'
-    };
+    cart.value = payload || initialCart;
     setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value))
   }
   // toggle the cart visibility
@@ -165,7 +160,6 @@ export function useCart() {
     isUpdatingCart.value = true;
     const tokenCookie = useCookie('accessToken');
     try {
-      resetInitialState()
       const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.add}`,
         {
@@ -177,6 +171,7 @@ export function useCart() {
           },
         }
       );
+      resetInitialState()
       hasError.value = false;
       cart.value = response;
       const { storeSettings } = useAppConfig();
@@ -184,6 +179,8 @@ export function useCart() {
     } catch (error: any) {
       hasError.value = true;
       console.error(error);
+    } finally {
+      isUpdatingCart.value = false
     }
   }
 
@@ -209,9 +206,12 @@ export function useCart() {
       } catch (error: any) {
         hasError.value = true;
         console.log(error)
+      } finally {
+        isUpdatingCart.value = false;
       }
     } else {
       removeFromLocalById(productId)
+      isUpdatingCart.value = false;
     }
   }
 
@@ -271,9 +271,10 @@ export function useCart() {
       if (storeSettings.autoOpenCart && !isShowingCart.value) toggleCart(true);
     } catch (error: any) {
       console.error(error);
+    } finally {
+      isUpdatingCart.value = false;
     }
 
-    isUpdatingCart.value = false;
   }
 
   // Apply coupon
@@ -299,15 +300,17 @@ export function useCart() {
       hasError.value = true
       isUpdatingCoupon.value = false;
       console.log(error);
+    } finally {
+      isUpdatingCart.value = false
     }
     return { message: null };
   }
 
   // Remove coupon
   async function removeCoupon(): Promise<void> {
+    isUpdatingCart.value = true;
     const tokenCookie = useCookie('accessToken');
     try {
-      isUpdatingCart.value = true;
       const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.delete_coupon}`,
         {
@@ -323,14 +326,11 @@ export function useCart() {
     } catch (error) {
       console.log(error);
       hasError.value = true;
-      isUpdatingCart.value = false;
+    }
+    finally{
+      isUpdatingCart.value = false
     }
   }
-
-  // Stop the loading spinner when the cart is updated
-  watch(cart, (val) => {
-    isUpdatingCart.value = false;
-  });
 
   const isBillingAddressEnabled = computed(() => (storeSettings.hideBillingAddressForVirtualProducts));
 
