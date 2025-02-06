@@ -1,27 +1,47 @@
 <script setup lang="ts">
-const { user, logoutUser } = useAuth();
-const linkTitle = computed<string>(() => user.value?.email || 'Sign In');
+const { user, logoutUser, unlogging } = useAuth();
+const { debounce } = useHelpers();
+async function logout() {
+  unlogging.value = true;
+  await logoutUser();
+  setTimeout(() => (unlogging.value = false), 2000);
+}
+const linkTitle = computed<string>(() => user.value?.email || "Sign In");
 </script>
 
 <template>
-  <NuxtLink to="/my-account" :title="linkTitle" class="hidden sm:inline-flex aspect-square items-center">
+  <NuxtLink
+    :title="linkTitle"
+    class="hidden sm:inline-flex aspect-square items-center"
+  >
     <Transition name="pop-in" mode="out-in">
-      <span v-if="user" class="relative avatar">
+      <span v-if="user" class="relative avatar cursor-pointer">
         <img
           src="https://secure.gravatar.com/avatar/af4f8d831b90b41270e66c5ef083c78b?s=96&d=mm&r=g"
           class="rounded-full transform scale-125 shadow-md overflow-hidden border border-white my-auto"
           width="22"
           height="22"
-          :alt="linkTitle" />
+          :alt="linkTitle"
+        />
         <div class="account-dropdown">
-          <NuxtLink to="/my-account" class="hover:bg-gray-100"><Icon name="ion:person-outline" size="16" /><span>{{$t('messages.account.myAccount')}}</span></NuxtLink>
-          <button class="text-red-600 hover:bg-red-50" @click.prevent="logoutUser">
+          <NuxtLink to="/my-account" class="hover:bg-gray-100"
+            ><Icon name="ion:person-outline" size="16" /><span>{{
+              $t("messages.account.myAccount")
+            }}</span></NuxtLink
+          >
+          <button class="text-red-600 hover:bg-red-50" @click.prevent="logout">
             <Icon name="ion:log-out-outline" size="16" />
-            <span>{{ $t('messages.account.logout')}}</span>
+            <span>{{ $t("messages.account.logout") }}</span>
           </button>
         </div>
       </span>
-      <Icon v-else name="ion:person-outline" size="22" class="border border-transparent" />
+      <Icon
+        v-else
+        name="ion:person-outline"
+        size="22"
+        class="border border-transparent cursor-pointer"
+        @click="$router.push('/login-and-register')"
+      />
     </Transition>
   </NuxtLink>
 </template>

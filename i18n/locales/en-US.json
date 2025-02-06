@@ -53,6 +53,7 @@
       "refresh": "Refresh list"
     },
     "account": {
+      "textWarning": "Wait... You must log in or register to continue purchasing",
       "noOrder":"No orders found.",
       "changePassword": "Change Password",
       "currentPassword": "Current Password",

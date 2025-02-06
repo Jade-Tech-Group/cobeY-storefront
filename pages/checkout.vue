@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { BillingAddress, DeliveryAddress } from "~/types";
+import type { BillingAddress, Cart, DeliveryAddress } from "~/types";
 
 const { t } = useI18n();
-const { cart } = useCart();
+const { cart, isUpdatingCart } = useCart();
 const { isProcessingOrder, proccessCheckout, errorOrder } = useCheckout();
-
 const buttonText = ref<string>(
   isProcessingOrder.value
     ? t("messages.general.processing")
@@ -99,7 +98,7 @@ const payNow = async () => {
   if (errorOrder.value) {
     router.push("/paymentFailure");
   } else {
-    router.push('/redirectPayment')
+    router.push("/redirectPayment");
   }
 };
 
@@ -138,152 +137,187 @@ const activePaymentMethod = ref(paymentMethods[0]?.id || "");
 useSeoMeta({
   title: t("messages.shop.checkout"),
 });
+
+const { user, returnUrl, unlogging } = useAuth();
+
+function onClickLogin() {
+  returnUrl.value = "/checkout";
+}
 </script>
 
 <template>
   <div class="flex flex-col min-h-[600px]">
-    <template v-if="cart">
-      <div
-        v-if="cart.products.length === 0"
-        class="flex flex-col items-center justify-center flex-1 mb-12"
-      >
-        <Icon name="ion:cart-outline" size="156" class="opacity-25 mb-5" />
-        <h2 class="text-2xl font-bold mb-2">
-          {{ $t("messages.shop.cartEmpty") }}
-        </h2>
-        <span class="text-gray-400 mb-4">{{
-          $t("messages.shop.addProductsInYourCart")
-        }}</span>
-        <NuxtLink
-          to="/products"
-          class="flex items-center justify-center gap-3 p-2 px-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-dark"
-        >
-          {{ $t("messages.shop.browseOurProducts") }}
-        </NuxtLink>
-      </div>
-
-      <form
-        v-else
-        class="container flex flex-wrap items-start gap-8 my-16 justify-evenly lg:gap-20"
-        @submit.prevent="payNow"
-      >
-        <div class="grid w-full max-w-2xl gap-8 checkout-form md:flex-1">
-          <div>
-            <h2 class="w-full mb-3 text-2xl font-semibold">
-              {{ $t("messages.billing.billingDetails") }}
-            </h2>
-            <BillingDetails v-model="billingData" />
-          </div>
-
-          <div>
-            <h3 class="mb-4 text-xl font-semibold">
-              {{ $t("messages.general.shippingSelect") }}
-            </h3>
-            <ShippingOptions
-              :options="shippingOption"
-              :active-option="cart.delivery_method"
-            />
-          </div>
-          <Transition name="scale-y" mode="out-in">
-            <div v-if="cart.delivery_method === 'DELIVERY'">
-              <div class="w-full flex flex-row justify-between items-center">
-                <h2 class="mb-4 text-xl font-semibold">
-                  {{ $t("messages.general.shippingDetails") }}
+    <template v-if="!user && !unlogging">
+      <DialogCmp
+        :dialog-show="true"
+        :closable="false"
+        :primary-text="$t('messages.account.login')"
+        :secondary-text="$t('messages.account.register')"
+        :main-txt="$t('messages.account.textWarning')"
+        toPrimary="/login-and-register"
+        toSecondary="/login-and-register?action=register"
+        @onClickPrimary="onClickLogin"
+      />
+    </template>
+    <template v-else>
+      <div v-if="cart.id">
+        <template v-if="cart.products.length > 0">
+          <form
+            class="container flex flex-wrap items-start gap-8 my-16 justify-evenly lg:gap-20"
+            @submit.prevent="payNow"
+          >
+            <div class="grid w-full max-w-2xl gap-8 checkout-form md:flex-1">
+              <div class="w-full relative bg-white rounded-lg shadow-lg p-8">
+                <h2 class="w-full mb-3 text-2xl font-semibold">
+                  {{ $t("messages.billing.billingDetails") }}
                 </h2>
                 <div
-                  class="flex flex-row gap-1.5 hover:underline cursor-pointer"
-                  @click="addDeliveryAddress = true"
+                  v-if="stProfile.loading"
+                  class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50"
                 >
-                  <img
-                    src="/icons/plus.svg"
-                    width="18"
-                    height="18"
-                    alt="Add address"
-                    loading="lazy"
-                  />
-                  <h2 class="text-sm font-semibold">
-                    {{ $t("messages.account.newAddress") }}
-                  </h2>
+                  <LoadingIcon />
                 </div>
+                <BillingDetails v-model="billingData" />
               </div>
-              <div
-                v-if="
-                  stProfile.deliveryAddress.length > 0 &&
-                  !editDeliveryAddress &&
-                  !addDeliveryAddress
-                "
+  
+              <div class="w-full relative bg-white rounded-lg shadow-lg p-8">
+                <h3 class="mb-4 text-xl font-semibold">
+                  {{ $t("messages.general.shippingSelect") }}
+                </h3>
+                <ShippingOptions
+                  :options="shippingOption"
+                  :active-option="cart.delivery_method"
+                />
+              </div>
+              <Transition
+                name="scale-y"
+                mode="out-in"
+                class="w-full relative bg-white rounded-lg shadow-lg p-8"
               >
-                <DeliveryOptions
-                  :options="stProfile.getDeliveryData"
-                  :active-option="activeDeliveryAddress"
-                  @update:change="changeDeliveryAddress"
-                  @update:delivery="updateDeliveryAddress"
-                  @delete:delivery="deleteDeliveryAddress"
-                />
-              </div>
-              <div v-if="editDeliveryAddress">
-                <ShippingDetails
-                  v-model="stProfile.getCurrentDeliveryData"
-                  :isLoading="stProfile.loading"
-                  action="edit"
-                  @close="editDeliveryAddress = false"
-                />
-              </div>
+                <div v-if="cart.delivery_method === 'DELIVERY'">
+                  <div class="w-full flex flex-row justify-between items-center">
+                    <h2 class="mb-4 text-xl font-semibold">
+                      {{ $t("messages.general.shippingDetails") }}
+                    </h2>
+                    <div
+                      class="flex flex-row gap-1.5 hover:underline cursor-pointer"
+                      @click="addDeliveryAddress = true"
+                    >
+                      <img
+                        src="/icons/plus.svg"
+                        width="18"
+                        height="18"
+                        alt="Add address"
+                        loading="lazy"
+                      />
+                      <h2 class="text-sm font-semibold">
+                        {{ $t("messages.account.newAddress") }}
+                      </h2>
+                    </div>
+                  </div>
+                  <div
+                    v-if="
+                      stProfile.deliveryAddress.length > 0 &&
+                      !editDeliveryAddress &&
+                      !addDeliveryAddress
+                    "
+                  >
+                    <DeliveryOptions
+                      :options="stProfile.getDeliveryData"
+                      :active-option="activeDeliveryAddress"
+                      @update:change="changeDeliveryAddress"
+                      @update:delivery="updateDeliveryAddress"
+                      @delete:delivery="deleteDeliveryAddress"
+                    />
+                  </div>
+                  <div v-if="editDeliveryAddress">
+                    <ShippingDetails
+                      v-model="stProfile.getCurrentDeliveryData"
+                      :isLoading="stProfile.loading"
+                      action="edit"
+                      @close="editDeliveryAddress = false"
+                    />
+                  </div>
+                  <div
+                    v-if="
+                      stProfile.deliveryAddress.length === 0 || addDeliveryAddress
+                    "
+                  >
+                    <ShippingDetails
+                      v-model="newDeliveryAddress"
+                      :isLoading="stProfile.loading"
+                      action="add"
+                      @close="closeAddShipping()"
+                    />
+                  </div>
+                </div>
+              </Transition>
               <div
-                v-if="
-                  stProfile.deliveryAddress.length === 0 || addDeliveryAddress
-                "
+                class="col-span-full relative bg-white rounded-lg shadow-lg p-8"
               >
-                <ShippingDetails
-                  v-model="newDeliveryAddress"
-                  :isLoading="stProfile.loading"
-                  action="add"
-                  @close="closeAddShipping()"
+                <h2 class="mb-4 text-xl font-semibold">
+                  {{ $t("messages.billing.paymentOptions") }}
+                </h2>
+                <PaymentOptions
+                  v-model="paymentMethods"
+                  :activePaymentMethod="activePaymentMethod"
+                  class="sm:w-1/2 xs:w-full mb-4"
+                  @update:model-value="
+                    (method) => (activePaymentMethod = method.id)
+                  "
                 />
+              </div>
+              <div>
+                <h2 class="mb-4 text-xl font-semibold">
+                  {{ $t("messages.shop.orderNote") }} ({{
+                    $t("messages.general.optional")
+                  }})
+                </h2>
+                <textarea
+                  id="order-note"
+                  v-model="customerNote"
+                  name="order-note"
+                  class="w-full min-h-[100px]"
+                  rows="4"
+                  :placeholder="$t('messages.shop.orderNotePlaceholder')"
+                ></textarea>
               </div>
             </div>
-          </Transition>
-          <div class="mt-2 col-span-full">
-            <h2 class="mb-4 text-xl font-semibold">
-              {{ $t("messages.billing.paymentOptions") }}
-            </h2>
-            <PaymentOptions
-              v-model="paymentMethods"
-              :activePaymentMethod="activePaymentMethod"
-              class="sm:w-1/2 xs:w-full mb-4"
-              @update:model-value="
-                (method) => (activePaymentMethod = method.id)
-              "
-            />
-          </div>
-          <div>
-            <h2 class="mb-4 text-xl font-semibold">
-              {{ $t("messages.shop.orderNote") }} ({{
-                $t("messages.general.optional")
-              }})
-            </h2>
-            <textarea
-              id="order-note"
-              v-model="customerNote"
-              name="order-note"
-              class="w-full min-h-[100px]"
-              rows="4"
-              :placeholder="$t('messages.shop.orderNotePlaceholder')"
-            ></textarea>
-          </div>
-        </div>
-        <OrderSummary>
-          <button
-            class="flex items-center justify-center w-full gap-3 p-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-gray-400"
-            :disabled="isCheckoutDisabled"
+            <OrderSummary>
+              <button
+                class="flex items-center justify-center w-full gap-3 p-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-gray-400"
+                :disabled="isCheckoutDisabled"
+              >
+                {{ buttonText
+                }}<LoadingIcon v-if="isProcessingOrder" color="#fff" size="18" />
+              </button>
+            </OrderSummary>
+          </form>
+        </template>
+        <div
+          v-else
+          class="flex flex-col items-center justify-center flex-1 mb-12"
+        >
+          <Icon name="ion:cart-outline" size="156" class="opacity-25 mb-5" />
+          <h2 class="text-2xl font-bold mb-2">
+            {{ $t("messages.shop.cartEmpty") }}
+          </h2>
+          <span class="text-gray-400 mb-4">{{
+            $t("messages.shop.addProductsInYourCart")
+          }}</span>
+          <NuxtLink
+            to="/products"
+            class="flex items-center justify-center gap-3 p-2 px-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-dark"
           >
-            {{ buttonText
-            }}<LoadingIcon v-if="isProcessingOrder" color="#fff" size="18" />
-          </button>
-        </OrderSummary>
-      </form>
+            {{ $t("messages.shop.browseOurProducts") }}
+          </NuxtLink>
+        </div>
+        <LoadingIcon v-if="isUpdatingCart" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-25"/>
+      </div>
+      <div v-else>
+        <LoadingIcon class="mt-8"/>
+      </div>
     </template>
-    <LoadingIcon v-else class="m-auto" />
   </div>
 </template>
 
