@@ -71,7 +71,7 @@
       <div class="copywrite">
         <p class="py-4 text-xs text-center">
           <a href="https://jadetechgroup.com" title="JADE" target="_blank"
-            >JADE</a
+            >Jade Soluciones Informáticas</a
           >
         </p>
       </div>

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const stProfile = useProfileStore();
 const {paymentLink} = useCheckout()
+onMounted(()=>{
+  stProfile.fetchBillingData()
+})
 </script>
 
 <template>

@@ -88,19 +88,28 @@ const button = ref<{ text: string; color: string }>({
 
 const errorMessage = ref<string>("");
 
+/**
+ * Asynchronously updates the user's password by calling the changePassword 
+ * method from the storeProfile. Displays a success notification if the password 
+ * is updated successfully, otherwise displays an error notification. Resets 
+ * the password fields and loading state after the operation.
+ */
+
 const updatePassword = async () => {
   loading.value = true;
   storeProfile.changePassword(password.value);
-  !storeProfile.hasError ? push.success({
+  !storeProfile.hasError
+    ? push.success({
         duration: 1500,
-        title: t('messages.notification.perfect'),
-        message: t('messages.notification.updatedPwd'),
+        title: t("messages.notification.perfect"),
+        message: t("messages.notification.updatedPwd"),
       })
     : push.success({
         duration: 1500,
-        title:  t('messages.notification.error'),
-        message: t('messages.notification.updatedPwdError'),
+        title: t("messages.notification.error"),
+        message: t("messages.notification.updatedPwdError"),
       });
+  password.value = { user_id: "", newPassword: "", oldPassword: "" };
   loading.value = false;
 };
 </script>
