@@ -22,6 +22,7 @@ export function useProducts() {
     const { scrollToTop } = useHelpers();
     const { isFiltersActive, filterProducts } = useFiltering();
     const { isSortingActive, sortProducts } = useSorting();
+    const { isSearchActive, searchProducts } = useSearching();
 
     scrollToTop();
 
@@ -29,6 +30,7 @@ export function useProducts() {
       let newProducts = [...allProducts];
       if (isFiltersActive.value) newProducts = filterProducts(newProducts);
       if (isSortingActive.value) newProducts = sortProducts(newProducts);
+      if (isSearchActive.value) newProducts = searchProducts(newProducts);
 
       products.value = newProducts;
     } catch (error) {

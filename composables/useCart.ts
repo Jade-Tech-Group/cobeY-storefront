@@ -1,8 +1,8 @@
-import useConf from '~/conf/useConf';
-import type Product from '~/types';
-import type { Cart, Coupon, ProductCart } from '~/types';
-import { getItem, setItem } from './localStorage';
-import { delivery_method } from '~/constants';
+import useConf from "~/conf/useConf";
+import type Product from "~/types";
+import type { Cart, Coupon, ProductCart } from "~/types";
+import { getItem, setItem } from "./localStorage";
+import { delivery_method } from "~/constants";
 /**
  * @name useCart
  * @description A composable that handles the cart in local storage
@@ -10,35 +10,40 @@ import { delivery_method } from '~/constants';
 export function useCart() {
   const { storeSettings } = useAppConfig();
   const initialCart = {
-    id: 'empty_cart',
+    id: "empty_cart",
     products: [],
-    subtotal_price: '0',
-    total_price: '0',
+    subtotal_price: "0",
+    total_price: "0",
     amount: 0,
-    coupon_discount: '0',
-    coupon_id: '',
-    coupon_code: '',
-    delivery_cost: '0',
-    delivery_method: delivery_method.STORE_PICKUP
+    coupon_discount: "0",
+    coupon_id: "",
+    coupon_code: "",
+    delivery_cost: "0",
+    delivery_method: delivery_method.STORE_PICKUP,
   };
-  const cart = useState<Cart>('cart', () => (initialCart));
+  const cart = useState<Cart>("cart", () => initialCart);
   const cartTotal = useCookie<Number | null>("cartTotal");
-  const isShowingCart = useState<boolean>('isShowingCart', () => false);
-  const isUpdatingCart = useState<boolean>('isUpdatingCart', () => false);
-  const isUpdatingCoupon = useState<boolean>('isUpdatingCoupon', () => false);
-  const hasError = useState<boolean>('hasError', () => false);
+  const isShowingCart = useState<boolean>("isShowingCart", () => false);
+  const isUpdatingCart = useState<boolean>("isUpdatingCart", () => false);
+  const isUpdatingCoupon = useState<boolean>("isUpdatingCoupon", () => false);
+  const hasError = useState<boolean>("hasError", () => false);
   /**
    * @description Manages the cart by adding or updating products.
    * @param item - The product or array of products to add or update in the cart.
    */
-  async function cartManager(item: Product | Product[], decrement: boolean = false) {
+  async function cartManager(
+    item: Product | Product[],
+    decrement: boolean = false
+  ) {
     // Check if the item is an array of products or a single product
-    const isAuth = useCookie('user');
+    const isAuth = useCookie("user");
     const products = Array.isArray(item) ? item : [item];
 
     // Iterate through each product to add or update its quantity in the cart
     products.forEach((product) => {
-      const existingProduct = cart.value.products.find((e) => e.id === product.id);
+      const existingProduct = cart.value.products.find(
+        (e) => e.id === product.id
+      );
       if (existingProduct) {
         if (decrement) {
           existingProduct.amount = product.amount;
@@ -56,13 +61,13 @@ export function useCart() {
       // If the user is authenticated, add the products to the cart through the API
       addToCart(cart.value.products);
     } else {
-      updateTotal()
-      setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
+      updateTotal();
+      setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
     }
   }
 
   async function updateItemQuantity(item: Product, quantity: number) {
-    const isAuth = useCookie('user');
+    const isAuth = useCookie("user");
     const existingProduct = cart.value.products.find((e) => e.id === item.id);
     if (existingProduct) {
       existingProduct.amount = quantity;
@@ -71,17 +76,18 @@ export function useCart() {
     if (isAuth.value) {
       addToCart(cart.value.products);
     } else {
-      updateTotal()
-      setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
+      updateTotal();
+      setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
     }
   }
 
   function updateTotal() {
     const total = cart.value.products.reduce((accumulator, object) => {
-      return accumulator + (
-        object.sale_price
+      return (
+        accumulator +
+        (object.sale_price
           ? parseFloat(object.sale_price) * object.amount
-          : parseFloat(object.price) * object.amount
+          : parseFloat(object.price) * object.amount)
       );
     }, 0);
     hasError.value = false;
@@ -96,7 +102,7 @@ export function useCart() {
   async function refreshCart(): Promise<boolean> {
     // Retrieve the access token from the cookie
     isUpdatingCart.value = true;
-    const tokenCookie = useCookie('accessToken');
+    const tokenCookie = useCookie("accessToken");
     // Check if the access token is present
     if (tokenCookie.value) {
       try {
@@ -104,10 +110,10 @@ export function useCart() {
         const response = await $fetch<Cart>(
           `${useConf.api.baseUrl}${useConf.api.services.cart.list}`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Authorization': `Bearer ${tokenCookie.value}`
-            }
+              Authorization: `Bearer ${tokenCookie.value}`,
+            },
           }
         );
 
@@ -116,25 +122,28 @@ export function useCart() {
           cart.value = {
             ...response,
             // Sort the products by their Spanish name for consistency
-            products: response.products.sort((a, b) => a.name.es.localeCompare(b.name.es)),
+            products: response.products.sort((a, b) =>
+              a.name.es.localeCompare(b.name.es)
+            ),
           };
           // Save the updated cart to local storage
-          setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
+          setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
         } else {
-          cart.value = initialCart
+          cart.value = initialCart;
         }
         // Indicate success
         return true;
       } catch (error: any) {
         // Throw an error if the cart refresh fails
-        throw new Error('Cart could not be refreshed');
+        throw new Error("Cart could not be refreshed");
       } finally {
         // Ensure the cart update indicator is set to false after the operation
         isUpdatingCart.value = false;
       }
     } else {
       // If no access token is present, attempt to retrieve the cart from local storage
-      cart.value = JSON.parse(getItem('COBEY_PRODUCT_CART') as any) || initialCart;;
+      cart.value =
+        JSON.parse(getItem("COBEY_PRODUCT_CART") as any) || initialCart;
       isUpdatingCart.value = false;
       // Indicate success
       return true;
@@ -143,12 +152,12 @@ export function useCart() {
 
   function resetInitialState() {
     cart.value = initialCart;
-    setItem('COBEY_PRODUCT_CART', JSON.stringify(initialCart))
+    setItem("COBEY_PRODUCT_CART", JSON.stringify(initialCart));
   }
 
   function updateCart(payload: Cart): void {
     cart.value = payload || initialCart;
-    setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value))
+    setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
   }
   // toggle the cart visibility
   function toggleCart(state: boolean | undefined = undefined): void {
@@ -158,7 +167,7 @@ export function useCart() {
   // add an item to the cart
   async function addToCart(products: ProductCart[]): Promise<void> {
     isUpdatingCart.value = true;
-    const tokenCookie = useCookie('accessToken');
+    const tokenCookie = useCookie("accessToken");
     try {
       const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.add}`,
@@ -167,11 +176,11 @@ export function useCart() {
           body: JSON.stringify({ products }),
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${tokenCookie.value}`,
+            Authorization: `Bearer ${tokenCookie.value}`,
           },
         }
       );
-      resetInitialState()
+      resetInitialState();
       hasError.value = false;
       cart.value = response;
       const { storeSettings } = useAppConfig();
@@ -180,13 +189,13 @@ export function useCart() {
       hasError.value = true;
       console.error(error);
     } finally {
-      isUpdatingCart.value = false
+      isUpdatingCart.value = false;
     }
   }
 
   // remove an item from the cart
   async function removeItem(productId: string) {
-    const tokenCookie = useCookie('accessToken');
+    const tokenCookie = useCookie("accessToken");
     isUpdatingCart.value = true;
     if (tokenCookie.value) {
       try {
@@ -197,33 +206,34 @@ export function useCart() {
             body: JSON.stringify({ productId }),
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${tokenCookie.value}`,
+              Authorization: `Bearer ${tokenCookie.value}`,
             },
           }
         );
-        updateCart(response)
+        updateCart(response);
         hasError.value = false;
       } catch (error: any) {
         hasError.value = true;
-        console.log(error)
+        console.log(error);
       } finally {
         isUpdatingCart.value = false;
       }
     } else {
-      removeFromLocalById(productId)
-      isUpdatingCart.value = false;
+      removeFromLocalById(productId);
     }
   }
 
   function removeFromLocalById(productId: string): void {
-    cart.value.products = cart.value.products.filter(product => product.id !== productId);
-    updateTotal()
-    setItem('COBEY_PRODUCT_CART', JSON.stringify(cart.value));
-    isUpdatingCart.value = false
+    cart.value.products = cart.value.products.filter(
+      (product) => product.id !== productId
+    );
+    updateTotal();
+    setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
+    isUpdatingCart.value = false;
   }
 
   async function emptyCart(): Promise<void> {
-    const tokenCookie = useCookie('accessToken');
+    const tokenCookie = useCookie("accessToken");
     isUpdatingCart.value = true;
     if (tokenCookie.value) {
       try {
@@ -233,27 +243,30 @@ export function useCart() {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${tokenCookie.value}`,
+              Authorization: `Bearer ${tokenCookie.value}`,
             },
           }
         );
-        updateCart(response)
-        cartTotal.value = 0
+        updateCart(response);
+        cartTotal.value = 0;
         hasError.value = false;
-        await refreshCart()
+        await refreshCart();
       } catch (error: any) {
         hasError.value = true;
-        console.log(error)
+        console.log(error);
+      } finally {
+        isUpdatingCart.value = false;
       }
     } else {
-      resetInitialState()
+      resetInitialState();
+      isUpdatingCart.value = false;
     }
   }
 
   // Update shipping method
   async function updateShippingMethod(method: string) {
     isUpdatingCart.value = true;
-    const tokenCookie = useCookie('accessToken');
+    const tokenCookie = useCookie("accessToken");
     try {
       const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.updateShipping}`,
@@ -262,7 +275,7 @@ export function useCart() {
           body: JSON.stringify({ method }),
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${tokenCookie.value}`,
+            Authorization: `Bearer ${tokenCookie.value}`,
           },
         }
       );
@@ -274,13 +287,14 @@ export function useCart() {
     } finally {
       isUpdatingCart.value = false;
     }
-
   }
 
   // Apply coupon
-  async function applyCoupon(coupon: string): Promise<{ message: string | null }> {
+  async function applyCoupon(
+    coupon: string
+  ): Promise<{ message: string | null }> {
     isUpdatingCoupon.value = true;
-    const tokenCookie = useCookie('accessToken');
+    const tokenCookie = useCookie("accessToken");
     try {
       const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.apply_coupon}`,
@@ -289,19 +303,19 @@ export function useCart() {
           body: JSON.stringify({ coupon }),
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${tokenCookie.value}`,
+            Authorization: `Bearer ${tokenCookie.value}`,
           },
         }
       );
       updateCart(response);
-      hasError.value = false
+      hasError.value = false;
       isUpdatingCoupon.value = false;
     } catch (error: any) {
-      hasError.value = true
+      hasError.value = true;
       isUpdatingCoupon.value = false;
       console.log(error);
     } finally {
-      isUpdatingCart.value = false
+      isUpdatingCart.value = false;
     }
     return { message: null };
   }
@@ -309,7 +323,7 @@ export function useCart() {
   // Remove coupon
   async function removeCoupon(): Promise<void> {
     isUpdatingCart.value = true;
-    const tokenCookie = useCookie('accessToken');
+    const tokenCookie = useCookie("accessToken");
     try {
       const response = await $fetch<Cart>(
         `${useConf.api.baseUrl}${useConf.api.services.cart.delete_coupon}`,
@@ -317,7 +331,7 @@ export function useCart() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${tokenCookie.value}`,
+            Authorization: `Bearer ${tokenCookie.value}`,
           },
         }
       );
@@ -326,13 +340,14 @@ export function useCart() {
     } catch (error) {
       console.log(error);
       hasError.value = true;
-    }
-    finally{
-      isUpdatingCart.value = false
+    } finally {
+      isUpdatingCart.value = false;
     }
   }
 
-  const isBillingAddressEnabled = computed(() => (storeSettings.hideBillingAddressForVirtualProducts));
+  const isBillingAddressEnabled = computed(
+    () => storeSettings.hideBillingAddressForVirtualProducts
+  );
 
   return {
     cart,

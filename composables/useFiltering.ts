@@ -8,7 +8,6 @@ import type Product from "~/types";
 export function useFiltering() {
   const route = useRoute();
   const router = useRouter();
-  const runtimeConfig = useRuntimeConfig(); // Declare a variable for the runtime config and the filter and order functions
   const { updateProductList } = useProducts();
 
   const filterQuery = useState<string>("filter", () => "");
