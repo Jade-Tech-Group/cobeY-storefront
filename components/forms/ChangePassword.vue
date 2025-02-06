@@ -91,16 +91,18 @@ const errorMessage = ref<string>("");
 const updatePassword = async () => {
   loading.value = true;
   storeProfile.changePassword(password.value);
-  !storeProfile.hasError ? push.success({
+  !storeProfile.hasError
+    ? push.success({
         duration: 1500,
-        title: t('messages.notification.perfect'),
-        message: t('messages.notification.updatedPwd'),
+        title: t("messages.notification.perfect"),
+        message: t("messages.notification.updatedPwd"),
       })
     : push.success({
         duration: 1500,
-        title:  t('messages.notification.error'),
-        message: t('messages.notification.updatedPwdError'),
+        title: t("messages.notification.error"),
+        message: t("messages.notification.updatedPwdError"),
       });
+  password.value = { user_id: "", newPassword: "", oldPassword: "" };
   loading.value = false;
 };
 </script>
