@@ -150,12 +150,14 @@
 <script setup lang="ts">
 import type { User } from "~/types";
 
-const { t } = useI18n();
-const route = useRoute();
-const router = useRouter();
-const { cart, addToCart } = useCart();
+const { t } = useI18n(); // Internationalization function
+const route = useRoute(); // Provides current route information
+const router = useRouter(); // Router instance for programmatically navigating
+const { cart, addToCart } = useCart(); // Cart functionalities
 const { loginUser, isPending, registerUser, sendResetPasswordEmail } =
-  useAuth();
+  useAuth(); // Authentication methods
+
+// Reactive user information object
 const userInfo = ref<User>({
   id: "",
   roles: ["Client"],
@@ -166,11 +168,25 @@ const userInfo = ref<User>({
   password: "",
   passwordConfirm: "",
 });
+
+// Reactive variable to control the current form view state
 const formView = ref("login");
+
+// Reactive variable to store success or informational messages
 const message = ref("");
+
+// Reactive variable to store error messages
 const errorMessage = ref("");
+/**
+ * Updates the form view based on the current route query.
+ *
+ * If the route query contains an 'action' parameter with value
+ * 'forgotPassword', the form view is set to 'forgotPassword'. If the
+ * 'action' parameter is set to 'register', the form view is set to
+ * 'register'. Otherwise, the form view is set to 'login'.
+ */
 const updateFormView = () => {
-  errorMessage.value = "";
+  errorMessage.value = ""; // Clear any error messages when the form view changes
   if (route.query.action === "forgotPassword") {
     formView.value = "forgotPassword";
   } else if (route.query.action === "register") {
@@ -186,6 +202,11 @@ watch(route, updateFormView, { immediate: true });
  *
  * @param {User} userInfo - The user information to be used for login.
  * @return {Promise<void>} A promise that resolves when the login is complete.
+ *
+ * The login function logs in the user by calling the loginUser mutation
+ * and passing the user information as an argument. If the login is successful,
+ * it clears any error messages and displays a success message. If the login
+ * fails, it sets an error message.
  */
 const login = async (userInfo: User) => {
   const result = await loginUser({
@@ -195,12 +216,18 @@ const login = async (userInfo: User) => {
 
   if (result) {
     if (result.success) {
+      // If the user is logged in successfully, clear any error messages
+      // and display a success message.
+      errorMessage.value = "";
+      message.value = t("messages.account.loggingIn");
+
+      // If the user has products in their cart, add them to the cart
+      // after logging in.
       if (cart.value && cart.value.products.length > 0) {
         addToCart(cart.value.products);
       }
-      errorMessage.value = "";
-      message.value = t("messages.account.loggingIn");
     } else {
+      // If the login fails, set an error message.
       errorMessage.value = result.error;
     }
   }
@@ -213,27 +240,56 @@ const login = async (userInfo: User) => {
  * @return {Promise<void>} A promise that resolves when the form submission is complete.
  */
 const handleFormSubmit = async (userInfo: User) => {
+  // Handle registration form submission
   if (formView.value === "register") {
     const response = await registerUser(userInfo);
-    if (response) {
+    if (response.success) {
+      // Clear any error messages and display success message
       errorMessage.value = "";
       message.value =
         t("messages.account.accountCreated") +
         " " +
         t("messages.account.loggingIn");
+      // Redirect to email sent confirmation page
       router.push("/emailSended");
     } else {
-      errorMessage.value = "error";
+      if(response.error === 'already registered'){
+        errorMessage.value = t("messages.error.alreadyRegistered  ");
+      }else{
+        // Set error message if registration fails
+        errorMessage.value = t("messages.error.notRegistered");
+      }
     }
   } else if (formView.value === "forgotPassword") {
-    resetPassword(userInfo);
+    // Handle password reset form submission
+    await resetPassword(userInfo);
   } else {
-    login(userInfo);
+    // Handle login form submission
+    await login(userInfo);
   }
 };
 
-const resetPassword = async (userInfo: User) => {};
+const resetPassword = async (userInfo: User) => {
+  const result = await sendResetPasswordEmail(userInfo.email);
+  isPending.value = false;
+  if (result) {
+    if (result.success) {
+      isPending.value = false;
+      return { success: true, error: null };
+    }
+    return {
+      success: false,
+      error:
+        "There was an error sending the reset password email. Please try again later.",
+    };
+  }
+};
 
+/**
+ * Changes the form view and updates the route query accordingly.
+ *
+ * @param {string} view - The view to navigate to. Can be one of "login", "register", or "forgotPassword".
+ */
 const navigate = (view: string) => {
   formView.value = view;
   if (view === "forgotPassword") {
@@ -245,7 +301,13 @@ const navigate = (view: string) => {
   }
 };
 
+/**
+ * Computes the title for the form based on the current form view.
+ *
+ * @return {string} The localized title for the form.
+ */
 const formTitle = computed(() => {
+  // Determine the form title based on the current form view
   if (formView.value === "login") {
     return t("messages.account.loginToAccount");
   } else if (formView.value === "register") {
@@ -268,17 +330,48 @@ const buttonText = computed(() => {
   }
 });
 
+/**
+ * Computes the label for the "name" field based on the current locale.
+ *
+ * @returns {string} The label for the "name" field.
+ */
 const nameLabel = computed(() => t("messages.billing.firstName"));
+
+/**
+ * Computes the label for the "lastName" field based on the current locale.
+ *
+ * @returns {string} The label for the "lastName" field.
+ */
 const lastNameLabel = computed(() => t("messages.billing.lastName"));
 
+/**
+ * Computes the label for the "username" field based on the current locale.
+ *
+ * @returns {string} The label for the "username" field.
+ */
 const usernameLabel = computed(() => t("messages.account.emailOrUsername"));
 
+/**
+ * Computes the label for the "password" field based on the current locale.
+ *
+ * @returns {string} The label for the "password" field.
+ */
 const passwordLabel = computed(() => t("messages.account.password"));
 
+/**
+ * Computes the label for the "passwordConfirm" field based on the current locale.
+ *
+ * @returns {string} The label for the "passwordConfirm" field.
+ */
 const passwordConfirmLabel = computed(() =>
   t("messages.account.passwordConfirm")
 );
 
+/**
+ * Computes the placeholder values for the input fields based on the current locale.
+ *
+ * @returns {object} An object containing the placeholder values for the input fields.
+ */
 const inputPlaceholder = computed(() => {
   return {
     email: "johndoe@email.com",

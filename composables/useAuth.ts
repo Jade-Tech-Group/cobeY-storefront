@@ -83,7 +83,7 @@ export const useAuth = () => {
       return { success: true, error: null };
     } catch (error: any) {
       isPending.value = false;
-      return { success: false, error: "Invalid email or paswword" };
+      return { success: false, error: "already registered" };
     }
   };
   // Update the user state
@@ -92,7 +92,28 @@ export const useAuth = () => {
     accessToken.value = payload?.accessToken ?? null;
     isPending.value = false;
   };
-  const sendResetPasswordEmail = async () => {};
+
+  const sendResetPasswordEmail = async (
+    email: string
+  ): Promise<{ success: boolean; error: any }> => {
+    try {
+      isPending.value = true;
+      await $fetch(
+        `${conf.api.baseUrl}/${conf.api.services.auth.recoveryPass}?email=${email}&url=${window.location.origin}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return { success: true, error: null };
+    } catch (error: any) {
+      return { success: false, error: error.message };
+    } finally {
+      isPending.value = false;
+    }
+  };
 
   const resetPasswordWithKey = async ({
     key,

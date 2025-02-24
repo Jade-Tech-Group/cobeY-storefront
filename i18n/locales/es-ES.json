@@ -73,7 +73,7 @@
       "ifRegistered": "Si tu dirección de correo electrónico está registrada con nosotros, recibirás un correo electrónico con un enlace para restablecer tu contraseña.",
       "requestNewLink": "Solicita un nuevo enlace",
       "resetPassword": "Restablecer la contraseña",
-      "sendPasswordResetEmail": "Enviar correo electrónico de restablecimiento de contraseña",
+      "sendPasswordResetEmail": "Enviar correo electrónico",
       "register": "Registrarse",
       "accountRegister": "Registrarse",
       "accountLogin": "iniciar sesión",
@@ -207,7 +207,8 @@
       "invalidPasswordResetLink": "El enlace de restablecimiento de contraseña no es válido.",
       "general": "Ha ocurrido un error",
       "noOrder": "No hemos podido encontrar tu pedido. Por favor, inténtalo de nuevo más tarde.",
-      "notRegistered": "No hemos podido crear su cuenta. Por favor, inténtalo de nuevo más tarde."
+      "notRegistered": "No hemos podido crear su cuenta. Por favor, inténtalo de nuevo más tarde.",
+      "alreadyRegistered": "El correo electrónico ya esta en uso"
     },
     "notification":{
       "perfect": "Perfecto",
