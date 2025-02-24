@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <header class="sticky top-0 z-20 bg-white shadow-sm shadow-light-500">
+  <header class="sticky top-0 z-20 bg-primary-dark shadow-sm shadow-light-500">
     <div class="container flex items-center justify-between py-4">
       <div class="flex items-center">
         <MenuTrigger class="lg:hidden" />

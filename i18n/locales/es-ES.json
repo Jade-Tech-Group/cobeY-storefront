@@ -97,6 +97,7 @@
       "resendEmail": "Reenviar correo"
     },
     "shop": {
+      "featuredProducts": "Lo más destacado",
       "invalidCupon": "Cupón no valido",
       "delvery_address": "Direcciones de entrega",
       "goToTropipay":"Ir a Tropipay",
@@ -199,7 +200,7 @@
       "differentAddress": "¿Dirección de envío diferente?"
     },
     "error": {
-      "invalidUsernameAndPassword": "Correo o contraseña inválidos.",
+      "invalidUsernameAndPassword": "Correo o contraseña incorrectos.",
       "invalidUsername": "Nombre de usuario inválido. Por favor, regístrate.",
       "invalidPassword": "Contraseña inválida. Por favor, inténtalo de nuevo.",
       "passwordMismatch": "Las contraseñas no coinciden. Por favor, inténtalo de nuevo.",

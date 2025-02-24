@@ -11,7 +11,7 @@ const { hideCategories } = defineProps({ hideCategories: { type: Boolean, defaul
 <template>
   <aside id="filters">
     <OrderByDropdown class="block w-full md:hidden" />
-    <div class="relative z-30 grid mb-12 space-y-8 divide-y">
+    <div class="relative z-0 grid mb-12 space-y-8 divide-y">
       <PriceFilter />
       <CategoryFilter v-if="!hideCategories" :terms="stCategories.getAll" />
       <OnSaleFilter />

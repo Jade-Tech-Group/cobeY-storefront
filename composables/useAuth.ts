@@ -7,25 +7,30 @@ export const useAuth = () => {
   const returnUrl = useCookie<string>("returnUrl");
   const isPending = useState<boolean>("isPending", () => false);
   const unlogging = useState<boolean>("isPending", () => false);
-  const { refreshCart } = useCart()
+  const { refreshCart } = useCart();
   const { clearAllCookies } = useHelpers();
   const router = useRouter();
+
+  const { t } = useI18n();
 
   const loginUser = async (
     credentials: Login
   ): Promise<{ success: boolean; error: any } | undefined> => {
     isPending.value = true;
     try {
-      const response = await $fetch<Customer>(`${conf.api.baseUrl}${conf.api.services.auth.login}`, {
-        method: "POST",
-        body: JSON.stringify(credentials),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await $fetch<Customer>(
+        `${conf.api.baseUrl}${conf.api.services.auth.login}`,
+        {
+          method: "POST",
+          body: JSON.stringify(credentials),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       await updateCustomer(response);
-      refreshCart()
-      router.push(returnUrl.value ?? '/my-account')
+      refreshCart();
+      router.push(returnUrl.value ?? "/my-account");
       return {
         success: true,
         error: null,
@@ -33,7 +38,7 @@ export const useAuth = () => {
     } catch (error: any) {
       return {
         success: false,
-        error: "Invalid username or password",
+        error: t("messages.error.invalidUsernameAndPassword"),
       };
     } finally {
       isPending.value = false;
@@ -44,12 +49,12 @@ export const useAuth = () => {
   const logoutUser = async (): Promise<{ success: boolean; error: any }> => {
     try {
       clearAllCookies();
-      returnUrl.value = "/"
+      returnUrl.value = "/";
       return { success: true, error: null };
     } catch (error: any) {
       return { success: false, error };
     } finally {
-      refreshCart()
+      refreshCart();
       if (
         router.currentRoute.value.path === "/my-account" &&
         user.value === null
@@ -67,16 +72,13 @@ export const useAuth = () => {
   ): Promise<{ success: boolean; error: any }> => {
     isPending.value = true;
     try {
-      await $fetch(
-        `${conf.api.baseUrl}${conf.api.services.auth.register}`,
-        {
-          method: "POST",
-          body: JSON.stringify(userInfo),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await $fetch(`${conf.api.baseUrl}${conf.api.services.auth.register}`, {
+        method: "POST",
+        body: JSON.stringify(userInfo),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       isPending.value = false;
       return { success: true, error: null };
     } catch (error: any) {
@@ -90,7 +92,7 @@ export const useAuth = () => {
     accessToken.value = payload?.accessToken ?? null;
     isPending.value = false;
   };
-  const sendResetPasswordEmail = async () => { };
+  const sendResetPasswordEmail = async () => {};
 
   const resetPasswordWithKey = async ({
     key,
@@ -100,8 +102,7 @@ export const useAuth = () => {
     key: string;
     login: string;
     password: string;
-  }) => { };
-
+  }) => {};
 
   return {
     user,

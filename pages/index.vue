@@ -97,7 +97,7 @@ const [container] = useKeenSlider(
       </div>
     </section>
 
-    <section class="container my-16" v-if="stProducts.getFeatured">
+    <section class="container my-16" style="padding: '0.5rem';" v-if="stProducts.getFeatured">
       <div class="flex items-end justify-between">
         <h2 class="text-lg font-semibold md:text-2xl">
           {{ $t("messages.shop.popularProducts") }}

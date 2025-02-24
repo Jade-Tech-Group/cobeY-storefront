@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <nav>
+  <nav class="text-white font-semibold">
     <NuxtLink to="/products">{{ $t("messages.general.catalog") }}</NuxtLink>
     <NuxtLink to="/categories">{{ $t("messages.shop.category", 2) }}</NuxtLink>
     <NuxtLink to="/about-us">{{ $t("messages.general.aboutUs") }}</NuxtLink>

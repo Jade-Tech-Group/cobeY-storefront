@@ -13,6 +13,7 @@ export default <Partial<Config>>{
     container: {
       center: true,
       padding: "0.5rem",
+      background: "#dc6d0c",
     },
     extend: {
       colors: {

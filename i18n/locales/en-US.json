@@ -97,6 +97,7 @@
       "resendEmail": "Resend email"
     },
     "shop": {
+      "featuredProducts": "The highlight",
       "invalidCupon": "Invalid Cupon",
       "delvery_address": "Delivery Address",
       "goToTropipay":"Go to Tropipay",
