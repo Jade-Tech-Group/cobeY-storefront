@@ -53,7 +53,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: "es" },
-      link: [{ rel: "icon", href: "/logo.svg", type: "image/svg+xml" }],
+      link: [{ rel: "icon", href: "/logo2.svg", type: "image/svg+xml" }],
     },
     pageTransition: { name: "page", mode: "default" },
   },
