@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const stProfile = useProfileStore();
-const {paymentLink} = useCheckout()
 onMounted(()=>{
   stProfile.fetchBillingData()
 })
@@ -15,17 +14,16 @@ onMounted(()=>{
       class="opacity-25 mb-5"
     />
     <h2 class="text-2xl font-bold mb-2">
-      {{ $t("messages.shop.perfect") }} {{ stProfile.getBillingData.name }}
-      {{ stProfile.getBillingData.lastName }}
+      {{ $t("messages.shop.perfect") }} 
     </h2>
     <span class="text-gray-400 mb-4">{{
       $t("messages.shop.required_redirect")
     }}</span>
     <NuxtLink
-       :to="paymentLink"
+       to="/login-and-register"
       class="flex items-center justify-center gap-3 p-2 px-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-medium"
     >
-      {{ $t("messages.shop.goToTropipay") }}
+      {{ $t("messages.account.accountLogin") }}
     </NuxtLink>
   </div>
 </template>

@@ -5,6 +5,7 @@ export default {
       auth: {
         login: "/auth/login",
         register: "/auth/register",
+        recoveryPass: "user/reset-password-email"
       },
       categories: {
         list: "/category/with-products",

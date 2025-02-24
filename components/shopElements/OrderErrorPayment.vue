@@ -10,7 +10,7 @@
       </p>
       <div>
         <button
-          class="bg-primary rounded-lg font-bold mt-8 text-center text-white text-sm w-full p-2 px-3 inline-block hover:bg-primary-dark"
+          class="bg-primary rounded-lg font-bold mt-8 text-center text-white text-sm w-full p-2 px-3 inline-block hover:bg-primary-medium"
           :title="$t('messages.general.goHome')"
           aria-label="Clear all filters and search"
           @click="$router.push(`/`);">

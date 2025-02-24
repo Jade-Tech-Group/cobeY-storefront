@@ -140,7 +140,7 @@ onMounted(() => {
 const loading = ref<boolean>(false);
 const button = ref<{ text: string; color: string }>({
   text: t("messages.account.updateDetails"),
-  color: "bg-primary hover:bg-primary-dark",
+  color: "bg-primary hover:bg-primary-medium",
 });
 
 async function saveChanges(): Promise<void> {

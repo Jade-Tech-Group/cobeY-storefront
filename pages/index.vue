@@ -97,7 +97,7 @@ const [container] = useKeenSlider(
       </div>
     </section>
 
-    <section class="container my-16" v-if="stProducts.getFeatured">
+    <section class="container my-16" style="padding: '0.5rem';" v-if="stProducts.getFeatured">
       <div class="flex items-end justify-between">
         <h2 class="text-lg font-semibold md:text-2xl">
           {{ $t("messages.shop.popularProducts") }}
@@ -110,7 +110,7 @@ const [container] = useKeenSlider(
       />
     </section>
 
-    <section class="container grid gap-4 my-24 md:grid-cols-2 lg:grid-cols-4">
+    <section class="grid sm:gap-12 xs:gap-4 my-24 md:grid-cols-2 lg:grid-cols-4 bg-secondary py-10 sm:px-[10rem] xs:px-4">
       <div class="flex items-center gap-8 p-8 bg-white rounded-lg">
         <img
           src="/icons/box.svg"

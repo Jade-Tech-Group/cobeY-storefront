@@ -1,47 +1,41 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { user } = useAuth();
+</script>
 
 <template>
-  <footer class="bg-white order-last">
+  <footer class="bg-primary-dark order-last text-white px-2">
     <div
       class="container flex flex-wrap justify-between gap-12 my-24 md:gap-24"
     >
       <div class="mr-auto flex flex-col items-start justify-center">
-        <Logo />
+        <Logo class="w-[160px]" />
         <WebsiteShortDescription />
         <LangSwitcher class="mt-8" />
       </div>
       <div class="w-3/7 lg:w-auto">
-        <div class="mb-1 font-semibold">
+        <div class="mb-1 font-semibold text-secondary-dark text-lg">
           {{ $t("messages.general.product", 2) }}
         </div>
         <div class="text-sm">
           <NuxtLink to="/products" class="py-1.5 block">{{
-            $t("messages.shop.newArrivals")
+            $t("messages.shop.featuredProducts")
           }}</NuxtLink>
           <NuxtLink to="/products?filter=sale[true]" class="py-1.5 block">{{
             $t("messages.shop.onSale")
           }}</NuxtLink>
-          <NuxtLink
-            to="/products?orderby=rating&order=ASC&filter=rating[1]"
-            class="py-1.5 block"
-            >Top rated</NuxtLink
-          >
-          <a href="/" class="py-1.5 block">{{
-            $t("messages.shop.giftCards")
-          }}</a>
         </div>
       </div>
       <div class="w-3/7 lg:w-auto">
-        <div class="mb-1 font-semibold">
+        <div class="mb-1 font-semibold text-secondary-dark text-lg">
           {{ $t("messages.general.customerService") }}
         </div>
         <div class="text-sm">
           <NuxtLink to="/contact" class="py-1.5 block">{{
             $t("messages.general.contactUs")
           }}</NuxtLink>
-          <a href="/" class="py-1.5 block">{{
+          <!-- <a href="/" class="py-1.5 block">{{
             $t("messages.general.shippingReturns")
-          }}</a>
+          }}</a> -->
           <a href="/" class="py-1.5 block">{{
             $t("messages.general.privacyPolicy")
           }}</a>
@@ -51,27 +45,44 @@
         </div>
       </div>
       <div class="w-3/7 lg:w-auto">
-        <div class="mb-1 font-semibold">
+        <div class="mb-1 font-semibold text-secondary-dark text-lg">
           {{ $t("messages.account.myAccount") }}
         </div>
         <div class="text-sm">
-          <NuxtLink to="/my-account/" class="py-1.5 block">{{
-            $t("messages.account.myAccount")
-          }}</NuxtLink>
-          <NuxtLink to="/my-account/?tab=orders" class="py-1.5 block">{{
-            $t("messages.shop.orderHistory")
-          }}</NuxtLink>
-          <a href="/" class="py-1.5 block">{{
+          <NuxtLink
+            :to="user ? `/my-account/` : `/login-and-register/`"
+            class="py-1.5 block"
+            >{{
+              $t(
+                user
+                  ? "messages.account.myAccount"
+                  : "messages.account.loginToAccount"
+              )
+            }}</NuxtLink
+          >
+          <NuxtLink
+            :to="
+              user
+                ? `/my-account/?tab=my-details`
+                : `/login-and-register`
+            "
+            class="py-1.5 block"
+            >{{ $t("messages.shop.orderHistory") }}</NuxtLink
+          >
+          <!-- <a href="/" class="py-1.5 block">{{
             $t("messages.general.newsletter")
-          }}</a>
+          }}</a> -->
         </div>
       </div>
     </div>
-    <div class="container border-t flex items-center justify-center mb-4">
-      <div class="copywrite">
-        <p class="py-4 text-xs text-center">
-          <a href="https://jadetechgroup.com" title="JADE" target="_blank"
-            >Jade Soluciones Informáticas</a
+    <div
+      class="container border-t flex items-center justify-center mb-4 border-secondary"
+    >
+      <div class="md:w-96 xs:w-full flex flex-row xs:justify-center sm:justify-start">
+       
+        <p class="py-4 text-center text-md">
+          <a href="https://jadetechgroup.com" title="JADE" target="_blank" class="w-full flex gap-4 items-center justify-center"
+            >Desarrollado por: <img src="/icons/jade.svg" alt="jade" width="80"/></a
           >
         </p>
       </div>

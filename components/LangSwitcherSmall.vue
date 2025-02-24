@@ -19,7 +19,7 @@ const toggleLocale = () => {
   <div
     id="language-switcher"
     aria-label="Language switcher"
-    class="bg-white cursor-pointer"
+    class="bg-transparent cursor-pointer"
     :title="locale.name"
   >
     <img :src="flagImage" :alt="locale.name" @click="toggleLocale" />

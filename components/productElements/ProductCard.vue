@@ -46,7 +46,7 @@ const addToCart = async (item: Product) => {
 
 <template>
   <div
-    class="flex flex-col justify-between relative group border rounded-lg p-4 max-h-[409px]"
+    class="flex flex-col justify-between relative group border rounded-lg p-4 max-h-[409px] bg-zinc-100"
   >
     <NuxtLink
       v-if="node.id"
@@ -63,7 +63,7 @@ const addToCart = async (item: Product) => {
         :title="node.name.es"
         :loading="index <= 3 ? 'eager' : 'lazy'"
         :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
-        class="rounded-lg object-top object-cover w-full aspect-9/8"
+        class="rounded-lg object-top object-cover w-full aspect-9/8 to-transparent"
         placeholder
         placeholder-class="blur-xl"
       />

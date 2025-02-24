@@ -20,7 +20,7 @@
             >
             <span>{{ $t("messages.account.resendEmail") }}</span>
           </button>
-          <NuxtLink to="/my-account" class="text-center cursor-pointer text-primary">
+          <NuxtLink to="//login-and-register" class="text-center cursor-pointer text-primary">
             {{ $t("messages.account.backToLogin") }}
           </NuxtLink>
         </div>

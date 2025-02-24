@@ -73,7 +73,7 @@ const customer = {
 const { t } = useI18n();
 
 const loading = ref<boolean>(false);
-const button = ref<{ text: string; color: string }>({ text: t('messages.account.updateDetails'), color: 'bg-primary hover:bg-primary-dark' });
+const button = ref<{ text: string; color: string }>({ text: t('messages.account.updateDetails'), color: 'bg-primary hover:bg-primary-medium' });
 
 async function saveChanges() {
 

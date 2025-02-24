@@ -1,7 +1,7 @@
 {
   "messages": {
     "general": {
-      "qty":"Qty:",
+      "qty": "Qty:",
       "viewAll": "View All",
       "share": "Share",
       "date": "Date",
@@ -54,7 +54,7 @@
     },
     "account": {
       "textWarning": "Wait... You must log in or register to continue purchasing",
-      "noOrder":"No orders found.",
+      "noOrder": "No orders found.",
       "changePassword": "Change Password",
       "currentPassword": "Current Password",
       "password": "Password",
@@ -73,7 +73,7 @@
       "ifRegistered": "If your email address is registered with us, you will receive an email with a link to reset your password.",
       "requestNewLink": "Please request a new link",
       "resetPassword": "Reset password",
-      "sendPasswordResetEmail": "Send Password Reset Email",
+      "sendPasswordResetEmail": "Send Email",
       "register": "Register",
       "accountRegister": "Sign up",
       "accountLogin": "log in",
@@ -97,14 +97,15 @@
       "resendEmail": "Resend email"
     },
     "shop": {
+      "featuredProducts": "The highlight",
       "invalidCupon": "Invalid Cupon",
       "delvery_address": "Delivery Address",
-      "goToTropipay":"Go to Tropipay",
+      "goToTropipay": "Go to Tropipay",
       "perfect": "Perfect",
       "required_redirect": "Actions outside the store are needed to continue payment.",
-      "order_error":{
-        "title":"Error when paying the order. Try again later",
-        "subtitle":"An error occurred while trying to generate payment for the order. You can review the order details and try payment again"
+      "order_error": {
+        "title": "Error when paying the order. Try again later",
+        "subtitle": "An error occurred while trying to generate payment for the order. You can review the order details and try payment again"
       },
       "shopByCategory": "Shop by Category",
       "popularProducts": "Popular Products",
@@ -206,9 +207,10 @@
       "invalidPasswordResetLink": "Password reset link is invalid.",
       "general": "Something went wrong",
       "noOrder": "We could not find your order. Please try again later.",
-      "notRegistered": "We could not create your account. Please try again later."
-    }, 
-    "notification":{
+      "notRegistered": "We could not create your account. Please try again later.",
+      "alreadyRegistered": "Email is already in use"
+    },
+    "notification": {
       "perfect": "Perfect",
       "error": "Error",
       "updatedBilling": "Your billing information has been updated!",
