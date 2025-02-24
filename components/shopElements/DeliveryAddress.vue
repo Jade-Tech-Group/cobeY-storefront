@@ -48,7 +48,7 @@
       </div>
       <button
         v-if="!addDeliveryAddress && !editDeliveryAddress"
-        class="flex flex-row gap-1.5 hover:bg-primary-dark cursor-pointer py-2 px-4 mt-4 rounded bg-primary text-white"
+        class="flex flex-row gap-1.5 hover:bg-primary-medium cursor-pointer py-2 px-4 mt-4 rounded bg-primary text-white"
         @click="addDeliveryAddress = true"
       >
         <h2 class="text-sm font-semibold">

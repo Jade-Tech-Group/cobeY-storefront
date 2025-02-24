@@ -21,7 +21,7 @@ onMounted(()=>{
     }}</span>
     <NuxtLink
        to="/login-and-register"
-      class="flex items-center justify-center gap-3 p-2 px-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-dark"
+      class="flex items-center justify-center gap-3 p-2 px-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-medium"
     >
       {{ $t("messages.account.accountLogin") }}
     </NuxtLink>

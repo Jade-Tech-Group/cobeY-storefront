@@ -391,6 +391,6 @@ button {
 }
 
 form button {
-  @apply rounded-lg font-bold bg-gray-800 text-white py-3 px-8 hover:bg-gray-800;
+  @apply rounded-lg font-bold bg-primary text-white py-3 px-8 hover:bg-primary-medium;
 }
 </style>

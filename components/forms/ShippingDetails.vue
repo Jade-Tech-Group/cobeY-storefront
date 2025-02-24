@@ -173,7 +173,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
       </button>
       <button
         @click="handleSubmit"
-        class="flex items-center justify-center w-full py-2 px-4 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-gray-400"
+        class="flex items-center justify-center w-full py-2 px-4 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-medium disabled:cursor-not-allowed disabled:bg-gray-400"
       >
         {{ buttonText }}
         <LoadingIcon v-if="stProfile.loading" color="#fff" size="18" />

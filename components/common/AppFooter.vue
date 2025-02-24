@@ -3,17 +3,17 @@ const { user } = useAuth();
 </script>
 
 <template>
-  <footer class="bg-primary-dark order-last text-white">
+  <footer class="bg-primary-dark order-last text-white px-2">
     <div
       class="container flex flex-wrap justify-between gap-12 my-24 md:gap-24"
     >
       <div class="mr-auto flex flex-col items-start justify-center">
-        <Logo />
+        <Logo class="w-[160px]" />
         <WebsiteShortDescription />
         <LangSwitcher class="mt-8" />
       </div>
       <div class="w-3/7 lg:w-auto">
-        <div class="mb-1 font-semibold text-secondary text-lg">
+        <div class="mb-1 font-semibold text-secondary-dark text-lg">
           {{ $t("messages.general.product", 2) }}
         </div>
         <div class="text-sm">
@@ -26,7 +26,7 @@ const { user } = useAuth();
         </div>
       </div>
       <div class="w-3/7 lg:w-auto">
-        <div class="mb-1 font-semibold text-secondary text-lg">
+        <div class="mb-1 font-semibold text-secondary-dark text-lg">
           {{ $t("messages.general.customerService") }}
         </div>
         <div class="text-sm">
@@ -45,7 +45,7 @@ const { user } = useAuth();
         </div>
       </div>
       <div class="w-3/7 lg:w-auto">
-        <div class="mb-1 font-semibold text-secondary text-lg">
+        <div class="mb-1 font-semibold text-secondary-dark text-lg">
           {{ $t("messages.account.myAccount") }}
         </div>
         <div class="text-sm">
@@ -64,7 +64,7 @@ const { user } = useAuth();
             :to="
               user
                 ? `/my-account/?tab=my-details`
-                : `/login-and-register/?tab=login`
+                : `/login-and-register`
             "
             class="py-1.5 block"
             >{{ $t("messages.shop.orderHistory") }}</NuxtLink
@@ -78,11 +78,11 @@ const { user } = useAuth();
     <div
       class="container border-t flex items-center justify-center mb-4 border-secondary"
     >
-      <div class="w-96 flex flex-row">
+      <div class="md:w-96 xs:w-full flex flex-row xs:justify-center sm:justify-start">
        
         <p class="py-4 text-center text-md">
           <a href="https://jadetechgroup.com" title="JADE" target="_blank" class="w-full flex gap-4 items-center justify-center"
-            >Desarrollado por: <img src="/icons/jade.svg" alt="jade" /></a
+            >Desarrollado por: <img src="/icons/jade.svg" alt="jade" width="80"/></a
           >
         </p>
       </div>

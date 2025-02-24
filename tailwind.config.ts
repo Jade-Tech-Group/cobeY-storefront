@@ -20,12 +20,13 @@ export default <Partial<Config>>{
         primary: {
           light: "#AE7DDD",
           DEFAULT: process.env.PRIMARY_COLOR || "#FF7A01",
-          dark: "#5c156c",
+          medium: "#4b1258",
+          dark: "#35083f",
         },
         secondary: {
-          light: "#AE7DDD",
-          DEFAULT: process.env.SECONDARY_COLOR || "#dc6d0c",
-          dark: "#af590f",
+          light: "#ef7a14",
+          DEFAULT: process.env.SECONDARY_COLOR || "#ef7a14",
+          dark: "#ef7a14",
         },
       },
       aspectRatio: {

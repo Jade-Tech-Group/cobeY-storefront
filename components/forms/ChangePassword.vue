@@ -83,7 +83,7 @@ watchEffect(() => {
 const loading = ref<boolean>(false);
 const button = ref<{ text: string; color: string }>({
   text: t("messages.account.updatePassword"),
-  color: "bg-primary hover:bg-primary-dark",
+  color: "bg-primary hover:bg-primary-medium",
 });
 
 const errorMessage = ref<string>("");
