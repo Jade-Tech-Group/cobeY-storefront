@@ -8,7 +8,7 @@ const { toggleCart, cart } = useCart();
     title="Cart"
     @click="toggleCart"
   >
-    <Icon name="ion:cart" size="24" class="mr-1 md:mr-0 text-white mt-1.5" />
+    <Icon name="ion:cart" size="24" class="mr-1 md:mr-0 text-white" />
     <ClientOnly>
       <Transition name="popIn" mode="out-in">
         <span
