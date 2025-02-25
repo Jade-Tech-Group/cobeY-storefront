@@ -4,18 +4,19 @@
   <header class="sticky top-0 z-20 bg-primary-dark shadow-sm shadow-light-500">
     <div class="container flex items-center justify-between py-4">
       <div class="flex items-center">
-        <MenuTrigger class="lg:hidden" />
+        <MenuTrigger class="lg:hidden text-white"/>
         <Logo class="md:w-[160px]" />
       </div>
       <MainMenu
         class="items-center hidden gap-6 text-sm text-gray-500 lg:flex lg:px-4 uppercase ml-12"
+        :drawer="false"
       />
       <div
         class="flex justify-end items-center md:w-[160px] flex-1 ml-auto gap-4 md:gap-6"
       >
         <ProductSearch class="hidden sm:inline-flex max-w-[320px] w-[60%]" />
         <LangSwitcherSmall />
-        <div class="flex gap-4 items-center">
+        <div class="flex flex-row justify-center gap-4 items-center">
           <SignInLink />
           <div class="flex flex-col items-center justify-center">
             <CartTrigger />
