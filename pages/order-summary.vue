@@ -23,6 +23,10 @@ onMounted(async () => {
   await getOrder();
 });
 
+async function payNow() {
+ 
+}
+
 async function getOrder() {
   await storeOrder.getById(params.orderId as string);
   if (storeOrder.getCurrent) {
@@ -67,6 +71,15 @@ useSeoMeta({
             <h1 class="text-xl font-semibold">
               {{ $t("messages.shop.orderSummary") }}
             </h1>
+            <button
+              v-if="order.status === 'PENDING'"
+              class="bg-primary hover:bg-primary-dark rounded-md flex font-semibold ml-auto text-white py-2 px-4 gap-4 items-center disabled:bg-gray-400 disabled:cursor-not-allowed"
+              :disabled="loading"
+              @click="payNow"
+            >
+              <LoadingIcon v-if="loading" color="#fff" size="20" />
+              <span>{{ $t("messages.shop.checkoutButton") }}</span>
+            </button>
           </div>
         </template>
         <template v-else-if="isCheckoutPage">
@@ -142,7 +155,9 @@ useSeoMeta({
                 />
                 <div class="text-sm text-gray-600">{{ item.name[locale] }}</div>
               </NuxtLink>
-              <div class="text-sm text-gray-600">{{$t('messages.general.qty')}} {{ item.amount }}</div>
+              <div class="text-sm text-gray-600">
+                {{ $t("messages.general.qty") }} {{ item.amount }}
+              </div>
               <span class="text-sm font-semibold">{{
                 formatPrice(String(item.sale_price))
               }}</span>
@@ -158,15 +173,16 @@ useSeoMeta({
               formatPrice(String(storeOrder.getCurrent.subtotal_price))
             }}</span>
           </div>
-          
+
           <div class="flex justify-between">
             <span>{{ $t("messages.general.shipping") }}</span>
-            <span  v-if="storeOrder.getCurrent.shipping_method !== 'STORE_PICKUP'">{{
-              formatPrice(String(storeOrder.getCurrent.total_price))
-            }}</span>
-            <span  v-else>{{
-              formatPrice(String(0.00))
-            }}</span>
+            <span
+              v-if="storeOrder.getCurrent.shipping_method !== 'STORE_PICKUP'"
+              >{{
+                formatPrice(String(storeOrder.getCurrent.total_price))
+              }}</span
+            >
+            <span v-else>{{ formatPrice(String(0.0)) }}</span>
           </div>
           <div
             v-if="storeOrder.getCurrent.coupon_id"

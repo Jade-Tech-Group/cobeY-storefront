@@ -6,13 +6,13 @@
           <div
             v-for="(node, index) in nodes"
             :key="index"
-            class="keen-slider__slide fader__slide"
+            class="keen-slider__slide fader__slide min-w-full"
             :style="{ opacity: opacities[index] }"
           >
             <NuxtImg
-              width="1400"
+              width="1920"
               height="800"
-              class="object-cover w-full h-[420px] lg:h-[560px] xl:h-[640px]"
+              class="cover w-full h-[420px] lg:h-[560px] xl:h-[680px] cursor-pointer"
               :src="node.desktop_image"
               alt="Hero image"
               loading="eager"
