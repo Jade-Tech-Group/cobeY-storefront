@@ -12,18 +12,12 @@ const linkTitle = computed<string>(() => user.value?.email || "Sign In");
 <template>
   <NuxtLink
     :title="linkTitle"
-    class="hidden sm:inline-flex aspect-square items-center"
+    class="hidden sm:inline-flex aspect-square"
   >
     <Transition name="pop-in" mode="out-in">
       <span v-if="user" class="relative avatar cursor-pointer">
-        <img
-          src="https://secure.gravatar.com/avatar/af4f8d831b90b41270e66c5ef083c78b?s=96&d=mm&r=g"
-          class="rounded-full transform scale-125 shadow-md overflow-hidden border border-white my-auto"
-          width="22"
-          height="22"
-          :alt="linkTitle"
-        />
-        <div class="account-dropdown">
+        <Icon name="ion:person" class="text-white" size="22" />
+        <div class="account-dropdown items-center justify-center">
           <NuxtLink to="/my-account" class="hover:bg-gray-100"
             ><Icon name="ion:person-outline" size="16" /><span>{{
               $t("messages.account.myAccount")
@@ -59,7 +53,7 @@ const linkTitle = computed<string>(() => user.value?.email || "Sign In");
 
 .avatar {
   .account-dropdown {
-    @apply absolute gap-2 top-6 -right-2  z-50 p-2 bg-white border border-gray-200 rounded-lg shadow-lg text-sm text-gray-700 hidden;
+    @apply flex absolute gap-2 top-6 -right-2  z-50 p-2 bg-white border border-gray-200 rounded-lg shadow-lg text-sm text-gray-700 hidden;
 
     a,
     button {
