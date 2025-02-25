@@ -1,6 +1,7 @@
 {
   "messages": {
     "general": {
+      "welcome": "Bienvenido",
       "qty":"Cant:",
       "viewAll": "Ver todo",
       "share": "Compartir",

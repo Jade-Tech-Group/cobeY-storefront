@@ -22,7 +22,7 @@ useSeoMeta({
             <div
               class="flex-1 text-balance leading-tight w-full text-ellipsis overflow-hidden"
             >
-              <div class="text-lg font-semibold">Welcome, {{ user?.name }}</div>
+              <div class="text-lg font-semibold">{{ $t('messages.general.welcome') }}, {{ user?.name }}</div>
               <span
                 v-if="user?.email"
                 class="text-gray-400 font-light"

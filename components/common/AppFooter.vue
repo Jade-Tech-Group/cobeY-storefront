@@ -17,7 +17,7 @@ const { user } = useAuth();
           {{ $t("messages.general.product", 2) }}
         </div>
         <div class="text-sm">
-          <NuxtLink to="/products" class="py-1.5 block">{{
+          <NuxtLink to="products?filter=featured[true]" class="py-1.5 block">{{
             $t("messages.shop.featuredProducts")
           }}</NuxtLink>
           <NuxtLink to="/products?filter=sale[true]" class="py-1.5 block">{{
@@ -63,7 +63,7 @@ const { user } = useAuth();
           <NuxtLink
             :to="
               user
-                ? `/my-account/?tab=my-details`
+                ? `/my-account/?tab=orders`
                 : `/login-and-register`
             "
             class="py-1.5 block"

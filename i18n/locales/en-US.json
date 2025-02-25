@@ -1,6 +1,7 @@
 {
   "messages": {
     "general": {
+      "welcome": "Welcome",
       "qty": "Qty:",
       "viewAll": "View All",
       "share": "Share",
