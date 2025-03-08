@@ -24,5 +24,18 @@ export const useCategoriesStore = defineStore("categories", {
         this.loading = false;
       }
     },
+    async fetchByDpto(department_id: string): Promise<void> {
+      this.loading = true;
+      try {
+        const response = await $fetch<{data: Category[]}>(
+          `${conf.api.baseUrl}${conf.api.services.categories.list}?department_id=${department_id}`
+        );
+        this.categories = response.data;
+        this.loading = false;
+      } catch (error: unknown) {
+        console.error(error);
+        this.loading = false;
+      }
+    },
   },
 });

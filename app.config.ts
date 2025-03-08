@@ -4,14 +4,13 @@
  * Below are the default values.
  */
 export default defineAppConfig({
-  siteName: "COBE Y +",
-  shortDescription:
-    "Tienda online. Proveemos productos de alta calidad garantizada y con precios muy competentes",
-  description: `
-      Aquí encontrarás los mejores productos del mercado`,
-  baseUrl: "https://cobey-api.onrender.com/api/v1",
-  siteImage:
-    "https://github.com/Jade-Tech-Group/cobeY-storefront/blob/master/public/images/tienda.png",
+  siteName:process.env.SITE_NAME,
+  shortDescription:process.env.SHORT_DESCRIPTION,
+  description:process.env.DESCRIPTION,
+  baseUrl: process.env.BASE_URL,
+  siteImage:process.env.SITE_IMG,
+  urlPaymentSuccess:process.env.URL_PAYMENT_SUCCESS,
+  urlPaymentFail:process.env.URL_PAYMENT_FAIL,
   storeSettings: {
     autoOpenCart: false,
     showReviews: true,
@@ -24,6 +23,6 @@ export default defineAppConfig({
     showMoveToWishlist: true,
     hideBillingAddressForVirtualProducts: false,
     initStoreOnUserActionToReduceServerLoad: true,
-    saleBadge: "percent", // 'percent', 'onSale' or 'hidden'
+    saleBadge: "percent", 
   },
 });

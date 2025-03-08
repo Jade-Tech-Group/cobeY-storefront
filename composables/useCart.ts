@@ -62,7 +62,7 @@ export function useCart() {
       addToCart(cart.value.products);
     } else {
       updateTotal();
-      setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
+      setItem("STORE_PRODUCT_CART", JSON.stringify(cart.value));
     }
   }
 
@@ -77,7 +77,7 @@ export function useCart() {
       addToCart(cart.value.products);
     } else {
       updateTotal();
-      setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
+      setItem("STORE_PRODUCT_CART", JSON.stringify(cart.value));
     }
   }
 
@@ -127,7 +127,7 @@ export function useCart() {
             ),
           };
           // Save the updated cart to local storage
-          setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
+          setItem("STORE_PRODUCT_CART", JSON.stringify(cart.value));
         } else {
           cart.value = initialCart;
         }
@@ -143,7 +143,7 @@ export function useCart() {
     } else {
       // If no access token is present, attempt to retrieve the cart from local storage
       cart.value =
-        JSON.parse(getItem("COBEY_PRODUCT_CART") as any) || initialCart;
+        JSON.parse(getItem("STORE_PRODUCT_CART") as any) || initialCart;
       isUpdatingCart.value = false;
       // Indicate success
       return true;
@@ -152,12 +152,12 @@ export function useCart() {
 
   function resetInitialState() {
     cart.value = initialCart;
-    setItem("COBEY_PRODUCT_CART", JSON.stringify(initialCart));
+    setItem("STORE_PRODUCT_CART", JSON.stringify(initialCart));
   }
 
   function updateCart(payload: Cart): void {
     cart.value = payload || initialCart;
-    setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
+    setItem("STORE_PRODUCT_CART", JSON.stringify(cart.value));
   }
   // toggle the cart visibility
   function toggleCart(state: boolean | undefined = undefined): void {
@@ -228,7 +228,7 @@ export function useCart() {
       (product) => product.id !== productId
     );
     updateTotal();
-    setItem("COBEY_PRODUCT_CART", JSON.stringify(cart.value));
+    setItem("STORE_PRODUCT_CART", JSON.stringify(cart.value));
     isUpdatingCart.value = false;
   }
 

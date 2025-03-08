@@ -46,14 +46,14 @@ export interface Profile {
 }
 
 export interface Security {
-  user_id: string,
-  oldPassword: string,
-  newPassword: string
+  user_id: string;
+  oldPassword: string;
+  newPassword: string;
 }
 
 export interface GeoLocation {
   name: string;
-  code: string
+  code: string;
 }
 
 export interface User {
@@ -66,6 +66,17 @@ export interface User {
   passwordConfirm: string;
   id: string;
 }
+export interface Department {
+  id: string;
+  header_image: string;
+  desktop_image: string;
+  mobile_image: string;
+  name: {
+    en: string;
+    es: string;
+  };
+  order: number;
+}
 
 export interface Order {
   id: string;
@@ -73,7 +84,13 @@ export interface Order {
   order_number: string;
   year: number;
   user: User;
-  products: { id: string; amount: number; sale_price: number, standard_image: string, name: { es: string, en: string } }[];
+  products: {
+    id: string;
+    amount: number;
+    sale_price: number;
+    standard_image: string;
+    name: { es: string; en: string };
+  }[];
   coupon_id: string;
   note: string;
   payment_method: string;
@@ -109,15 +126,15 @@ export interface ProductCart {
 }
 
 export interface Cart {
-  id: string,
-  amount: number,
-  coupon_discount: string,
-  coupon_id: string,
-  coupon_code: string,
-  delivery_cost: string,
-  delivery_method: string,
-  subtotal_price: string,
-  total_price: string,
+  id: string;
+  amount: number;
+  coupon_discount: string;
+  coupon_id: string;
+  coupon_code: string;
+  delivery_cost: string;
+  delivery_method: string;
+  subtotal_price: string;
+  total_price: string;
   products: Product[];
 }
 
@@ -144,6 +161,7 @@ export default interface Product {
   order: number;
   stock: number;
   category_id: string;
+  department_id: string;
   measure_unit: string;
   measure_unit_amount: number;
   createdAt: string;
@@ -152,7 +170,6 @@ export default interface Product {
   percent: number;
   price: string;
   sale_price: string;
-  categoryId: string;
   expireAt: string;
   name: { en: string; es: string };
   description: { en: string; es: string };
@@ -161,7 +178,8 @@ export default interface Product {
   favorite: boolean;
   id: string;
   category: Category;
-  amount: number
+  department: Department;
+  amount: number;
 }
 
 export interface NuxtFilter {
@@ -194,7 +212,7 @@ export interface Banner {
 }
 
 export interface Customer {
-  accessToken: string
+  accessToken: string;
   name: string;
   last_name: string;
   email: string;

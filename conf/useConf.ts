@@ -1,17 +1,19 @@
+import appConfig from "~/app.config";
+
 export default {
   api: {
-    baseUrl: "https://cobey-api.onrender.com/api/v1",
+    baseUrl: appConfig.baseUrl,
     services: {
       auth: {
         login: "/auth/login",
         register: "/auth/register",
         recoveryPass: "user/reset-password-email"
       },
+      departments: {
+        list: "/department",
+      },
       categories: {
         list: "/category/with-products",
-        add: "/category",
-        edit: "/category",
-        del: "/category",
       },
       banner: {
         list: "/banner",
