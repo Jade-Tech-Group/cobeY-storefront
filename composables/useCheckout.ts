@@ -1,6 +1,7 @@
 import useConf from "~/conf/useConf";
 import type { BillingAddress, Order } from "~/types";
 import { useI18n } from "vue-i18n";
+import appConfig from "~/app.config";
 
 export function useCheckout() {
   const { t } = useI18n();
@@ -39,8 +40,8 @@ export function useCheckout() {
             delivery_address_id: delivery_method !== 'STORE_PICKUP' ? deliveryAddressId : '',
             payment_method: paymentMethod,
             note: note,
-            url_payment_success: 'https://cobey-storefront.onrender.com',
-            url_payment_fail: 'https://cobey-storefront.onrender.com',
+            url_payment_success: appConfig.urlPaymentSuccess,
+            url_payment_fail: appConfig.urlPaymentSuccess,
           }),
           headers: {
             "Content-Type": "application/json",

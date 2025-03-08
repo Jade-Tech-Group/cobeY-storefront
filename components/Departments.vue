@@ -15,13 +15,13 @@ const { locale } = useI18n();
   <NuxtLink
     v-if="node"
     :to="`/product-category/${decodeURIComponent(node.id)}`"
-    class="relative flex justify-center overflow-hidden rounded-xl item snap-mandatory snap-x sm:min-w-[160px] sm:min-h-[180px]"
+    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x sm:min-w-[160px] sm:min-h-[180px]"
   >
     <NuxtImg
       :width="imgWidth"
       :height="imgHeight"
       class="absolute inset-0 object-cover w-full h-full"
-      :src="node.image || FALLBACK_IMG"
+      :src="node.desktop_image || FALLBACK_IMG"
       :alt="node.name.es"
       :title="node.name.es"
       :loading="imageLoading"
@@ -33,7 +33,7 @@ const { locale } = useI18n();
       class="absolute inset-x-0 bottom-0 opacity-50 bg-gradient-to-t from-black to-transparent h-1/2"
     />
     <span
-      class="relative z-10 mt-auto mb-2 text-sm font-semibold text-white capitalize md:text-base md:mb-4 text-center"
+      class="relative z-10 mt-auto mb-2 text-sm font-semibold text-white uppercase md:text-base md:mb-4 text-center"
       v-html="node.name[locale]"
     />
   </NuxtLink>

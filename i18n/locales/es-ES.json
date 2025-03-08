@@ -98,6 +98,7 @@
       "resendEmail": "Reenviar correo"
     },
     "shop": {
+      "departments": "Departamentos",
       "featuredProducts": "Lo más destacado",
       "invalidCupon": "Cupón no valido",
       "delvery_address": "Direcciones de entrega",

@@ -24,7 +24,7 @@ export default <Partial<Config>>{
           dark: "#35083f",
         },
         secondary: {
-          light: "#ef7a14",
+          light: "#dc6d0c4d",
           DEFAULT: process.env.SECONDARY_COLOR || "#ef7a14",
           dark: "#ef7a14",
         },
