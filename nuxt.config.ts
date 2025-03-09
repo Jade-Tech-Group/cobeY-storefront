@@ -53,7 +53,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: "es" },
-      link: [{ rel: "icon", href: "/logo2.svg", type: "image/svg+xml" }],
+      link: [{ rel: "icon", href: "/FAVICON.webp", type: "image/svg+xml" }],
     },
     pageTransition: { name: "page", mode: "default" },
   },
@@ -75,9 +75,19 @@ export default defineNuxtConfig({
         "product-category/[id].vue"
       );
       addPage(
+        "product-department-page",
+        "/product-department/:departmentSlug",
+        "product-department/[id].vue"
+      );
+      addPage(
         "product-category-page-pager",
         "/product-category/:categorySlug/page/:pageNumber",
         "product-category/[id].vue"
+      );
+      addPage(
+        "product-department-page-pager",
+        "/product-department/:departmentSlug/page/:pageNumber",
+        "product-department/[id].vue"
       );
       addPage(
         "order-received",

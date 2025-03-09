@@ -47,13 +47,13 @@ export function useFiltering() {
       // If filterValue is empty, remove the filter query
       newFilterQuery = !filterValue.length
         ? filterQuery.value.replace(
-            `${filterName}[${getFilter(filterName)}]`,
-            ""
-          )
+          `${filterName}[${getFilter(filterName)}]`,
+          ""
+        )
         : filterQuery.value.replace(
-            `${filterName}[${getFilter(filterName)}]`,
-            `${filterName}[${filterValue}]`
-          );
+          `${filterName}[${getFilter(filterName)}]`,
+          `${filterName}[${filterValue}]`
+        );
     }
 
     // remove the first or last comma
@@ -123,19 +123,24 @@ export function useFiltering() {
         ? category.includes(product.category_id)
         : true;
 
+      const department = getFilter("department") || []; // ["department-slug"]
+      const departmentCondition = department.length
+        ? department.includes(product.department_id)
+        : true;
+
       // price filter
       const priceRange = getFilter("price") || []; // ["0", "100"]
       // Variable products returns an array of prices, so we need to find the highest price.
       const productPrice = product.sale_price
         ? parseFloat(
-            [...product.sale_price.split(",")].reduce((a, b) =>
-              String(Math.max(Number(a), Number(b)))
-            )
+          [...product.sale_price.split(",")].reduce((a, b) =>
+            String(Math.max(Number(a), Number(b)))
           )
+        )
         : 0;
       const priceCondition = priceRange.length
         ? productPrice >= parseFloat(priceRange[0] as string) &&
-          productPrice <= parseFloat(priceRange[1] as string)
+        productPrice <= parseFloat(priceRange[1] as string)
         : true;
       // onSale filter
       const onSale = getFilter("onSale") || [];
@@ -144,8 +149,8 @@ export function useFiltering() {
       // featured filter
       const featured = getFilter("featured") || [];
       const saleItemsfeatured = featured.length ? product.featured : true;
-      
-      return categoryCondition  && priceCondition && saleItemsfeatured && saleItemsOnSale
+
+      return categoryCondition && departmentCondition && priceCondition && saleItemsfeatured && saleItemsOnSale
     });
   }
 

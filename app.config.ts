@@ -4,7 +4,7 @@
  * Below are the default values.
  */
 export default defineAppConfig({
-  siteName:process.env.SITE_NAME,
+  siteName: "Cobe Y +",
   shortDescription:process.env.SHORT_DESCRIPTION,
   description:process.env.DESCRIPTION,
   baseUrl: process.env.BASE_URL,
