@@ -7,7 +7,7 @@ const id = route.params.id;
 
 const stProducts = useProductsStore();
 
-await stProducts.fetchByDepartment(id as string);
+await stProducts.fetchByDepartment (id as string);
 await stProducts.fetchOnSale();
 
 setProducts(stProducts.byDepartment);

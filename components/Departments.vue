@@ -14,7 +14,7 @@ const { locale } = useI18n();
 <template>
   <NuxtLink
     v-if="node"
-    :to="`/product-category/${decodeURIComponent(node.id)}`"
+    :to="`/product-department/${decodeURIComponent(node.id)}`"
     class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x sm:min-w-[160px] sm:min-h-[180px]"
   >
     <NuxtImg

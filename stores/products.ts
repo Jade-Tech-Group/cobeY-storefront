@@ -12,6 +12,7 @@ export const useProductsStore = defineStore("products", {
     current: {} as Product,
     related: [] as Product[],
     byCategory: [] as Product[],
+    byDepartment: [] as Product[],
     count: 0,
   }),
   getters: {
@@ -46,6 +47,22 @@ export const useProductsStore = defineStore("products", {
           `${conf.api.baseUrl}${conf.api.services.product.available}?&category_id=${category_id}`
         );
         this.byCategory = response.data.map((r) => ({
+          ...r,
+          amount: 1,
+        }));
+        this.loading = false;
+      } catch (error: unknown) {
+        console.error(error);
+        this.loading = false;
+      }
+    },
+    async fetchByDepartment(department_id: string): Promise<void> {
+      this.loading = true;
+      try {
+        const response = await $fetch<{ data: Product[] }>(
+          `${conf.api.baseUrl}${conf.api.services.product.available}?&department_id=${department_id}`
+        );
+        this.byDepartment = response.data.map((r) => ({
           ...r,
           amount: 1,
         }));

@@ -1,8 +1,6 @@
-import appConfig from "~/app.config";
-
 export default {
   api: {
-    baseUrl: appConfig.baseUrl,
+    baseUrl: "https://cobey-api.onrender.com/api/v1",
     services: {
       auth: {
         login: "/auth/login",
