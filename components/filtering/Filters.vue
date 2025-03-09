@@ -3,8 +3,15 @@ const { isFiltersActive } = useFiltering();
 const { removeBodyClass } = useHelpers();
 const { storeSettings } = useAppConfig();
 const stCategories = useCategoriesStore();
-await stCategories.fetch();
-const { hideCategories } = defineProps({ hideCategories: { type: Boolean, default: false } });
+const stDepartments = useDepartmentsStore();
+const props = defineProps({
+  hideCategories: { type: Boolean, default: false },
+  hideDepartments: { type: Boolean, default: false },
+  department: { type: String, default: '' },
+});
+const route = useRoute()
+await props.department ? stCategories.fetch(): stCategories.fetchByDpto(route.params.id as string);
+await stDepartments.fetch();
 
 </script>
 
@@ -13,7 +20,8 @@ const { hideCategories } = defineProps({ hideCategories: { type: Boolean, defaul
     <OrderByDropdown class="block w-full md:hidden" />
     <div class="relative z-0 grid mb-12 space-y-8 divide-y">
       <PriceFilter />
-      <CategoryFilter v-if="!hideCategories" :terms="stCategories.getAll" />
+      <DepartmentFilter v-if="!props.hideDepartments" :terms="stDepartments.getAll" />
+      <CategoryFilter v-if="!props.hideCategories" :terms="stCategories.getAll" />
       <OnSaleFilter />
       <LazyResetFiltersButton v-if="isFiltersActive" />
     </div>
