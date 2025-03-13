@@ -210,7 +210,9 @@
       "general": "Something went wrong",
       "noOrder": "We could not find your order. Please try again later.",
       "notRegistered": "We could not create your account. Please try again later.",
-      "alreadyRegistered": "Email is already in use"
+      "alreadyRegistered": "Email is already in use",
+      "pageNotFound": "Page Not Found",
+      "pageNotFoundText": "The page you are trying to access does not exist or is unavailable. Please check the address or go back to the top."
     },
     "notification": {
       "perfect": "Perfect",
