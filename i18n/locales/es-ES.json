@@ -210,7 +210,9 @@
       "general": "Ha ocurrido un error",
       "noOrder": "No hemos podido encontrar tu pedido. Por favor, inténtalo de nuevo más tarde.",
       "notRegistered": "No hemos podido crear su cuenta. Por favor, inténtalo de nuevo más tarde.",
-      "alreadyRegistered": "El correo electrónico ya esta en uso"
+      "alreadyRegistered": "El correo electrónico ya esta en uso",
+      "pageNotFound": "No se ha encontrado la página",
+      "pageNotFoundText": "La página a la que está intentando acceder no existe o no está disponible. Revise la dirección o vaya al inicio."
     },
     "notification":{
       "perfect": "Perfecto",
