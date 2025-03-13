@@ -28,6 +28,16 @@ watch(
 
 useHead({
   titleTemplate: `${siteName}`,
+  meta: [
+    { property: 'og:type', content: 'website' },
+    { property: 'og:site_name', content: siteName },
+    { property: 'icon', content: "/icons/og-cobe-icon.ico" },
+    { property: "og:image", content: "/images/og-cobe-image.jpg"},
+    { property: 'og:image:width', content: '1137' },
+    { property: 'og:image:height', content: '1136' },
+    { property: 'twitter:card', content: 'summary_large_image' },
+    { property: 'twitter:image', content: '/images/og-cobe-image.jpg' },
+  ],
 });
 
 </script>
