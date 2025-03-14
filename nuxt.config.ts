@@ -41,22 +41,27 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    preset: 'node-server',
     routeRules: {
       "/": { prerender: true },
       "/products/**": { swr: 3600 },
       "/order-summary/**": { ssr: false },
+      "/product/**": { ssr: true },
     },
   },
   runtimeConfig: {
     apiUrl: process.env.BASE_URL,
   },
   app: {
+    baseURL: '/',
     head: {
       htmlAttrs: { lang: "es" },
       link: [{ rel: "icon", href: "/FAVICON.webp", type: "image/svg+xml" }],
     },
     pageTransition: { name: "page", mode: "default" },
   },
+
+  ssr: true,
 
   hooks: {
     "pages:extend"(pages) {
