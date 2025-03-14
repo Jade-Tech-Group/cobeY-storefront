@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: cobeymas
+    env: node
+    buildCommand: npm run build
+    startCommand: node .output/server/index.mjs
+    envVars:
+      - key: NODE_VERSION
+        value: 18.19.0
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /
