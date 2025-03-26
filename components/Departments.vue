@@ -6,7 +6,7 @@ const props = defineProps({
   imageLoading: { type: String as PropType<"lazy" | "eager">, default: "lazy" },
 });
 
-const imgWidth = 220;
+const imgWidth = 120;
 const imgHeight = Math.round(imgWidth * 1.125);
 const { locale } = useI18n();
 </script>
@@ -15,7 +15,7 @@ const { locale } = useI18n();
   <NuxtLink
     v-if="node"
     :to="`/product-department/${decodeURIComponent(node.id)}`"
-    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x sm:min-w-[160px] sm:min-h-[180px]"
+    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x sm:min-w-[140px] sm:min-h-[160px]"
   >
     <NuxtImg
       :width="imgWidth"
@@ -25,7 +25,7 @@ const { locale } = useI18n();
       :alt="node.name.es"
       :title="node.name.es"
       :loading="imageLoading"
-      :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
+      :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px xs:${imgWidth / 4}px`"
       placeholder
       placeholder-class="blur-xl"
     />
@@ -43,6 +43,6 @@ const { locale } = useI18n();
 .item {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 9;
 }
 </style>

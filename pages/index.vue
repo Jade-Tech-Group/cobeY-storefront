@@ -81,7 +81,7 @@ const [container] = useKeenSlider(
   <main>
     <HeroBanner :nodes="stBanners.getAll" />
     <section class="container my-16">
-      <div ref="container" class="keen-slider mt-8 w-full gap-6">
+      <div ref="container" class="keen-slider sm:mt-8 w-full gap-6">
         <Departments
           v-for="(dep, i) in stDepartments.getAll"
           :key="i"

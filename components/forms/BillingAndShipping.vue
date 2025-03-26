@@ -71,12 +71,12 @@
 
       <div class="w-full">
         <label for="billing-city">{{ $t("messages.billing.country") }}</label>
-        <input
+        <CountrySelect
           id="billing-city"
           v-model="storeProfile.getBillingData.country"
+           :default-value="storeProfile.getBillingData"
           placeholder="EEUU"
-          autocomplete="address-level2"
-          type="text"
+          autocomplete="country"
         />
       </div>
 

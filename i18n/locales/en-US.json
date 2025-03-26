@@ -77,7 +77,7 @@
       "sendPasswordResetEmail": "Send Email",
       "register": "Register",
       "accountRegister": "Sign up",
-      "accountLogin": "log in",
+      "accountLogin": "Log in",
       "noAccount": "Don't have an account?",
       "hasAccount": "Already have an account?",
       "accountCreated": "Your account has been created.",
@@ -93,9 +93,13 @@
       "failed": "Failed to update",
       "verification": "Vetify your email",
       "congrats": "Congratulations! You have completed the registration successfully.",
-      "verifyText": "To activate your account, you must verify your email. We have sent an email to your email address with a verification link. Please check your inbox and follow the instructions to verify your email.",
+      "verifyText": {
+        "first": "Already have the first step completed, just needd review the email that we sended you.",
+        "second": "to registrater completed."
+      },
       "notSendedEmail": " If you have not received the email, you can request that it be resended.",
-      "resendEmail": "Resend email"
+      "resendEmail": "Resend email",
+      "activationSuccess": "We're delighted to have you as a new customer and hope you enjoy our products."
     },
     "shop": {
       "departments": "Departments",
@@ -223,6 +227,27 @@
       "updatedBillingError": "Your billing information wasn't updated!",
       "updatedPwd": "Your password has been updated!",
       "updatedPwdError": "Your password wasn't updated!"
+    },
+    "delivery": {
+      "delivery": "Delivery",
+      "deliveryDetails": "Delivery Details",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "address1": "Address 1",
+      "address2": "Address 2",
+      "city": "City",
+      "dni": "Identity",
+      "state": "State",
+      "zip": "Postal Code / ZIP",
+      "country": "Country",
+      "countryCode": "Country Code",
+      "phone": "Phone",
+      "address": "Address",
+      "email": "Email",
+      "paymentOptions": "Payment Options",
+      "creditCard": "Credit Card",
+      "cashOnDelivery": "Cash on Delivery",
+      "differentAddress": "Ship to a different address?"
     }
   }
 }

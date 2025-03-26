@@ -44,7 +44,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     class="grid w-full gap-4 lg:grid-cols-2"
   >
     <div class="w-full">
-      <label for="name">{{ $t("messages.billing.firstName") }}</label>
+      <label for="name">{{ $t("messages.delivery.firstName") }}</label>
       <input
         id="name"
         v-model="shipping.name"
@@ -56,7 +56,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     </div>
 
     <div class="w-full">
-      <label for="last-name">{{ $t("messages.billing.lastName") }}</label>
+      <label for="last-name">{{ $t("messages.delivery.lastName") }}</label>
       <input
         id="last-name"
         v-model="shipping.last_name"
@@ -68,7 +68,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     </div>
    
     <div class="w-full">
-      <label for="phone_number">{{ $t("messages.billing.phone") }}</label>
+      <label for="phone_number">{{ $t("messages.delivery.phone") }}</label>
       <input
         id="phone_number"
         v-model="shipping.phone_number"
@@ -79,7 +79,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
       />
     </div>
     <div class="w-full">
-      <label for="email">{{ $t("messages.billing.email") }}</label>
+      <label for="email">{{ $t("messages.delivery.email") }}</label>
       <input
         id="email"
         v-model="shipping.email"
@@ -91,7 +91,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     </div>
 
     <div class="w-full col-span-full">
-      <label for="address">{{ $t("messages.billing.address1") }}</label>
+      <label for="address">{{ $t("messages.delivery.address1") }}</label>
       <input
         id="address"
         v-model="shipping.deliveryAddress_street"
@@ -103,7 +103,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     </div>
 
     <div class="w-full col-span-full">
-      <label for="dni">{{ $t("messages.billing.dni") }}</label>
+      <label for="dni">{{ $t("messages.delivery.dni") }}</label>
       <input
         id="dni"
         v-model="shipping.dni"
@@ -115,7 +115,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     </div>
 
     <div class="w-full">
-      <label for="country">{{ $t("messages.billing.country") }}</label>
+      <label for="country">{{ $t("messages.delivery.country") }}</label>
       <CountrySelect
         id="country"
         v-model="shipping.country"
@@ -126,7 +126,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
 
     <div class="w-full">
       <label for="state"
-        >{{ $t("messages.billing.state") }} ({{
+        >{{ $t("messages.delivery.state") }} ({{
           $t("messages.general.optional")
         }})</label
       >
@@ -141,7 +141,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     </div>
 
     <div class="w-full">
-      <label for="city">{{ $t("messages.billing.city") }}</label>
+      <label for="city">{{ $t("messages.delivery.city") }}</label>
       <input
         id="city"
         v-model="shipping.city"
@@ -153,7 +153,7 @@ props.action === 'edit' ? updateAddress(shipping.value.id, shipping.value): addA
     </div>
 
     <div class="w-full">
-      <label for="zip">{{ $t("messages.billing.zip") }}</label>
+      <label for="zip">{{ $t("messages.delivery.zip") }}</label>
       <input
         id="zip"
         v-model="shipping.postal_code"

@@ -77,7 +77,7 @@
       "sendPasswordResetEmail": "Enviar correo electrónico",
       "register": "Registrarse",
       "accountRegister": "Registrarse",
-      "accountLogin": "iniciar sesión",
+      "accountLogin": "Iniciar sesión",
       "noAccount": "¿No tienes una cuenta?",
       "hasAccount": "¿Ya tienes una cuenta?",
       "accountCreated": "Tu cuenta ha sido creada.",
@@ -91,11 +91,15 @@
       "save": "Guardar",
       "updateSuccess": "Actualizado con éxito",
       "failed": "Error al actualizar",
-      "verification": "Vetifica tu cuenta",
+      "verification": "Verifica tu cuenta",
       "congrats": "¡Felicidades! Has completado el registro con éxito.",
-      "verifyText": "Para activar tu cuenta, debes verificar tu correo electrónico. Hemos enviado un correo electrónico a tu dirección de correo electrónico con un enlace de verificación.Por favor, revisa tu bandeja de entrada y sigue las instrucciones para verificar tu correo electrónico.",
-      "notSendedEmail": " Si no has recibido el correo electrónico, puedes solicitar que sereenvíe.",
-      "resendEmail": "Reenviar correo"
+      "verifyText": {
+        "first": "Ya tienes el primer paso del registro completado, sólo necesitas revisar el correo que enviamos",
+        "second": "para poder completar tu registro."
+      },
+      "notSendedEmail": " Si no has recibido el correo electrónico, puedes solicitar que se reenvíe.",
+      "resendEmail": "Reenviar correo",
+      "activationSuccess": "Estamos encantados de tenerte como nuevo cliente y esperamos que disfrutes de nuestros productos"
     },
     "shop": {
       "departments": "Departamentos",
@@ -187,8 +191,8 @@
       "lastName": "Apellido",
       "address1": "Dirección",
       "address2": "Dirección 2",
-      "city": "Provincia",
-      "state": "Municipio",
+      "city": "Ciudad",
+      "state": "Estado",
       "zip": "Código Postal / ZIP",
       "country": "País",
       "dni": "Carnét de identidad",
@@ -223,6 +227,27 @@
       "updatedBillingError": "Tus datos de facturación no fueron actualizados!",
       "updatedPwd": "¡Se ha actualizado tu contraseña!",
       "updatedPwdError": "¡No se ha actualizado tu contraseña!"
+    },
+    "delivery": {
+      "delivery": "Envío",
+      "deliveryDetails": "Detalles de envío",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "address1": "Dirección",
+      "address2": "Dirección 2",
+      "city": "Municipio",
+      "state": "Provincia",
+      "zip": "Código Postal / ZIP",
+      "country": "País",
+      "dni": "Carnét de identidad",
+      "countryCode": "Código de país",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "email": "Correo electrónico",
+      "paymentOptions": "Opciones de pago",
+      "creditCard": "Tarjeta de crédito",
+      "cashOnDelivery": "Contra reembolso",
+      "differentAddress": "¿Dirección de envío diferente?"
     }
   }
 }

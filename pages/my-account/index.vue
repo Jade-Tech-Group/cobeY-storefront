@@ -80,7 +80,7 @@ useSeoMeta({
             </NuxtLink>
           </nav>
 
-          <template class="hidden lg:block">
+          <template class="hidden sm:block">
             <hr class="my-8" />
             <button
               class="flex text-gray-700 items-center gap-4 p-2 px-4 w-full rounded-lg hover:bg-white hover:text-red-700"
