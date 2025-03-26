@@ -12,7 +12,7 @@
             <NuxtImg
               width="1920"
               height="800"
-              class="cover w-full h-[420px] lg:h-[560px] xl:h-[680px] cursor-pointer"
+              class="cover w-full h-[420px] cursor-pointer"
               :src="node.desktop_image"
               alt="Hero image"
               loading="eager"

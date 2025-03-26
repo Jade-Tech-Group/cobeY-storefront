@@ -55,14 +55,13 @@ export function useSearching() {
 
     return search
       ? products.filter((product: Product) => {
-          const name =
-            product.name.es.toLowerCase() || product.name.en.toLowerCase();
-          const description = product.description
+          const productName = product.name.es.toLowerCase() || product.name.en.toLowerCase();
+          const productDescription = product.description
             ? product.description.es.toLowerCase() ||
               product.description.en.toLowerCase()
             : null;
           const query = search.toLowerCase();
-          return name?.includes(query) ?? description?.includes(query);
+          return productName?.includes(query) || productDescription?.includes(query);
         })
       : products;
   }
