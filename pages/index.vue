@@ -42,7 +42,6 @@ const [container] = useKeenSlider(
         slides: { perView: 7, spacing: 20 },
       },
     },
-
   },
   [
     (slider: any) => {
@@ -80,24 +79,35 @@ const [container] = useKeenSlider(
 <template>
   <main>
     <HeroBanner :nodes="stBanners.getAll" />
-    <section class="container my-16">
-      <div ref="container" class="keen-slider sm:mt-8 w-full gap-6">
+    <section class="container sm:my-16">
+      <div
+        ref="container"
+        class="grid justify-center grid-cols-2 gap-4 lg:grid-cols-3 my-8 items-center"
+      >
         <Departments
           v-for="(dep, i) in stDepartments.getAll"
           :key="i"
-          class="keen-slider__slide"
+          class="w-full"
           :node="dep"
         />
       </div>
     </section>
 
-    <section class="container my-16" style="padding: '0.5rem';" v-if="stProducts.getFeatured">
-      <div class="flex flex-row items-center justify-between gap-8">
-        <h2 class="text-lg font-semibold md:text-2xl">
+    <section
+      class="container my-16"
+      style="padding: '0.5rem'"
+      v-if="stProducts.getFeatured"
+    >
+      <div class="flex flex-row items-center justify-between gap-2">
+        <h2 class="text-lg font-semibold md:text-2xl xs:text-md">
           {{ $t("messages.shop.popularProducts") }}
         </h2>
         <div class="flex-1 border border-gray-200 text-center"></div>
-        <NuxtLink class="rounded-full border p-3 text-secondary font-bold text-lg" to="/products?filter=featured[true]">{{ $t("messages.general.viewAll") }}</NuxtLink>
+        <NuxtLink
+          class="rounded-full border p-3 text-secondary font-bold sm:text-lg xs:text-sm w-28 text-center"
+          to="/products?filter=featured[true]"
+          >{{ $t("messages.general.viewAll") }}</NuxtLink
+        >
       </div>
       <ProductRow
         :products="stProducts.getFeatured"
@@ -105,7 +115,9 @@ const [container] = useKeenSlider(
       />
     </section>
 
-    <section class="grid sm:gap-12 xs:gap-4 my-24 md:grid-cols-2 lg:grid-cols-4 bg-secondary-light py-10 sm:px-[10rem] xs:px-4">
+    <section
+      class="grid sm:gap-12 xs:gap-4 my-24 md:grid-cols-2 lg:grid-cols-4 bg-secondary-light py-10 sm:px-[10rem] xs:px-4"
+    >
       <div class="flex items-center gap-8 p-8 bg-white rounded-lg">
         <img
           src="/icons/box.svg"
@@ -161,12 +173,16 @@ const [container] = useKeenSlider(
     </section>
 
     <section class="container my-16" v-if="stProducts.getOnSale">
-      <div class="flex items-center justify-between gap-8">
+      <div class="flex items-center justify-between gap-2">
         <h2 class="text-lg font-semibold md:text-2xl">
           {{ $t("messages.general.productsOnSale") }}
         </h2>
         <div class="flex-1 border border-gray-200 text-center"></div>
-        <NuxtLink class="rounded-full border p-3 text-secondary font-bold text-lg"  to="/products?filter=onSale[true]">{{ $t("messages.general.viewAll") }}</NuxtLink>
+        <NuxtLink
+          class="rounded-full border p-3 text-secondary font-bold sm:text-lg xs:text-sm w-28 text-center"
+          to="/products?filter=onSale[true]"
+          >{{ $t("messages.general.viewAll") }}</NuxtLink
+        >
       </div>
       <ProductRow
         :products="stProducts.getOnSale"
@@ -174,7 +190,9 @@ const [container] = useKeenSlider(
       />
     </section>
 
-    <section class="w-full grid sm:gap-12 xs:gap-4 bg-secondary-light py-10 sm:px-[10rem] xs:px-4">
+    <section
+      class="w-full grid sm:gap-12 xs:gap-4 bg-secondary-light py-10 sm:px-[10rem] xs:px-4"
+    >
       <div ref="container" class="keen-slider w-full">
         <CategoryCardRounded
           v-for="(category, i) in stCategories.getAll"
@@ -185,13 +203,21 @@ const [container] = useKeenSlider(
       </div>
     </section>
 
-    <section class="container my-16" style="padding: '0.5rem';" v-if="stProducts.getFeatured">
-      <div class="flex flex-row items-center justify-between gap-8">
+    <section
+      class="container my-16"
+      style="padding: '0.5rem'"
+      v-if="stProducts.getFeatured"
+    >
+      <div class="flex flex-row items-center justify-between gap-2">
         <h2 class="text-lg font-semibold md:text-2xl">
           {{ $t("messages.shop.popularProducts") }}
         </h2>
         <div class="flex-1 border border-gray-200 text-center"></div>
-        <NuxtLink class="rounded-full border p-3 text-secondary font-bold text-lg" to="/products?filter=featured[true]">{{ $t("messages.general.viewAll") }}</NuxtLink>
+        <NuxtLink
+          class="rounded-full border p-3 text-secondary font-bold text-lg"
+          to="/products?filter=featured[true]"
+          >{{ $t("messages.general.viewAll") }}</NuxtLink
+        >
       </div>
       <ProductRow
         :products="stProducts.getFeatured"

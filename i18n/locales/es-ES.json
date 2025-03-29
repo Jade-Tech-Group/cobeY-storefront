@@ -54,6 +54,7 @@
       "refresh": "Refrescar lista"
     },
     "account": {
+      "login_or_register": "Inicia sesión o regístrate",
       "textWarning": "Espera... Debes iniciar sesión o registrarte para continuar con la compra",
       "noOrder":"No tiene órdenes registradas.",
       "changePassword": "Cambiar contraseña",
