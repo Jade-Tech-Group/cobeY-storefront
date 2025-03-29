@@ -254,7 +254,7 @@ const handleFormSubmit = async (userInfo: User) => {
       router.push("/emailSended");
     } else {
       if(response.error === 'already registered'){
-        errorMessage.value = t("messages.error.alreadyRegistered  ");
+        errorMessage.value = t("messages.error.alreadyRegistered");
       }else{
         // Set error message if registration fails
         errorMessage.value = t("messages.error.notRegistered");

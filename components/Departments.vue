@@ -6,7 +6,7 @@ const props = defineProps({
   imageLoading: { type: String as PropType<"lazy" | "eager">, default: "lazy" },
 });
 
-const imgWidth = 120;
+const imgWidth = 220;
 const imgHeight = Math.round(imgWidth * 1.125);
 const { locale } = useI18n();
 </script>
@@ -15,8 +15,7 @@ const { locale } = useI18n();
   <NuxtLink
     v-if="node"
     :to="`/product-department/${decodeURIComponent(node.id)}`"
-    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x sm:min-w-[140px] sm:min-h-[160px]"
-  >
+    class="relative flex justify-center overflow-hidden border border-white rounded-xl item snap-mandatory snap-x">
     <NuxtImg
       :width="imgWidth"
       :height="imgHeight"
@@ -25,15 +24,13 @@ const { locale } = useI18n();
       :alt="node.name.es"
       :title="node.name.es"
       :loading="imageLoading"
-      :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px xs:${imgWidth / 4}px`"
+      :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
       placeholder
       placeholder-class="blur-xl"
     />
-    <div
-      class="absolute inset-x-0 bottom-0 opacity-50 bg-gradient-to-t from-black to-transparent h-1/2"
-    />
+    <div class="absolute inset-x-0 bottom-0 opacity-50 bg-gradient-to-t from-black to-transparent h-1/2" />
     <span
-      class="relative z-10 mt-auto mb-2 text-sm font-semibold text-white uppercase md:text-base md:mb-4 text-center"
+      class="relative z-10 mt-auto mb-2 text-sm font-semibold text-white capitalize md:text-base md:mb-4"
       v-html="node.name[locale]"
     />
   </NuxtLink>
@@ -43,6 +40,6 @@ const { locale } = useI18n();
 .item {
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 7 / 4;
 }
 </style>

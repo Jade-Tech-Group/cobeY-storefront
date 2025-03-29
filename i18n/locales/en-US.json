@@ -54,6 +54,7 @@
       "refresh": "Refresh list"
     },
     "account": {
+      "login_or_register": "Login or register",
       "textWarning": "Wait... You must log in or register to continue purchasing",
       "noOrder": "No orders found.",
       "changePassword": "Change Password",
