@@ -207,6 +207,8 @@
       "differentAddress": "Ship to a different address?"
     },
     "error": {
+      "passwordValidation": "Password must be at least 8 characters long and contain at least one uppercase letter, one number, and one special character.",
+      "passwordMatch": "Passwords do not match.",
       "invalidUsernameAndPassword": "Invalid username and password",
       "invalidUsername": "No account found with that username. Sign up for a new account.",
       "incorrectPassword": "Incorrect password. Please try again.",

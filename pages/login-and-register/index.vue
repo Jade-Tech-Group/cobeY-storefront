@@ -91,6 +91,7 @@
                 formView === 'login' ? 'current-password' : 'new-password'
               "
               :required="true"
+              :validation="passwordValidation"
             />
           </label>
           <label
@@ -101,12 +102,13 @@
             {{ passwordConfirmLabel }} <span class="text-red-500">*</span>
             <br />
             <PasswordInput
-              id="password"
+              id="passwordConfirm"
               className="border rounded-lg w-full p-3 px-4 bg-white"
               v-model="userInfo.passwordConfirm"
               :placeholder="inputPlaceholder.passwordConfirm"
               autocomplete="current-password"
               :required="true"
+              :validation="passwordMatchValidation"
             />
           </label>
         </div>
@@ -122,6 +124,20 @@
             v-if="errorMessage"
             class="my-4 text-sm text-red-500"
             v-html="errorMessage"
+          ></div>
+        </Transition>
+        <Transition name="scale-y" mode="out-in">
+          <div
+            v-if="passwordValidation"
+            class="my-4 text-sm text-red-500"
+            v-html="passwordValidation"
+          ></div>
+        </Transition>
+        <Transition name="scale-y" mode="out-in">
+          <div
+            v-if="passwordMatchValidation"
+            class="my-4 text-sm text-red-500"
+            v-html="passwordMatchValidation"
           ></div>
         </Transition>
         <button class="flex items-center justify-center gap-4 mt-4 text-lg">
@@ -148,7 +164,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useAuth } from "~/composables/useAuth";
 import type { User } from "~/types";
+import { useI18n } from "vue-i18n";
+import { useCart } from "~/composables/useCart";
 
 const { t } = useI18n(); // Internationalization function
 const route = useRoute(); // Provides current route information
@@ -177,6 +198,7 @@ const message = ref("");
 
 // Reactive variable to store error messages
 const errorMessage = ref("");
+
 /**
  * Updates the form view based on the current route query.
  *
@@ -242,6 +264,7 @@ const login = async (userInfo: User) => {
 const handleFormSubmit = async (userInfo: User) => {
   // Handle registration form submission
   if (formView.value === "register") {
+    if (passwordValidation.value || passwordMatchValidation.value) return;
     const response = await registerUser(userInfo);
     if (response.success) {
       // Clear any error messages and display success message
@@ -253,9 +276,9 @@ const handleFormSubmit = async (userInfo: User) => {
       // Redirect to email sent confirmation page
       router.push("/emailSended");
     } else {
-      if(response.error === 'already registered'){
+      if (response.error === "already registered") {
         errorMessage.value = t("messages.error.alreadyRegistered");
-      }else{
+      } else {
         // Set error message if registration fails
         errorMessage.value = t("messages.error.notRegistered");
       }
@@ -381,6 +404,30 @@ const inputPlaceholder = computed(() => {
     password: "********",
     passwordConfirm: "********",
   };
+});
+
+const passwordValidation = computed(() => {
+  if (formView.value === "login") return null;
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/;
+  if (!userInfo.value.password) {
+    return null; // No validation if the password is empty
+  }
+  if (!passwordRegex.test(userInfo.value.password)) {
+    return t("messages.error.passwordValidation");
+  }
+  return null; // Password is valid
+});
+
+const passwordMatchValidation = computed(() => {
+  if (formView.value === "login") return null;
+  if (!userInfo.value.passwordConfirm) {
+    return null; // No validation if the password confirmation is empty
+  }
+  if (userInfo.value.password !== userInfo.value.passwordConfirm) {
+    return t("messages.error.passwordMatch");
+  }
+  return null; // Passwords match
 });
 </script>
 

@@ -3,7 +3,7 @@ const { setProducts, updateProductList } = useProducts();
 const { isQueryEmpty } = useHelpers();
 const { storeSettings } = useAppConfig();
 const route = useRoute();
-const id = route.params.id;
+const id = route.params.id as string;
 
 const stProducts = useProductsStore();
 

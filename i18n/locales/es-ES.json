@@ -207,6 +207,8 @@
       "differentAddress": "¿Dirección de envío diferente?"
     },
     "error": {
+      "passwordValidation": "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.",
+      "passwordMatch": "Las contraseñas no coinciden.",
       "invalidUsernameAndPassword": "Correo o contraseña incorrectos.",
       "invalidUsername": "Nombre de usuario inválido. Por favor, regístrate.",
       "invalidPassword": "Contraseña inválida. Por favor, inténtalo de nuevo.",

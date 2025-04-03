@@ -54,5 +54,25 @@ export const useOrdersStore = defineStore("orders", {
         this.loading = false;
       }
     },
+    async patchOrdersStatus(id: string): Promise<void> {
+      this.loading = true;
+      try {
+        const response = await $fetch<Order>(
+          `${useConf.api.baseUrl}${useConf.api.services.order.patch}/${id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${useAuth().accessToken.value}`,
+            }
+          }
+        );
+        this.currentOrder = response;
+        this.loading = false;
+      } catch (error: unknown) {
+        console.error(error);
+        this.loading = false;
+      }
+    },
   },
 });
