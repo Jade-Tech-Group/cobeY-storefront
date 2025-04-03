@@ -1,5 +1,5 @@
 import useConf from "~/conf/useConf";
-import type { BillingAddress } from "~/types";
+import type { BillingAddress, Order } from "~/types";
 import { useI18n } from "vue-i18n";
 
 export function useCheckout() {
@@ -39,8 +39,8 @@ export function useCheckout() {
             delivery_address_id: delivery_method !== 'STORE_PICKUP' ? deliveryAddressId : '',
             payment_method: paymentMethod,
             note: note,
-            url_payment_success: 'https://cobey-storefront.onrender.com',
-            url_payment_fail: 'https://cobey-storefront.onrender.com',
+            url_payment_success: 'https://maxihabana.onrender.com/',
+            url_payment_fail: 'https://maxihabana.onrender.com/',
           }),
           headers: {
             "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export function useCheckout() {
           },
         }
       );
-      paymentLink.value = response.paymentUrl
+      paymentLink.value = response.shortUrl
       errorOrder.value = false
     } catch (error) {
       errorOrder.value = true

@@ -23,7 +23,7 @@ onMounted(()=>{
     }}</span>
     <NuxtLink
        :to="paymentLink"
-      class="flex items-center justify-center gap-3 p-2 px-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-medium"
+      class="cursor-pointer flex items-center justify-center gap-3 p-2 px-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-medium"
     >
       {{ $t("messages.shop.goToTropipay") }}
     </NuxtLink>

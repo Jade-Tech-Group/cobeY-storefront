@@ -10,10 +10,7 @@ const buttonText = ref<string>(
     : t("messages.shop.checkoutButton")
 );
 const isCheckoutDisabled = computed<boolean>(
-  () =>
-    isProcessingOrder.value ||
-    !activePaymentMethod.value ||
-    !activeDeliveryAddress.value
+  () => isProcessingOrder.value || !activePaymentMethod.value
 );
 const newDeliveryAddress = ref<DeliveryAddress>({
   id: "",
@@ -179,7 +176,7 @@ function onClickLogin() {
                 </div>
                 <BillingDetails v-model="billingData" />
               </div>
-  
+
               <div class="w-full relative bg-white rounded-lg shadow-lg p-8">
                 <h3 class="mb-4 text-xl font-semibold">
                   {{ $t("messages.general.shippingSelect") }}
@@ -195,7 +192,9 @@ function onClickLogin() {
                 class="w-full relative bg-white rounded-lg shadow-lg p-8"
               >
                 <div v-if="cart.delivery_method === 'DELIVERY'">
-                  <div class="w-full flex flex-row justify-between items-center">
+                  <div
+                    class="w-full flex flex-row justify-between items-center"
+                  >
                     <h2 class="mb-4 text-xl font-semibold">
                       {{ $t("messages.general.shippingDetails") }}
                     </h2>
@@ -240,7 +239,8 @@ function onClickLogin() {
                   </div>
                   <div
                     v-if="
-                      stProfile.deliveryAddress.length === 0 || addDeliveryAddress
+                      stProfile.deliveryAddress.length === 0 ||
+                      addDeliveryAddress
                     "
                   >
                     <ShippingDetails
@@ -289,7 +289,11 @@ function onClickLogin() {
                 :disabled="isCheckoutDisabled"
               >
                 {{ buttonText
-                }}<LoadingIcon v-if="isProcessingOrder" color="#fff" size="18" />
+                }}<LoadingIcon
+                  v-if="isProcessingOrder"
+                  color="#fff"
+                  size="18"
+                />
               </button>
             </OrderSummary>
           </form>
@@ -312,10 +316,13 @@ function onClickLogin() {
             {{ $t("messages.shop.browseOurProducts") }}
           </NuxtLink>
         </div>
-        <LoadingIcon v-if="isUpdatingCart" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-25"/>
+        <LoadingIcon
+          v-if="isUpdatingCart"
+          class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-25"
+        />
       </div>
       <div v-else>
-        <LoadingIcon class="mt-8"/>
+        <LoadingIcon class="mt-8" />
       </div>
     </template>
   </div>
