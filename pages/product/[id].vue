@@ -8,7 +8,7 @@ const id = route.params.id as string;
 
 const stProduct = useProductsStore();
 await stProduct.fetchById(id);
-const idCategory = stProduct.getCurrent.categoryId;
+const idCategory = stProduct.getCurrent.category_id;
 await stProduct.fetchRelatedCategory(idCategory, 1, 10);
 
 if (!stProduct.getCurrent) {
@@ -110,7 +110,7 @@ const storeAuth = useAuth();
           <div
             v-if="
               storeSettings.showProductCategoriesOnSingleProduct &&
-              stProduct.getCurrent.categoryId
+              stProduct.getCurrent.category_id
             "
           >
             <div class="grid gap-2 my-8 text-sm">

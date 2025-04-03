@@ -1,22 +1,31 @@
-<script setup lang="ts">
-</script>
 <template>
-  <div class="w-full my-16 lg:my-24">
-    <div class="flex flex-col items-center justify-center w-full text-center text-pretty">
-      <Icon name="ion:sad-outline" size="156" class="opacity-25 mb-10" />
-      <h2 class="text-2xl font-bold">{{ $t('messages.shop.order_error.title') }}</h2>
-      <p class="mt-4 max-w-md">
-        <slot>{{ $t('messages.shop.order_error.subtitle') }}</slot>
-      </p>
-      <div>
-        <button
-          class="bg-primary rounded-lg font-bold mt-8 text-center text-white text-sm w-full p-2 px-3 inline-block hover:bg-primary-medium"
-          :title="$t('messages.general.goHome')"
-          aria-label="Clear all filters and search"
-          @click="$router.push(`/`);">
-          {{ $t('messages.general.goHome') }}
-        </button>
-      </div>
-    </div>
+  <div class="h-screen flex flex-col justify-center items-center outline px-6">
+    <SectionHeader class="my-4 mb-16">
+      <HeaderDescription class="max-w-[600px] text-md text-gray-900">
+        <b>¡Vaya!</b> Hubo un fallo en el pago. Vuelva a intentarlo
+      </HeaderDescription>
+    </SectionHeader>
+    <NuxtLink
+      :to="`/order-summary/${props.orderid}`"
+      class="xs:w-fit"
+      ><span class="xs:w-fit">Revisar estado de la orden</span>
+    </NuxtLink>
   </div>
 </template>
+
+<script setup lang="ts">
+
+const props = defineProps({
+  status: {
+    type: String,
+    required: true,
+  },
+  message: {
+    type: String,
+    default: "",
+  },
+  orderid: {
+    type: String,
+  },
+});
+</script>
