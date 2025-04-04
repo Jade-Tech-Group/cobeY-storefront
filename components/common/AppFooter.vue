@@ -10,6 +10,10 @@ const { user } = useAuth();
       <div class="mr-auto flex flex-col items-start justify-center">
         <Logo class="w-[160px]" />
         <WebsiteShortDescription />
+        <div class="flex flex-col gap-2 py-2">
+          <p>✉️ ventas@cobeymas.com</p>
+          <p>📞 +53 5 259 9746</p>
+        </div>
         <LangSwitcher class="mt-8" />
       </div>
       <div class="w-3/7 lg:w-auto">

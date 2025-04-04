@@ -31,8 +31,8 @@
         @submit.prevent="handleFormSubmit(userInfo)"
         id="login-form"
       >
-        <div class="w-full flex flex-row gap-4" v-if="formView === 'register'">
-          <label for="name" class="w-full">
+        <div class="w-full flex sm:flex-row xs:flex-col sm:gap-4 xs:gap-0" v-if="formView === 'register'">
+          <label for="name" class="sm:w-1/2 xs:w-full">
             {{ nameLabel }}
             <span class="text-red-500">*</span> <br />
             <input
@@ -44,7 +44,7 @@
               required
             />
           </label>
-          <label for="last_name" class="w-full">
+          <label for="last_name" class="sm:w-1/2 xs:w-full">
             {{ lastNameLabel }}
             <span class="text-red-500">*</span> <br />
             <input
@@ -75,7 +75,7 @@
             required
           />
         </label>
-        <div class="w-full flex flex-row gap-4">
+        <div class="w-full flex sm:flex-row xs:flex-col gap-4">
           <label
             for="password"
             v-if="formView !== 'forgotPassword'"
@@ -91,7 +91,6 @@
                 formView === 'login' ? 'current-password' : 'new-password'
               "
               :required="true"
-              :validation="passwordValidation"
             />
           </label>
           <label
@@ -108,7 +107,6 @@
               :placeholder="inputPlaceholder.passwordConfirm"
               autocomplete="current-password"
               :required="true"
-              :validation="passwordMatchValidation"
             />
           </label>
         </div>
@@ -264,7 +262,24 @@ const login = async (userInfo: User) => {
 const handleFormSubmit = async (userInfo: User) => {
   // Handle registration form submission
   if (formView.value === "register") {
-    if (passwordValidation.value || passwordMatchValidation.value) return;
+    isPending.value = true;
+    errorMessage.value = "";
+
+    const passwordError = passwordValidation.value;
+    const passwordMatchError = passwordMatchValidation.value;
+
+    if (passwordError) {
+      errorMessage.value = passwordError;
+      isPending.value = false;
+      return;
+    }
+
+    if (passwordMatchError) {
+      errorMessage.value = passwordMatchError;
+      isPending.value = false;
+      return;
+    }
+
     const response = await registerUser(userInfo);
     if (response.success) {
       // Clear any error messages and display success message
