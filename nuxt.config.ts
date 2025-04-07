@@ -56,7 +56,7 @@ export default defineNuxtConfig({
     baseURL: '/',
     head: {
       htmlAttrs: { lang: "es" },
-      link: [{ rel: "icon", href: "/FAVICON.webp", type: "image/svg+xml" }],
+      link: [{ rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
     },
     pageTransition: { name: "page", mode: "default" },
   },
