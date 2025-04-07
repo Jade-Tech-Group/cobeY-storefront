@@ -6,7 +6,7 @@ const { user, logoutUser, unlogging } = useAuth();
 </script>
 
 <template>
-  <nav class="text-primary-dark font-semibold">
+  <nav class="text-primary-dark sm:text-white font-semibold">
     <NuxtLink to="/products">{{ $t("messages.general.catalog") }}</NuxtLink>
     <NuxtLink to="/categories">{{ $t("messages.shop.category", 2) }}</NuxtLink>
     <NuxtLink to="/about-us">{{ $t("messages.general.aboutUs") }}</NuxtLink>
