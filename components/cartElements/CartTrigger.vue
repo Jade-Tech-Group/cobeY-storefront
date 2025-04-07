@@ -4,7 +4,7 @@ const { toggleCart, cart } = useCart();
 
 <template>
   <div
-    class="relative cursor-pointer inline-flex"
+    class="relative cursor-pointer inline-flex px-4"
     title="Cart"
     @click="toggleCart"
   >
