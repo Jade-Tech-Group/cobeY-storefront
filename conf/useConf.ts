@@ -27,7 +27,7 @@ export default {
         list: "/order/client",
         create: "/order",
         byId: "/order",
-        patch: "/order",
+        patch: "/order/setPayed",
       },
       profile: {
         customer: 'user/profile',
