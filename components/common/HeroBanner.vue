@@ -10,13 +10,10 @@
             :style="{ opacity: opacities[index] }"
           >
             <NuxtImg
-              width="1920"
-              height="800"
-              class="cover w-full h-[420px] cursor-pointer"
-              :src="node.desktop_image"
+              class="cover w-full cursor-pointer"
+              :src="isMobile() || isTablet() ? node.movil_image : node.desktop_image"
               alt="Hero image"
               loading="eager"
-              sizes="sm:100vw md:1400px"
               fetchpriority="high"
               preload
               placeholder
@@ -91,6 +88,7 @@ const [container, slider] = useKeenSlider({
   detailsChanged: (s) => {
     opacities.value = s.track.details.slides.map((slide) => slide.portion);
   },
+  
   slideChanged: (s) => {
     current.value = s.track.details.rel;
   },

@@ -3,7 +3,5 @@ const { toggleMobileMenu } = useHelpers();
 </script>
 
 <template>
-  <div>
-    <Icon name="ion:menu-outline" size="26" class="mr-4 cursor-pointer" @click="toggleMobileMenu"/>
-  </div>
+    <Icon name="ion:menu-outline" size="28" class="mr-2 cursor-pointer" @click="toggleMobileMenu"/>
 </template>
