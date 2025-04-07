@@ -3,9 +3,10 @@
 <template>
   <header class="sticky top-0 z-20 bg-primary-dark shadow-sm shadow-light-500">
     <div class="container flex items-center justify-between py-4">
-      <div class="flex items-center">
-        <MenuTrigger class="lg:hidden text-white"/>
-        <Logo class="md:w-[160px]" />
+      <div class="flex flex-row items-center justify-center">
+        <MenuTrigger class="lg:hidden text-white" />
+        <Logo v-if="!isMobile() && !isTablet()" class="w-[160px]" />
+        <LogoMobile v-else />
       </div>
       <MainMenu
         class="items-center hidden gap-6 text-sm text-gray-500 lg:flex lg:px-4 uppercase ml-12"
