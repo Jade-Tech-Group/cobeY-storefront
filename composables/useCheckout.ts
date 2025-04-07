@@ -39,8 +39,8 @@ export function useCheckout() {
             delivery_address_id: delivery_method !== 'STORE_PICKUP' ? deliveryAddressId : '',
             payment_method: paymentMethod,
             note: note,
-            url_payment_success: 'https://maxihabana.onrender.com/',
-            url_payment_fail: 'https://maxihabana.onrender.com/',
+            url_payment_success: 'https://www.cobeymas.com/payment-success',
+            url_payment_fail: 'https://www.cobeymas.com/paymentfailure',
           }),
           headers: {
             "Content-Type": "application/json",
