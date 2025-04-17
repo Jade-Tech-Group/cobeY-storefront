@@ -103,6 +103,7 @@
       "activationSuccess": "We're delighted to have you as a new customer and hope you enjoy our products."
     },
     "shop": {
+      "discoverProducts": "Discover our products",
       "departments": "Departments",
       "featuredProducts": "The highlight",
       "invalidCupon": "Invalid Cupon",
