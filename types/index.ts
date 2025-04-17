@@ -52,7 +52,7 @@ export interface Security {
 }
 
 export interface GeoLocation {
-  name: string;
+  name: { en: string; es: string };
   code: string;
 }
 
