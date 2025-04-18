@@ -8,14 +8,10 @@
         <Logo v-if="!isMobile() && !isTablet()" class="w-[160px]" />
         <LogoMobile v-else />
       </div>
-      <MainMenu
-        class="items-center hidden gap-6 text-sm text-gray-500 lg:flex lg:px-4 uppercase ml-12"
-        :drawer="false"
-      />
       <div
         class="flex justify-end items-center md:w-[160px] flex-1 ml-auto gap-4 md:gap-6"
       >
-        <ProductSearch class="hidden sm:inline-flex max-w-[320px] w-[60%]" />
+        <ProductSearch class="hidden sm:inline-flex w-full mx-40" />
         <LangSwitcherSmall />
         <div class="flex flex-row justify-center gap-4 items-center">
           <SignInLink />
@@ -30,5 +26,6 @@
         <ProductSearch class="flex w-full" />
       </div>
     </Transition>
+    <AppHeaderNav v-if="!isMobile() && !isTablet()"/>
   </header>
 </template>

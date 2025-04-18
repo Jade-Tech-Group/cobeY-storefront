@@ -16,6 +16,15 @@ export default <Partial<Config>>{
       background: "#dc6d0c",
     },
     extend: {
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+      },
+      fontWeight: {
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+      },
       colors: {
         primary: {
           light: "#AE7DDD",
