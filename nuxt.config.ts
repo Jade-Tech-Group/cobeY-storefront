@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     "notivue/nuxt"
   ],
 
-  css: ['notivue/notification.css', 'notivue/animations.css'],
+  css: ['notivue/notification.css', 'notivue/animations.css', '~/assets/css/fonts.css', '~/assets/css/variables.css'],
 
   pinia: {
     storesDirs: ["./stores/**", "./custom-folder/stores/**"],

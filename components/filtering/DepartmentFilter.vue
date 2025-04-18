@@ -33,7 +33,7 @@ const checkboxChanged = () => {
       <span>{{ label || $t('messages.shop.departments') }}</span>
       <Icon name="ion:chevron-down-outline" class="transform" :class="isOpen ? 'rotate-180' : ''" />
     </div>
-    <div v-show="isOpen" class="mt-3 mr-1 max-h-[325px] grid gap-1.5 overflow-auto custom-scrollbar">
+    <div v-show="isOpen" class="mt-3 mr-1 max-h-[325px] grid gap-1.5 overflow-auto custom-scrollbar uppercase">
       <div v-for="term in terms" :key="term.id" class="flex gap-2 items-start">
         <input :id="term.id" v-model="selectedTerms" type="checkbox" :value="term.id" @change="checkboxChanged" />
         <label :for="term.id" class="cursor-pointer m-0 text-sm flex-1 leading-tight">

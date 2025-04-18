@@ -104,6 +104,7 @@
     },
     "shop": {
       "discoverProducts": "Discover our products",
+      "discoverCategories": "Discover our categories",
       "departments": "Departments",
       "featuredProducts": "The highlight",
       "invalidCupon": "Invalid Cupon",
