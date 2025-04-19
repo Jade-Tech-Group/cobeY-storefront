@@ -3,7 +3,7 @@ import type Product from "~/types";
 import Toast from "../common/Toast.vue";
 import { useToast } from "~/composables/useToast";
 
-const { toastList, showToast } = useToast();
+const { toastList } = useToast();
 const route = useRoute();
 const props = defineProps({
   node: { type: Object as PropType<Product>, required: true },
@@ -68,13 +68,13 @@ const addToCart = async (item: Product) => {
         placeholder-class="blur-xl"
       />
     </NuxtLink>
-    <div class="p-2 h-24">
+    <div class="p-2 h-24 overflow-y-hidden">
       <NuxtLink
         v-if="node.id"
         :to="`/product/${decodeURIComponent(node.id)}`"
         :title="node.name.es"
       >
-        <h2 class="mb-2 font-light leading-tight group-hover:text-primary">
+        <h2 class="mb-1 font-normal leading-tight group-hover:text-primary whitespace-normal line-clamp-3">
           {{ node.name.es }}
         </h2>
       </NuxtLink>
