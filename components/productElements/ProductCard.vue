@@ -2,7 +2,6 @@
 import type Product from "~/types";
 import Toast from "../common/Toast.vue";
 import { useToast } from "~/composables/useToast";
-
 const { toastList } = useToast();
 const route = useRoute();
 const props = defineProps({
@@ -59,8 +58,8 @@ const addToCart = async (item: Product) => {
         :width="imgWidth"
         :height="imgHeight"
         :src="node.standard_image"
-        :alt="node.name.es || 'Product image'"
-        :title="node.name.es"
+        :alt="node.name[locale] || 'Product image'"
+        :title="node.name[locale]"
         :loading="index <= 3 ? 'eager' : 'lazy'"
         :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
         class="rounded-lg object-top object-cover w-full aspect-9/8 to-transparent"
@@ -72,10 +71,10 @@ const addToCart = async (item: Product) => {
       <NuxtLink
         v-if="node.id"
         :to="`/product/${decodeURIComponent(node.id)}`"
-        :title="node.name.es"
+        :title="node.name[locale]"
       >
-        <h2 class="mb-1 font-normal leading-tight group-hover:text-primary whitespace-normal line-clamp-3">
-          {{ node.name.es }}
+        <h2 class="mb-1 font-normal leading-tight group-hover:text-primary whitespace-normal line-clamp-2">
+          {{ node.name[locale] }}
         </h2>
       </NuxtLink>
       <ProductPrice

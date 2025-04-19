@@ -29,7 +29,7 @@ const remove = () => {
           loading="lazy" />
       </NuxtLink>
       <div class="flex-1">
-        <div class="flex gap-x-2 gap-y-1 flex-wrap items-center">
+        <div class="mb-1 font-normal leading-tight group-hover:text-primary whitespace-normal line-clamp-2">
           <NuxtLink class="leading-tight" :to="productSlug">{{ props.item.name[locale] }}</NuxtLink>
         </div>
         <ProductPrice class="mt-1 text-xs" :sale-price="props.item.sale_price" :regular-price="props.item.price" />

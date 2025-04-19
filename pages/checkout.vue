@@ -3,7 +3,8 @@ import type { BillingAddress, Cart, DeliveryAddress } from "~/types";
 
 const { t } = useI18n();
 const { cart, isUpdatingCart } = useCart();
-const { isProcessingOrder, proccessCheckout, errorOrder } = useCheckout();
+const { isProcessingOrder, proccessCheckout, errorOrder, paymentLink } =
+  useCheckout();
 const buttonText = ref<string>(
   isProcessingOrder.value
     ? t("messages.general.processing")
@@ -81,7 +82,15 @@ watch(stProfile.getDeliveryData, () => {
   }
 });
 
+const dialogShow = ref<boolean>(false);
+const dialogAction = ref<string>("success");
+const dialogPrimaryText = ref<string>("");
+const dialogSecondaryText = ref<string>("");
+const dialogMainTxt = ref<string>("");
+const dialogToPrimary = ref<string>("");
+const dialogToSecondary = ref<string>("");
 const router = useRouter();
+
 const payNow = async () => {
   buttonText.value = t("messages.general.processing");
   await proccessCheckout(
@@ -93,9 +102,21 @@ const payNow = async () => {
     cart.value.delivery_method
   );
   if (errorOrder.value) {
-    router.push("/paymentFailure");
+    dialogShow.value = true;
+    dialogAction.value = "error";
+    dialogPrimaryText.value = t("messages.shop");
+    dialogSecondaryText.value = t("messages.shop.close");
+    dialogMainTxt.value = t("messages.shop.order_error.subtitle");
+    dialogToPrimary.value = "/";
+    dialogToSecondary.value = "/";
   } else {
-    router.push("/redirectPayment");
+    dialogShow.value = true;
+    dialogAction.value = "success";
+    dialogPrimaryText.value = t("messages.shop.goToTropipay");
+    dialogSecondaryText.value = t("messages.shop.close");
+    dialogMainTxt.value = t("messages.shop.required_redirect");
+    dialogToPrimary.value = paymentLink.value;
+    dialogToSecondary.value = "/";
   }
 };
 
@@ -140,6 +161,10 @@ const { user, returnUrl, unlogging } = useAuth();
 function onClickLogin() {
   returnUrl.value = "/checkout";
 }
+
+const goToTropipay = () => {
+  window.location.href = paymentLink.value;
+};
 </script>
 
 <template>
@@ -300,7 +325,7 @@ function onClickLogin() {
         </template>
         <div
           v-else
-          class="flex flex-col items-center justify-center flex-1 mb-12"
+          class="flex flex-col items-center justify-center flex-1 my-24"
         >
           <Icon name="ion:cart-outline" size="156" class="opacity-25 mb-5" />
           <h2 class="text-2xl font-bold mb-2">
@@ -324,6 +349,17 @@ function onClickLogin() {
       <div v-else>
         <LoadingIcon class="mt-8" />
       </div>
+      <DialogCmp
+        :dialog-show="dialogShow"
+        :action="dialogAction"
+        :closable="false"
+        :primary-text="dialogPrimaryText"
+        :secondary-text="dialogSecondaryText"
+        :main-txt="dialogMainTxt"
+        :to-primary="dialogToPrimary"
+        :to-secondary="dialogToSecondary"
+        @onClickPrimary="goToTropipay"
+      />
     </template>
   </div>
 </template>

@@ -49,7 +49,6 @@ useHead({
     <!-- Main content with concave effect -->
     <div
       class="container flex items-start gap-16 relative -mt-16 bg-white rounded-t-3xl sm:p-8 xs:p-2 shadow-lg"
-      v-if="stProducts.getAll.length"
     >
       <Filters v-if="storeSettings.showFilters" />
       <div class="w-full">
@@ -66,10 +65,6 @@ useHead({
         </div>
         <ProductGrid />
       </div>
-      <NoProductsFound v-if="!stProducts.getAll.length"
-        >Could not fetch products from your store. Please check your
-        configuration.</NoProductsFound
-      >
     </div>
   </div>
 </template>
