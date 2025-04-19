@@ -45,7 +45,7 @@ useHead({
         </h1>
       </div>
     </div>
-    <div class="container flex items-start gap-16 relative -mt-16 bg-white rounded-t-3xl sm:p-8 xs:p-2 shadow-lg" v-if="stProducts.byDepartment.length">
+    <div class="container flex items-start gap-16 relative -mt-16 bg-white rounded-t-3xl sm:p-8 xs:p-2 shadow-lg">
       <Filters v-if="storeSettings.showFilters" :hide-departments="true" :departmet="id"/>
   
       <div class="w-full">
