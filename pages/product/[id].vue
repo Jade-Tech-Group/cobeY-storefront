@@ -27,123 +27,133 @@ const storeAuth = useAuth();
 </script>
 
 <template>
-  <main class="container relative py-6 xl:max-w-7xl">
-    <div v-if="stProduct.getCurrent">
-      <SEOHead :info="stProduct.getCurrent" />
-      <Breadcrumb
-        :product="stProduct.getCurrent"
-        class="mb-6"
-        v-if="storeSettings.showBreadcrumbOnSingleProduct"
+  <main class="relative">
+    <div class="relative h-[250px] overflow-hidden">
+      <img
+        src="https://www.shutterstock.com/image-photo/online-shopping-business-ecommerce-internet-260nw-2286700843.jpg"
+        alt="Product showcase"
+        class="absolute inset-0 object-cover w-full h-full transform"
       />
-
-      <div
-        class="flex flex-col gap-10 md:flex-row md:justify-between lg:gap-24"
-      >
-        <ProductImageGallery
-          v-if="stProduct.getCurrent.standard_image"
-          class="relative flex-1"
-          :main-image="stProduct.getCurrent"
-          :gallery="[]"
-          :node="stProduct.getCurrent"
-        />
-        <NuxtImg
-          v-else
-          class="relative flex-1 skeleton"
-          src="/images/placeholder.jpg"
-          :alt="stProduct.getCurrent?.name[locale] || 'Product'"
-        />
-
+      <div class="absolute inset-0 bg-black bg-opacity-25"></div>
+      
+    </div>
+    <div class="container flex items-start gap-16 relative -mt-16 bg-white rounded-t-3xl sm:p-8 xs:p-2 shadow-lg">
+      <div v-if="stProduct.getCurrent" class="w-full sm:px-8 xs:px-2">
+        <!-- <Breadcrumb
+          :product="stProduct.getCurrent"
+          class="mb-6"
+          v-if="storeSettings.showBreadcrumbOnSingleProduct && !isMobile() && !isTablet()"
+        /> -->
+  
         <div
-          class="flex flex-col justify -center lg:max-w-md xl:max-w-lg md:py-2 w-full"
+          class="w-full flex flex-col gap-10 md:flex-row md:justify-between lg:gap-24"
         >
-          <div class="flex justify-between mb-4">
-            <div class="flex-1">
-              <h1
-                class="flex flex-wrap items-center gap-2 mb-2 text-2xl font-sesmibold"
-              >
-                {{ stProduct.getCurrent.name[locale] }}
-              </h1>
-            </div>
-          </div>
-          <ProductPrice
-            class="text-xl"
-            :sale-price="stProduct.getCurrent.sale_price"
-            :regular-price="stProduct.getCurrent.price"
+          <ProductImageGallery
+            v-if="stProduct.getCurrent.standard_image"
+            class="relative flex-1"
+            :main-image="stProduct.getCurrent"
+            :gallery="[]"
+            :node="stProduct.getCurrent"
           />
-          <div class="grid gap-2 my-8 text-sm empty:hidden">
-            <div class="flex items-center gap-2">
-              <span class="text-gray-400"
-                >{{ $t("messages.shop.availability") }}:
-              </span>
-              <StockStatus
-                :stockStatus="
-                  stProduct.getCurrent.stock !== 0 ? 'IN_STOCK' : 'OUT_OF_STOCK'
-                "
-              />
-            </div>
-          </div>
+          <NuxtImg
+            v-else
+            class="relative flex-1 skeleton"
+            src="/images/placeholder.jpg"
+            :alt="stProduct.getCurrent?.name[locale] || 'Product'"
+          />
+  
           <div
-            class="mb-8 font-light prose"
-            v-html="stProduct.getCurrent.description[locale]"
-          ></div>
-
-          <hr />
-
-          <form @submit.prevent="addToCart(stProduct.getCurrent)">
-            <div
-              class="fixed bottom-0 left-0 z-10 flex items-center w-full gap-4 p-4 mt-12 bg-white md:static md:bg-transparent bg-opacity-90 md:p-0"
-            >
-              <input
-                v-model="stProduct.getCurrent.amount"
-                type="number"
-                min="1"
-                aria-label="Quantity"
-                class="bg-white border rounded-lg flex text-left p-1.5 w-20 gap-4 items-center justify-center focus:outline-none"
-              />
-              <AddToCartButton
-                class="flex-1 w-full md:max-w-52"
-                :class="{ loading: isUpdatingCart }"
-              />
-            </div>
-          </form>
-
-          <div
-            v-if="
-              storeSettings.showProductCategoriesOnSingleProduct &&
-              stProduct.getCurrent.category_id
-            "
+            class="flex flex-col justify -center lg:max-w-md xl:max-w-lg md:py-2 w-full"
           >
-            <div class="grid gap-2 my-8 text-sm">
-              <div class="flex items-center gap-2">
-                <span class="text-gray-400"
-                  >{{ $t("messages.shop.category", 1) }}:</span
+            <div class="flex justify-between mb-4">
+              <div class="flex-1">
+                <h1
+                  class="flex flex-wrap items-center gap-2 mb-2 text-2xl font-sesmibold"
                 >
-                <div class="product-categories">
-                  <NuxtLink class="hover:text-primary"
-                    >{{ stProduct.getCurrent.category.name[locale] }}
-                  </NuxtLink>
-                </div>
+                  {{ stProduct.getCurrent.name[locale] }}
+                </h1>
               </div>
             </div>
-            <hr />
-          </div>
-
-          <div class="flex flex-wrap gap-4">
-            <div v-if="user">
-              <WishlistButton :product="stProduct.getCurrent" />
+            <ProductPrice
+              class="text-xl"
+              :sale-price="stProduct.getCurrent.sale_price"
+              :regular-price="stProduct.getCurrent.price"
+            />
+            <div class="grid gap-2 my-8 text-sm empty:hidden">
+              <div class="flex items-center gap-2">
+                <span class="text-gray-400"
+                  >{{ $t("messages.shop.availability") }}:
+                </span>
+                <StockStatus
+                  :stockStatus="
+                    stProduct.getCurrent.stock !== 0 ? 'IN_STOCK' : 'OUT_OF_STOCK'
+                  "
+                />
+              </div>
             </div>
-            <ShareButton :product="stProduct.getCurrent" />
+            <div
+              class="mb-8 font-light prose"
+              v-html="stProduct.getCurrent.description[locale]"
+            ></div>
+  
+            <hr />
+  
+            <form @submit.prevent="addToCart(stProduct.getCurrent)">
+              <div
+                class="fixed bottom-0 left-0 z-10 flex items-center w-full gap-4 p-4 mt-12 bg-white md:static md:bg-transparent bg-opacity-90 md:p-0"
+              >
+                <input
+                  v-model="stProduct.getCurrent.amount"
+                  type="number"
+                  min="1"
+                  aria-label="Quantity"
+                  class="bg-white border rounded-lg flex text-left p-1.5 w-20 gap-4 items-center justify-center focus:outline-none"
+                />
+                <AddToCartButton
+                  class="flex-1 w-full md:max-w-52"
+                  :class="{ loading: isUpdatingCart }"
+                />
+              </div>
+            </form>
+  
+            <div
+              v-if="
+                storeSettings.showProductCategoriesOnSingleProduct &&
+                stProduct.getCurrent.category_id
+              "
+            >
+              <div class="grid gap-2 my-8 text-sm">
+                <div class="flex items-center gap-2">
+                  <span class="text-gray-400"
+                    >{{ $t("messages.shop.category", 1) }}:</span
+                  >
+                  <div class="product-categories">
+                    <NuxtLink class="hover:text-primary"
+                      >{{ stProduct.getCurrent.category.name[locale] }}
+                    </NuxtLink>
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </div>
+  
+            <div class="flex flex-wrap gap-4">
+              <div v-if="user">
+                <WishlistButton :product="stProduct.getCurrent" />
+              </div>
+              <ShareButton :product="stProduct.getCurrent" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="my-8" v-if="stProduct.getRelateds.length > 0">
-        <div class="mb-6 text-xl font-semibold">
-          {{ $t("messages.shop.youMayLike") }}
+        <div class="my-8" v-if="stProduct.getRelateds.length > 0">
+          <div class="mb-6 text-xl font-semibold">
+            {{ $t("messages.shop.youMayLike") }}
+          </div>
+          <ProductRow
+            :products="stProduct.getRelateds"
+            class="grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
+          />
         </div>
-        <ProductRow
-          :products="stProduct.getRelateds"
-          class="grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
-        />
       </div>
     </div>
   </main>
