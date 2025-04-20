@@ -30,7 +30,7 @@ const { locale } = useI18n();
     />
     <div class="absolute inset-x-0 bottom-0 opacity-50 bg-gradient-to-t from-black to-transparent h-1/2" />
     <span
-      class="relative z-10 mt-auto mb-2 text-sm font-semibold text-white uppercase md:text-2xl md:mb-4"
+      class="absolute inset-x-0 top-1/2 -translate-y-1/2 left-8 z-10 text-sm font-semibold text-white uppercase md:text-2xl"
       v-html="node.name[locale]"
     />
   </NuxtLink>

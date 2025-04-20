@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type Product from '~/types';
-
+import { useI18n } from 'vue-i18n';
+const { locale } = useI18n();
 const { frontEndUrl, isDev, stripHtml } = useHelpers();
 const { path } = useRoute();
 const { info } = defineProps({ info: { type: Object as PropType<Product>, required: true } });
 
 const title = info.name;
 const canonical = `${frontEndUrl}${path}`;
-const siteName = process.env.SITE_TITLE ?? 'WooNuxt';
+const siteName = process.env.SITE_NAME;
 
 const img = useImage();
 const imageURL = info.standard_image || '/images/placeholder.jpg';
@@ -22,10 +23,8 @@ const getFullImageURL = (url: string) => {
 
 const defaultImage = getFullImageURL(defaultImageSrc);
 const twitterImage = getFullImageURL(twitterImageSrc);
-const description = info.description ? stripHtml(info.description.es) : '';
+const description = info.description ? stripHtml(info.description[locale.value]) : '';
 
-// const facebook = wooNuxtSEO?.find((item) => item.provider === 'facebook') ?? null;
-// const twitter = wooNuxtSEO?.find((item) => item.provider === 'twitter') ?? null;
 </script>
 
 <template>
