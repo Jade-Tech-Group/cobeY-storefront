@@ -66,6 +66,7 @@ export interface User {
   passwordConfirm: string;
   id: string;
 }
+
 export interface Department {
   id: string;
   header_image: string;
@@ -153,7 +154,7 @@ export interface BillingAddress {
   id: string;
 }
 
-export default interface Product {
+export interface Product {
   visible: boolean;
   standard_image: string;
   big_image: string;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type Product from "~/types";
+import type {Product} from "~/types";
 import Toast from "../common/Toast.vue";
 import { useToast } from "~/composables/useToast";
 const { toastList } = useToast();
@@ -45,7 +45,7 @@ const addToCart = async (item: Product) => {
 
 <template>
   <div
-    class="flex flex-col justify-between relative group border rounded-lg p-4 max-h-[409px] bg-zinc-100"
+    class="flex flex-col justify-between relative group rounded-lg p-4 max-h-[409px] bg-white"
   >
     <NuxtLink
       v-if="node.id"

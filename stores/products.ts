@@ -1,4 +1,4 @@
-import type Product from "~/types";
+import type {Product} from "~/types";
 import conf from "~/conf/useConf";
 import useConf from "~/conf/useConf";
 export const useProductsStore = defineStore("products", {
@@ -9,6 +9,7 @@ export const useProductsStore = defineStore("products", {
     featured: [] as Product[],
     prodFav: [] as Product[],
     onSale: [] as Product[],
+    news: [] as Product[],
     current: {} as Product,
     related: [] as Product[],
     byCategory: [] as Product[],
@@ -18,18 +19,35 @@ export const useProductsStore = defineStore("products", {
   getters: {
     getFeatured: (state) => state.featured,
     getOnSale: (state) => state.onSale,
+    getNews: (state) => state.news,
     getCurrent: (state) => state.current,
     getRelateds: (state) => state.related,
     getAll: (state) => state.products,
   },
   actions: {
-    async fetchFeatured(): Promise<void> {
+    async fetchFeatured(page: number = 1, size: number = 10): Promise<void> {
       this.loading = true;
       try {
         const response = await $fetch<{ data: Product[] }>(
-          `${conf.api.baseUrl}${conf.api.services.product.available}?featured=true`
+          `${conf.api.baseUrl}${conf.api.services.product.available}?page=${page}&size=${size}&featured=true`
         );
         this.featured = response.data.map((r) => ({
+          ...r,
+          amount: 1,
+        }));
+        this.loading = false;
+      } catch (error: unknown) {
+        console.error(error);
+        this.loading = false;
+      }
+    },
+    async fetchNews(page: number = 1, size: number = 10): Promise<void> {
+      this.loading = true;
+      try {
+        const response = await $fetch<{ data: Product[] }>(
+          `${conf.api.baseUrl}${conf.api.services.product.available}?page=${page}&size=${size}&sortBy=updatedAt&sortOrder=desc`
+        );
+        this.news = response.data.map((r) => ({
           ...r,
           amount: 1,
         }));
@@ -73,11 +91,11 @@ export const useProductsStore = defineStore("products", {
       }
     },
 
-    async fetchOnSale(): Promise<void> {
+    async fetchOnSale(page: number = 1, size: number = 10): Promise<void> {
       this.loading = true;
       try {
         const response = await $fetch<{ data: Product[] }>(
-          `${conf.api.baseUrl}${conf.api.services.product.available}?on_sale=true`
+          `${conf.api.baseUrl}${conf.api.services.product.available}?page=${page}&size=${size}&on_sale=true`
         );
         this.onSale = response.data.map((r) => ({
           ...r,
@@ -113,7 +131,7 @@ export const useProductsStore = defineStore("products", {
         const response = await $fetch(
           `${conf.api.baseUrl}${conf.api.services.product.byId}/${id}`
         );
-        if (response) response.amount = 1
+        if (response) response.amount = 1;
         this.current = response as Product;
         this.loading = false;
       } catch (error: unknown) {
@@ -144,17 +162,19 @@ export const useProductsStore = defineStore("products", {
     },
 
     async fetchProductsFavs() {
-      const tokenCookie = useCookie('accessToken');
+      const tokenCookie = useCookie("accessToken");
       this.loading = true;
       try {
-        const resp = await $fetch<{ products: Product[] }>(`${useConf.api.baseUrl}${useConf.api.services.product.favorites}`,
+        const resp = await $fetch<{ products: Product[] }>(
+          `${useConf.api.baseUrl}${useConf.api.services.product.favorites}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${tokenCookie.value}`,
+              Authorization: `Bearer ${tokenCookie.value}`,
             },
-          })
+          }
+        );
         this.prodFav = resp.products.map((r) => ({
           ...r,
           amount: 1,
@@ -162,57 +182,61 @@ export const useProductsStore = defineStore("products", {
         this.loading = false;
       } catch {
         this.loading = false;
-
       }
     },
-    
+
     async createFav(id: string) {
-      const tokenCookie = useCookie('accessToken');
+      const tokenCookie = useCookie("accessToken");
       this.loading = true;
       try {
-        const resp = await $fetch<Product[]>(`${useConf.api.baseUrl}${useConf.api.services.product.favorites}/${id}`,
+        const resp = await $fetch<Product[]>(
+          `${useConf.api.baseUrl}${useConf.api.services.product.favorites}/${id}`,
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${tokenCookie.value}`,
+              Authorization: `Bearer ${tokenCookie.value}`,
             },
-          })
+          }
+        );
         this.prodFav = resp.map((r) => ({
           ...r,
           amount: 1,
         }));
         this.hasError = false;
         this.loading = false;
-      } catch(error) {
+      } catch (error) {
         this.hasError = true;
-        console.log(error)
+        console.log(error);
         this.loading = false;
       }
     },
+
     async deleteFav(id: string) {
-      const tokenCookie = useCookie('accessToken');
+      const tokenCookie = useCookie("accessToken");
       this.loading = true;
       try {
-        const resp = await $fetch<Product[]>(`${useConf.api.baseUrl}${useConf.api.services.product.favorites}/${id}`,
+        const resp = await $fetch<Product[]>(
+          `${useConf.api.baseUrl}${useConf.api.services.product.favorites}/${id}`,
           {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Bearer ${tokenCookie.value}`,
+              Authorization: `Bearer ${tokenCookie.value}`,
             },
-          })
+          }
+        );
         this.prodFav = resp.map((r) => ({
           ...r,
           amount: 1,
         }));
         this.loading = false;
         this.hasError = false;
-      } catch(error) {
+      } catch (error) {
         this.hasError = true;
-        console.log(error)
+        console.log(error);
         this.loading = false;
       }
     },
-  }
+  },
 });
