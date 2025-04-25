@@ -24,7 +24,7 @@ const [sliderRef] = useKeenSlider(
         slides: { perView: 5, spacing: 30 },
       },
       "(min-width: 1920px)": {
-        slides: { perView: 6, spacing: 30 },
+        slides: { perView: 5, spacing: 30 },
       },
     },
   },
@@ -100,7 +100,7 @@ const useSliderEvents = (
 </script>
 
 <template>
-  <section class="container w-full grid sm:gap-12 xs:gap-4 py-10">
+  <section class="w-full grid sm:gap-12 xs:gap-4 py-10">
     <div ref="sliderRef" class="keen-slider w-full">
       <div
         v-if="products"

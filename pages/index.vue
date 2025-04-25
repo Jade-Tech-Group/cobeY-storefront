@@ -186,10 +186,23 @@ const [container] = useKeenSlider(
       </section>
 
       <!-- New Products -->
-      <ProductSlider :products="stProducts.getNews" class="w-full" />
+       <div class="container">
+        <div class="flex flex-row items-center justify-between gap-2">
+          <h2 class="text-lg font-semibold md:text-2xl">
+            {{ $t("messages.shop.latestProducts") }}
+          </h2>
+          <div class="flex-1 border border-gray-200 text-center"></div>
+          <NuxtLink
+            class="rounded-full border p-3 text-primary-dark font-bold text-lg"
+            to="/products?filter=featured[true]"
+            >{{ $t("messages.general.viewAll") }}</NuxtLink
+          >
+        </div>
+        <ProductSlider :products="stProducts.getNews" class="w-full" />
+       </div>
 
       <section
-        class="w-full grid sm:gap-12 xs:gap-4 py-10 lg:px-[10rem] lg:px-[5rem] sm:px-[5rem] xs:px-4 bg-white"
+        class="w-full grid sm:gap-12 xs:gap-4 py-10 lg:px-[10rem] sm:px-[5rem] xs:px-4 bg-white"
       >
         <div ref="container" class="keen-slider w-full">
           <CategoryCardRounded
