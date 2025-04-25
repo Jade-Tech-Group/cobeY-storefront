@@ -3,7 +3,7 @@ const { user } = useAuth();
 </script>
 
 <template>
-  <footer class="bg-primary-dark order-last text-white px-2">
+  <footer class="bg-primary-dark order-last text-white px-2 z-10">
     <div
       class="container flex flex-wrap justify-between gap-12 my-24 md:gap-24"
     >

@@ -104,7 +104,7 @@ const useSliderEvents = (
     <div ref="sliderRef" class="keen-slider w-full">
       <div
         v-if="products"
-        class="flex flex-col justify-center overflow-hidden items-center gap-2"
+        class="w-full flex flex-col justify-center overflow-hidden items-center gap-2"
       >
         <div class="flex w-full">
           <div
