@@ -20,7 +20,7 @@ const { locale } = useI18n();
     <NuxtImg
       :width="imgWidth"
       :height="imgHeight"
-      class="cover sm:h-40 sm:w-40 xs:w-24 xs:h-24 rounded-full"
+      class="cover sm:h-40 sm:w-40 xs:w-24 xs:h-24 rounded-full bg-primary-light hover:bg-primary-medium"
       :src="node.image || FALLBACK_IMG"
       :alt="node.name.es"
       :title="node.name.es"
@@ -29,10 +29,10 @@ const { locale } = useI18n();
       placeholder
       placeholder-class="blur-xl"
     />
-   
+
     <div>
       <span
-        class="flex text-md font-semibold text-primary-dark  md:text-base text-center uppercase"
+        class="flex text-md font-semibold text-primary-dark md:text-base text-center uppercase"
         v-html="node.name[locale]"
       />
     </div>
