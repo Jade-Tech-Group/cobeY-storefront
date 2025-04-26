@@ -391,8 +391,7 @@ onMounted(() => {
                 class="p-6 relative z-10 sm:h-[280px] xs:h-[200px] flex flex-col justify-between border-zinc-200"
                 :class="{
                   'bg-white': currentStep !== index + 1,
-                  'bg-gradient-to-br from-primary-light/5 to-white': currentStep === index + 1,
-                  'shadow-sm': currentStep !== index + 1,
+                  'bg-gradient-to-br from-secondary-dark/10 to-white/90': currentStep === index + 1,
                   'shadow-lg': currentStep === index + 1,
                   'border-2 border-primary': currentStep === index + 1,
                   'rounded-xl': true,
