@@ -218,7 +218,8 @@
       "phone": "Phone",
       "email": "Email",
       "company": "Company",
-      "vat": "VAT"
+      "vat": "VAT",
+      "paymentOptions": "Payment Options"
     },
     "error": {
       "passwordValidation": "Password must be at least 8 characters long and contain at least one uppercase letter, one number, and one special character.",

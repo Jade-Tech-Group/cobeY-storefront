@@ -89,7 +89,7 @@ const [container] = useKeenSlider(
           class="absolute sm:top-[25%] sm:-left-[25%] xs:-top-[10%] xs:-left-[25%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
         ></div>
         <div
-          class="absolute sm:-bottom-[10%] -bottom-56 sm:right-[20%] xs:right-[0] sm:w-[750px] sm:h-[750px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+          class="absolute sm:-bottom-[10%] -bottom-56 sm:right-[30%] xs:right-[0] sm:w-[750px] sm:h-[750px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
         ></div>
         <div
           v-if="!isMobile() || !isTablet()"
@@ -119,7 +119,7 @@ const [container] = useKeenSlider(
           <h2 class="w-8/12 text-lg font-semibold md:text-2xl xs:text-md">
             {{ $t("messages.shop.popularProducts") }}
           </h2>
-          <div class="flex-1 border border-gray-200 text-center"></div>
+          
           <NuxtLink
             class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm"
             to="/products?filter=featured[true]"
@@ -195,7 +195,7 @@ const [container] = useKeenSlider(
           <h2 class="w-8/12 text-lg font-semibold md:text-2xl">
             {{ $t("messages.shop.latestProducts") }}
           </h2>
-          <div class="flex-1 border border-gray-200 text-center"></div>
+          
           <NuxtLink
             class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm"
             to="/products?filter=featured[true]"
@@ -227,7 +227,7 @@ const [container] = useKeenSlider(
           <h2 class="w-8/12 text-lg font-semibold md:text-2xl">
             {{ $t("messages.shop.popularProducts") }}
           </h2>
-          <div class="flex-1 border border-gray-200 text-center"></div>
+          
           <NuxtLink
             class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm"
             to="/products?filter=featured[true]"
@@ -245,7 +245,7 @@ const [container] = useKeenSlider(
           <h2 class="w-8/12 text-lg font-semibold md:text-2xl">
             {{ $t("messages.general.productsOnSale") }}
           </h2>
-          <div class="flex-1 border border-gray-200 text-center"></div>
+          
           <NuxtLink
             class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm"
             to="/products?filter=onSale[true]"

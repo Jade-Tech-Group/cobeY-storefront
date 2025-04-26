@@ -218,7 +218,8 @@
       "phone": "Teléfono",
       "email": "Correo electrónico",
       "company": "Empresa",
-      "vat": "IVA"
+      "vat": "IVA",
+      "paymentOptions": "Opciones de pago"
     },
     "error": {
       "passwordValidation": "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.",

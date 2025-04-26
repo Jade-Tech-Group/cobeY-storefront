@@ -1,5 +1,5 @@
 <template>
-  <div class="grid gap-8 account-form">
+  <div class="relative overflow-hidden grid gap-8 account-form">
     <BillingAndShipping />
     <ChangePassword />
   </div>

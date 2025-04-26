@@ -4,7 +4,7 @@ export function useHelpers() {
   const route = useRoute();
 
   const isShowingMobileMenu = useState<boolean>('isShowingMobileMenu', () => false);
-  const productsPerPage: number =  24;
+  const productsPerPage: number =  12;
   const frontEndUrl = null;
   const isDev: boolean = process.env.NODE_ENV === 'development';
   const FALLBACK_IMG = '/images/placeholder.jpg';
