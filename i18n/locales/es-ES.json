@@ -252,6 +252,16 @@
       "invalidLastNameFormat": "Formato de apellido inválido.",
       "invalidAddress1Format": "Formato de dirección 1 inválido.",
       "invalidAddress2Format": "Formato de dirección 2 inválido."
+    },
+    "notification":{
+      "perfect": "Perfecto",
+      "error": "Error",
+      "updatedBilling": "¡Se ha actualizado tus datos de facturación!",
+      "updatedCart": "Producto añadido al carrito",
+      "updatedCartError": "No se pudo actualizar tu carrito!",
+      "updatedBillingError": "Tus datos de facturación no fueron actualizados!",
+      "updatedPwd": "¡Se ha actualizado tu contraseña!",
+      "updatedPwdError": "¡No se ha actualizado tu contraseña!"
     }
   }
 }

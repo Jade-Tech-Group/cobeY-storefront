@@ -252,6 +252,16 @@
       "invalidLastNameFormat": "Invalid last name format.",
       "invalidAddress1Format": "Invalid address 1 format.",
       "invalidAddress2Format": "Invalid address 2 format."
+    },
+    "notification": {
+      "perfect": "Perfect",
+      "error": "Error",
+      "updatedBilling": "Your billing information has been updated!",
+      "updatedCart": "Product added to your cart.",
+      "updatedCartError": "Your cart wasn't updated!",
+      "updatedBillingError": "Your billing information wasn't updated!",
+      "updatedPwd": "Your password has been updated!",
+      "updatedPwdError": "Your password wasn't updated!"
     }
   }
 }
