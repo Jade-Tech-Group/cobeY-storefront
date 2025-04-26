@@ -20,13 +20,13 @@ const { cart, toggleCart, isUpdatingCart } = useCart();
         </ul>
         <div class="flex xs:flex-col sm:flex-row w-full sm:p-4.5 xs:p-4 sm:mb-4 gap-4 justify-center">
           <NuxtLink
-            class="sm:w-52 xs:w-full block p-3 text-lg text-center text-white bg-secondary rounded-lg shadow-md justify-evenly hover:bg-secondary-dark"
+            class="sm:w-52 xs:w-full block p-3 text-center text-white bg-secondary rounded-lg shadow-md justify-evenly hover:bg-secondary-dark"
             to="/products"
             @click.prevent="toggleCart()">
             <span class="mx-2">{{ $t('messages.shop.continue_shopping') }}</span>
           </NuxtLink>
           <NuxtLink
-            class="sm:w-52 xs:w-full block p-3 text-lg text-center text-white bg-primary rounded-lg shadow-md justify-evenly hover:bg-primary-medium "
+            class="sm:w-52 xs:w-full block p-3 text-center text-white bg-primary rounded-lg shadow-md justify-evenly hover:bg-primary-medium "
             to="/checkout"
             @click.prevent="toggleCart()">
             <span class="mx-2">{{ $t('messages.shop.checkout') }}</span>

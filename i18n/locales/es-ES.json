@@ -2,7 +2,7 @@
   "messages": {
     "general": {
       "welcome": "Bienvenido",
-      "qty":"Cant:",
+      "qty": "Cant:",
       "viewAll": "Ver todo",
       "share": "Compartir",
       "date": "Fecha",
@@ -53,10 +53,24 @@
       "wishlist": "Lista de deseos",
       "refresh": "Refrescar lista"
     },
+    "welcome": {
+      "title": "Bienvenido a Cobe Y+",
+      "subtitle": "Descubre la mejor experiencia de compra en línea con nuestras ofertas exclusivas y envío rápido"
+    },
+    "features": {
+      "freeShipping": "Envío gratis",
+      "freeShippingSubtitle": "Envío gratuito en pedidos superiores a 50€",
+      "moneyBack": "Tranquilidad de espíritu",
+      "moneyBackSubtitle": "Garantía de devolución de dinero de 30 días",
+      "securePayment": "100% Pago Seguro",
+      "securePaymentSubtitle": "Tu pago está seguro con nosotros",
+      "support": "Soporte 24/7",
+      "supportSubtitle": "24/7 Soporte online"
+    },
     "account": {
       "login_or_register": "Inicia sesión o regístrate",
       "textWarning": "Espera... Debes iniciar sesión o registrarte para continuar con la compra",
-      "noOrder":"No tiene órdenes registradas.",
+      "noOrder": "No tiene órdenes registradas.",
       "changePassword": "Cambiar contraseña",
       "currentPassword": "Contraseña actual",
       "password": "Contraseña",
@@ -110,12 +124,12 @@
       "featuredProducts": "Lo más destacado",
       "invalidCupon": "Cupón no valido",
       "delvery_address": "Direcciones de entrega",
-      "goToTropipay":"Ir a Tropipay",
+      "goToTropipay": "Ir a Tropipay",
       "perfect": "Perfecto",
       "required_redirect": "Se necesitan acciones fuera de la tienda para continuar con el pago.",
-      "order_error":{
-        "title":"Error al realizar el pago de la orden. Intentelo más tarde",
-        "subtitle":"Ha ocurrido un error mientras se intentaba generar el pago de la orden. Puede revisar los detalles de la misma e intentar el pago nuevamente"
+      "order_error": {
+        "title": "Error al realizar el pago de la orden. Intentelo más tarde",
+        "subtitle": "Ha ocurrido un error mientras se intentaba generar el pago de la orden. Puede revisar los detalles de la misma e intentar el pago nuevamente"
       },
       "shopByCategory": "Comprar por categoría",
       "popularProducts": "Productos recomendados",
@@ -185,75 +199,59 @@
       "noProductsFound": {
         "title": "No se encontraron productos",
         "subText": "Intente ajustar su búsqueda o filtro para encontrar lo que está buscando.",
-        "clearFiltersAndSearch": "Borrar todos los filtros y la búsqueda"
-      }
+        "clearFiltersAndSearch": "Limpiar todos los filtros y buscar"
+      },
+      "welcomeMessage": "Descubre la mejor experiencia de compra en línea con nuestras ofertas exclusivas y envío rápido."
     },
     "billing": {
       "billing": "Facturación",
       "billingDetails": "Detalles de facturación",
       "firstName": "Nombre",
       "lastName": "Apellido",
-      "address1": "Dirección",
+      "address1": "Dirección 1",
       "address2": "Dirección 2",
       "city": "Ciudad",
+      "dni": "Identidad",
       "state": "Estado",
-      "zip": "Código Postal / ZIP",
+      "zip": "Código Postal",
       "country": "País",
-      "dni": "Carnét de identidad",
-      "countryCode": "Código de país",
       "phone": "Teléfono",
-      "address": "Dirección",
       "email": "Correo electrónico",
-      "paymentOptions": "Opciones de pago",
-      "creditCard": "Tarjeta de crédito",
-      "cashOnDelivery": "Contra reembolso",
-      "differentAddress": "¿Dirección de envío diferente?"
+      "company": "Empresa",
+      "vat": "IVA"
     },
     "error": {
       "passwordValidation": "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.",
       "passwordMatch": "Las contraseñas no coinciden.",
       "invalidUsernameAndPassword": "Correo o contraseña incorrectos.",
       "invalidUsername": "Nombre de usuario inválido. Por favor, regístrate.",
-      "invalidPassword": "Contraseña inválida. Por favor, inténtalo de nuevo.",
-      "passwordMismatch": "Las contraseñas no coinciden. Por favor, inténtalo de nuevo.",
-      "invalidPasswordResetLink": "El enlace de restablecimiento de contraseña no es válido.",
-      "general": "Ha ocurrido un error",
-      "noOrder": "No hemos podido encontrar tu pedido. Por favor, inténtalo de nuevo más tarde.",
-      "notRegistered": "No hemos podido crear su cuenta. Por favor, inténtalo de nuevo más tarde.",
-      "alreadyRegistered": "El correo electrónico ya esta en uso",
-      "pageNotFound": "No se ha encontrado la página",
-      "pageNotFoundText": "La página a la que está intentando acceder no existe o no está disponible. Revise la dirección o vaya al inicio."
-    },
-    "notification":{
-      "perfect": "Perfecto",
-      "error": "Error",
-      "updatedBilling": "¡Se ha actualizado tus datos de facturación!",
-      "updatedCart": "Producto añadido al carrito",
-      "updatedCartError": "No se pudo actualizar tu carrito!",
-      "updatedBillingError": "Tus datos de facturación no fueron actualizados!",
-      "updatedPwd": "¡Se ha actualizado tu contraseña!",
-      "updatedPwdError": "¡No se ha actualizado tu contraseña!"
-    },
-    "delivery": {
-      "delivery": "Envío",
-      "deliveryDetails": "Detalles de envío",
-      "firstName": "Nombre",
-      "lastName": "Apellido",
-      "address1": "Dirección",
-      "address2": "Dirección 2",
-      "city": "Municipio",
-      "state": "Provincia",
-      "zip": "Código Postal / ZIP",
-      "country": "País",
-      "dni": "Carnét de identidad",
-      "countryCode": "Código de país",
-      "phone": "Teléfono",
-      "address": "Dirección",
-      "email": "Correo electrónico",
-      "paymentOptions": "Opciones de pago",
-      "creditCard": "Tarjeta de crédito",
-      "cashOnDelivery": "Contra reembolso",
-      "differentAddress": "¿Dirección de envío diferente?"
+      "invalidEmail": "Correo electrónico inválido.",
+      "invalidPassword": "Contraseña inválida.",
+      "invalidAddress": "Dirección inválida.",
+      "invalidPhone": "Número de teléfono inválido.",
+      "invalidZip": "Código postal inválido.",
+      "invalidState": "Estado inválido.",
+      "invalidCity": "Ciudad inválida.",
+      "invalidCountry": "País inválido.",
+      "invalidCompany": "Empresa inválida.",
+      "invalidVat": "IVA inválido.",
+      "invalidDni": "Identidad inválida.",
+      "invalidFirstName": "Nombre inválido.",
+      "invalidLastName": "Apellido inválido.",
+      "invalidAddress1": "Dirección 1 inválida.",
+      "invalidAddress2": "Dirección 2 inválida.",
+      "invalidPhoneFormat": "Formato de teléfono inválido.",
+      "invalidZipFormat": "Formato de código postal inválido.",
+      "invalidStateFormat": "Formato de estado inválido.",
+      "invalidCityFormat": "Formato de ciudad inválido.",
+      "invalidCountryFormat": "Formato de país inválido.",
+      "invalidCompanyFormat": "Formato de empresa inválido.",
+      "invalidVatFormat": "Formato de IVA inválido.",
+      "invalidDniFormat": "Formato de identidad inválido.",
+      "invalidFirstNameFormat": "Formato de nombre inválido.",
+      "invalidLastNameFormat": "Formato de apellido inválido.",
+      "invalidAddress1Format": "Formato de dirección 1 inválido.",
+      "invalidAddress2Format": "Formato de dirección 2 inválido."
     }
   }
 }

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type Product from "~/types";
+import type {Product} from "~/types";
 const route = useRoute();
 const { storeSettings } = useAppConfig();
 const { cartManager, isUpdatingCart } = useCart();
@@ -27,7 +27,19 @@ const storeAuth = useAuth();
 </script>
 
 <template>
-  <main class="relative">
+  <main class="relative overflow-hidden">
+    <div class="absolute inset-0 z-0 pointer-events-none">
+        <div
+          class="absolute sm:top-[25%] sm:-left-[25%] xs:-top-[10%] xs:-left-[25%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+        ></div>
+        <div
+          class="absolute sm:-bottom-[10%] -bottom-56 sm:right-[20%] xs:right-[0] sm:w-[750px] sm:h-[750px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+        ></div>
+        <div
+          v-if="!isMobile() || !isTablet()"
+          class="absolute -top-[10%] -right-[15%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+        ></div>
+      </div>
     <div class="relative h-[250px] overflow-hidden">
       <img
         src="https://www.shutterstock.com/image-photo/online-shopping-business-ecommerce-internet-260nw-2286700843.jpg"
@@ -35,16 +47,11 @@ const storeAuth = useAuth();
         class="absolute inset-0 object-cover w-full h-full transform"
       />
       <div class="absolute inset-0 bg-black bg-opacity-25"></div>
-      
     </div>
-    <div class="container flex items-start gap-16 relative -mt-16 bg-white rounded-t-3xl sm:p-8 xs:p-2 shadow-lg">
+    <div
+      class="container flex items-start gap-16 relative -mt-16 bg-white rounded-t-3xl sm:p-8 xs:p-2 shadow-lg"
+    >
       <div v-if="stProduct.getCurrent" class="w-full sm:px-8 xs:px-2">
-        <!-- <Breadcrumb
-          :product="stProduct.getCurrent"
-          class="mb-6"
-          v-if="storeSettings.showBreadcrumbOnSingleProduct && !isMobile() && !isTablet()"
-        /> -->
-  
         <div
           class="w-full flex flex-col gap-10 md:flex-row md:justify-between lg:gap-24"
         >
@@ -61,7 +68,7 @@ const storeAuth = useAuth();
             src="/images/placeholder.jpg"
             :alt="stProduct.getCurrent?.name[locale] || 'Product'"
           />
-  
+
           <div
             class="flex flex-col justify -center lg:max-w-md xl:max-w-lg md:py-2 w-full"
           >
@@ -86,7 +93,9 @@ const storeAuth = useAuth();
                 </span>
                 <StockStatus
                   :stockStatus="
-                    stProduct.getCurrent.stock !== 0 ? 'IN_STOCK' : 'OUT_OF_STOCK'
+                    stProduct.getCurrent.stock !== 0
+                      ? 'IN_STOCK'
+                      : 'OUT_OF_STOCK'
                   "
                 />
               </div>
@@ -95,9 +104,9 @@ const storeAuth = useAuth();
               class="mb-8 font-light prose"
               v-html="stProduct.getCurrent.description[locale]"
             ></div>
-  
+
             <hr />
-  
+
             <form @submit.prevent="addToCart(stProduct.getCurrent)">
               <div
                 class="fixed bottom-0 left-0 z-10 flex items-center w-full gap-4 p-4 mt-12 bg-white md:static md:bg-transparent bg-opacity-90 md:p-0"
@@ -115,7 +124,7 @@ const storeAuth = useAuth();
                 />
               </div>
             </form>
-  
+
             <div
               v-if="
                 storeSettings.showProductCategoriesOnSingleProduct &&
@@ -136,7 +145,7 @@ const storeAuth = useAuth();
               </div>
               <hr />
             </div>
-  
+
             <div class="flex flex-wrap gap-4">
               <div v-if="user">
                 <WishlistButton :product="stProduct.getCurrent" />
