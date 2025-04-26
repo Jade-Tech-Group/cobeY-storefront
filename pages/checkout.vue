@@ -168,7 +168,7 @@ const goToTropipay = () => {
 </script>
 
 <template>
-  <div class="flex flex-col min-h-[600px]">
+  <div class="flex flex-col min-h-[600px] overflow-hidden relative">
     <template v-if="!user && !unlogging">
       <DialogCmp
         :dialog-show="true"
@@ -189,7 +189,7 @@ const goToTropipay = () => {
         
         <div
           v-if="!isMobile() || !isTablet()"
-          class="absolute -top-[10%] -right-[15%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+          class="absolute -top-[30%] -right-[25%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
         ></div>
       </div>
       <div v-if="cart.id">
