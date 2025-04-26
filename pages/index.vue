@@ -34,16 +34,16 @@ const [container] = useKeenSlider(
     loop: true,
     breakpoints: {
       "(min-width: 360px)": {
-        slides: { perView: 3, spacing: 5 },
+        slides: { perView: 2, spacing: 5 },
       },
       "(min-width: 1000px)": {
-        slides: { perView: 6, spacing: 10 },
+        slides: { perView: 4, spacing: 10 },
       },
       "(min-width: 1244px)": {
-        slides: { perView: 6, spacing: 20 },
+        slides: { perView: 5, spacing: 20 },
       },
       "(min-width: 1920px)": {
-        slides: { perView: 7, spacing: 5 },
+        slides: { perView: 6, spacing: 5 },
       },
     },
   },
@@ -116,12 +116,12 @@ const [container] = useKeenSlider(
         v-if="stProducts.getFeatured.length > 0"
       >
         <div class="flex flex-row items-center justify-between gap-2">
-          <h2 class="text-lg font-semibold md:text-2xl xs:text-md">
+          <h2 class="w-8/12 text-lg font-semibold md:text-2xl xs:text-md">
             {{ $t("messages.shop.popularProducts") }}
           </h2>
           <div class="flex-1 border border-gray-200 text-center"></div>
           <NuxtLink
-            class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm w-28 text-center"
+            class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm"
             to="/products?filter=featured[true]"
             >{{ $t("messages.general.viewAll") }}</NuxtLink
           >
@@ -224,12 +224,12 @@ const [container] = useKeenSlider(
         v-if="stProducts.getFeatured.length > 0"
       >
         <div class="flex flex-row items-center justify-between gap-2">
-          <h2 class="text-lg font-semibold md:text-2xl">
+          <h2 class="w-8/12 text-lg font-semibold md:text-2xl">
             {{ $t("messages.shop.popularProducts") }}
           </h2>
           <div class="flex-1 border border-gray-200 text-center"></div>
           <NuxtLink
-            class="rounded-full border p-3 text-primary-dark font-bold text-lg"
+            class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm"
             to="/products?filter=featured[true]"
             >{{ $t("messages.general.viewAll") }}</NuxtLink
           >
@@ -242,12 +242,12 @@ const [container] = useKeenSlider(
 
       <section class="container my-16" v-if="stProducts.getOnSale.length > 0">
         <div class="flex items-center justify-between gap-2">
-          <h2 class="text-lg font-semibold md:text-2xl">
+          <h2 class="w-8/12 text-lg font-semibold md:text-2xl">
             {{ $t("messages.general.productsOnSale") }}
           </h2>
           <div class="flex-1 border border-gray-200 text-center"></div>
           <NuxtLink
-            class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm w-28 text-center"
+            class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm"
             to="/products?filter=onSale[true]"
             >{{ $t("messages.general.viewAll") }}</NuxtLink
           >
