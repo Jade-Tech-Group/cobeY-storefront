@@ -2,6 +2,7 @@
 import { useKeenSlider } from "keen-slider/vue.es";
 import "keen-slider/keen-slider.min.css";
 import ProductCard from "./productElements/ProductCard.vue";
+import SliderNavigation from "./common/SliderNavigation.vue";
 import type { Product } from "~/types";
 import { ref } from "vue";
 
@@ -10,7 +11,7 @@ const props = defineProps<{
 }>();
 
 const isLoading = ref(true);
-const [sliderRef] = useKeenSlider(
+const [sliderRef, slider] = useKeenSlider(
   {
     loop: true,
     breakpoints: {
@@ -100,8 +101,8 @@ const useSliderEvents = (
 </script>
 
 <template>
-  <section class="w-full grid sm:gap-12 xs:gap-4 py-10">
-    <div ref="sliderRef" class="keen-slider w-full">
+  <section class="w-full grid sm:gap-12 xs:gap-4 py-10 relative">
+    <div ref="sliderRef" class="keen-slider w-full relative">
       <div
         v-if="products"
         class="w-full flex flex-col justify-center overflow-hidden items-center gap-2"
@@ -126,6 +127,11 @@ const useSliderEvents = (
         </div>
       </div>
     </div>
+
+    <SliderNavigation 
+      :prev="() => slider?.prev()" 
+      :next="() => slider?.next()"
+    />
   </section>
 </template>
 <style scoped>

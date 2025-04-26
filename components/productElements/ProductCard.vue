@@ -45,7 +45,7 @@ const addToCart = async (item: Product) => {
 
 <template>
   <div
-    class="flex flex-col justify-between relative group rounded-lg p-4 max-h-[409px] bg-white"
+    class="flex flex-col justify-between relative border group rounded-lg p-4 max-h-[409px] bg-white"
   >
     <NuxtLink
       v-if="node.id"

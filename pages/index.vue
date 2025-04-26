@@ -153,7 +153,6 @@ onMounted(() => {
         </div>
       </section>
 
-      <!-- Promoción Especial -->
 
       <!-- Featured Products -->
       <section
@@ -185,7 +184,7 @@ onMounted(() => {
         ></div>
         <div class="container z-10">
           <div class="text-center mb-12 relative z-10">
-            <h2 class="text-3xl sm:text-4xl font-bold text-primary mb-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-primary-dark mb-4">
               {{ t("messages.features.title") }}
             </h2>
             <p class="text-primary-dark max-w-2xl mx-auto">
