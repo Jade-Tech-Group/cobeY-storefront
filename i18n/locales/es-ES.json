@@ -51,21 +51,39 @@
       "onSale": "En oferta",
       "topRated": "Mejores calificados",
       "wishlist": "Lista de deseos",
-      "refresh": "Refrescar lista"
+      "refresh": "Refrescar lista",
+      "prev": "Anterior",
+      "next": "Siguiente"
     },
     "welcome": {
       "title": "Bienvenido a Cobe Y+",
       "subtitle": "Descubre la mejor experiencia de compra en línea con nuestras ofertas exclusivas y envío rápido"
     },
     "features": {
+      "title": "¿Por qué elegirnos?",
+      "subtitle": "Descubre por qué somos la mejor opción para tus compras en línea",
+      "quality": {
+        "title": "Calidad garantizada",
+        "description": "Productos de primera calidad con garantía de satisfacción"
+      },
+      "variety": {
+        "title": "Variedad de productos",
+        "description": "Más de 1000 productos en diferentes categorías"
+      },
+      "support": {
+        "title": "Atención personalizada",
+        "description": "Nuestro equipo está siempre disponible para ayudarte"
+      },
+      "delivery": {
+        "title": "Entrega rápida",
+        "description": "Entrega en 24-48 horas en toda la región"
+      },
       "freeShipping": "Envío gratis",
       "freeShippingSubtitle": "Envío gratuito en pedidos superiores a 50€",
       "moneyBack": "Tranquilidad de espíritu",
       "moneyBackSubtitle": "Garantía de devolución de dinero de 30 días",
       "securePayment": "100% Pago Seguro",
-      "securePaymentSubtitle": "Tu pago está seguro con nosotros",
-      "support": "Soporte 24/7",
-      "supportSubtitle": "24/7 Soporte online"
+      "securePaymentSubtitle": "Tu pago está seguro con nosotros"
     },
     "account": {
       "login_or_register": "Inicia sesión o regístrate",
@@ -263,6 +281,32 @@
       "updatedBillingError": "Tus datos de facturación no fueron actualizados!",
       "updatedPwd": "¡Se ha actualizado tu contraseña!",
       "updatedPwdError": "¡No se ha actualizado tu contraseña!"
+    },
+    "purchaseProcess": {
+      "title": "Cómo comprar en Cobe Y+",
+      "subtitle": "Sigue estos simples pasos para realizar tu compra",
+      "steps": {
+        "1": {
+          "title": "Explora los productos",
+          "description": "Navega por nuestras categorías y encuentra el producto que necesitas"
+        },
+        "2": {
+          "title": "Agrega al carrito",
+          "description": "Haz clic en 'Añadir al carrito' y continua navegando o procede al checkout"
+        },
+        "3": {
+          "title": "Información de envío",
+          "description": "Ingresa tus datos de envío y selecciona la forma de entrega"
+        },
+        "4": {
+          "title": "Método de pago",
+          "description": "Elige tu método de pago preferido y completa el proceso"
+        },
+        "5": {
+          "title": "Confirmación",
+          "description": "Recibe la confirmación de tu pedido y espera tu entrega"
+        }
+      }
     }
   }
 }
