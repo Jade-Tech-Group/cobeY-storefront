@@ -474,20 +474,8 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div class="flex justify-between items-center mt-12">
-            <button
-              class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm transition-colors duration-300 hover:bg-primary hover:text-white"
-              @click="prevStep"
-            >
-              {{ t('messages.general.prev') }}
-            </button>
-            <button
-              class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm transition-colors duration-300 hover:bg-primary hover:text-white"
-              @click="nextStep"
-            >
-              {{ t('messages.general.next') }}
-            </button>
-          </div>
+
+          <!-- Progress Bar -->
           <div class="mt-8">
             <div class="w-full bg-gray-200 rounded-full h-2.5">
               <div
