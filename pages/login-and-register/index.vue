@@ -2,11 +2,11 @@
   <div class="relative overflow-hidden min-h-[600px] font-normal">
     <div class="absolute inset-0 z-0 pointer-events-none">
       <div
-        class="absolute sm:top-[2%] sm:-left-[15%] xs:-top-[10%] xs:-left-[25%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(75,18,88,0.3)_0%,_rgba(75,18,88,0.25)_15%,_rgba(75,18,88,0.2)_30%,_rgba(75,18,88,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+        class="absolute sm:top-[2%] sm:-left-[15%] xs:-top-[10%] xs:-left-[25%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
       ></div>
       <div
         v-if="!isMobile() || !isTablet()"
-        class="absolute -top-[30%] -right-[15%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(75,18,88,0.3)_0%,_rgba(75,18,88,0.25)_15%,_rgba(75,18,88,0.2)_30%,_rgba(75,18,88,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+        class="absolute -top-[30%] -right-[15%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(239,122,20,0.3)_0%,_rgba(239,122,20,0.25)_15%,_rgba(239,122,20,0.2)_30%,_rgba(239,122,20,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
       ></div>
     </div>
     <div class="container mx-auto my-16 min-h-[600px] lg:my-24">
