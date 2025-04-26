@@ -58,14 +58,30 @@
       "subtitle": "Discover the best online shopping experience with our exclusive offers and fast delivery"
     },
     "features": {
+      "title": "Why Choose Us?",
+      "subtitle": "Discover why we're the best choice for your online shopping",
+      "quality": {
+        "title": "Guaranteed Quality",
+        "description": "High-quality products with satisfaction guarantee"
+      },
+      "variety": {
+        "title": "Variety of Products",
+        "description": "Over 1000 products in different categories"
+      },
+      "support": {
+        "title": "Personalized Support",
+        "description": "Our team is always available to help you"
+      },
+      "delivery": {
+        "title": "Fast Delivery",
+        "description": "Delivery within 24-48 hours in the region"
+      },
       "freeShipping": "Free Shipping",
       "freeShippingSubtitle": "Free shipping on orders over €50",
       "moneyBack": "Peace of Mind",
       "moneyBackSubtitle": "30-day money-back guarantee",
       "securePayment": "100% Secure Payment",
-      "securePaymentSubtitle": "Your payment is secure with us",
-      "support": "24/7 Support",
-      "supportSubtitle": "24/7 Online Support"
+      "securePaymentSubtitle": "Your payment is secure with us"
     },
     "account": {
       "login_or_register": "Login or register",
@@ -263,6 +279,32 @@
       "updatedBillingError": "Your billing information wasn't updated!",
       "updatedPwd": "Your password has been updated!",
       "updatedPwdError": "Your password wasn't updated!"
+    },
+    "purchaseProcess": {
+      "title": "How to Shop at Cobe Y+",
+      "subtitle": "Follow these simple steps to complete your purchase",
+      "steps": {
+        "1": {
+          "title": "Explore Products",
+          "description": "Browse our categories and find the product you need"
+        },
+        "2": {
+          "title": "Add to Cart",
+          "description": "Click 'Add to Cart' and continue shopping or proceed to checkout"
+        },
+        "3": {
+          "title": "Shipping Information",
+          "description": "Enter your shipping details and select delivery method"
+        },
+        "4": {
+          "title": "Payment Method",
+          "description": "Choose your preferred payment method and complete the process"
+        },
+        "5": {
+          "title": "Confirmation",
+          "description": "Receive your order confirmation and wait for delivery"
+        }
+      }
     }
   }
 }
