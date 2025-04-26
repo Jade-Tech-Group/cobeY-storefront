@@ -370,7 +370,7 @@ onMounted(() => {
 
       <!-- Purchase Process -->
       <section class="relative overflow-hidden my-16 py-8">
-        <div class="absolute inset-0 bg-gradient-to-r from-primary-dark/40 to-secondary-dark/40"></div>
+        <div class="absolute"></div>
         <div class="container z-10">
           <div class="text-center mb-12 relative z-10">
             <h2 class="text-3xl sm:text-4xl font-bold text-primary mb-4">
@@ -388,14 +388,13 @@ onMounted(() => {
               class="group relative"
             >
               <div
-                class="p-6 relative z-10 h-full min-h-[200px] flex flex-col justify-between"
+                class="p-6 relative z-10 sm:h-[280px] xs:h-[200px] flex flex-col justify-between border-zinc-200"
                 :class="{
                   'bg-white': currentStep !== index + 1,
                   'bg-gradient-to-br from-primary-light/5 to-white': currentStep === index + 1,
                   'shadow-sm': currentStep !== index + 1,
                   'shadow-lg': currentStep === index + 1,
                   'border-2 border-primary': currentStep === index + 1,
-                  'border-transparent': currentStep !== index + 1,
                   'rounded-xl': true,
                   'hover:shadow-md': currentStep !== index + 1,
                   'hover:shadow-xl': currentStep === index + 1,
@@ -406,7 +405,7 @@ onMounted(() => {
                   class="w-12 h-12 rounded-full flex items-center justify-center mb-4"
                   :class="{
                     'bg-primary-light': currentStep === index + 1,
-                    'bg-gray-200': currentStep !== index + 1,
+                    'bg-white': currentStep !== index + 1,
                   }"
                 >
                   <svg
@@ -423,21 +422,7 @@ onMounted(() => {
                       d="M5 13l4 4L19 7"
                     ></path>
                   </svg>
-                  <template v-else>
-                    <svg
-                      class="w-6 h-6 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                      ></path>
-                    </svg>
-                  </template>
+                 
                 </div>
                 <h3 class="text-xl font-semibold mb-2">
                   {{ step.title }}
@@ -449,7 +434,7 @@ onMounted(() => {
 
               <!-- Step Number Overlay -->
               <div
-                class="absolute -top-6 -left-6 w-12 h-12 rounded-full flex items-center justify-center text-white font-bold z-20"
+                class="absolute sm:-top-6 sm:-left-6 xs:-top-4 xs:left-[40%] w-12 h-12 rounded-full flex items-center justify-center text-white font-bold z-10"
                 :class="{
                   'bg-primary': currentStep === index + 1,
                   'bg-gray-400': currentStep !== index + 1,
