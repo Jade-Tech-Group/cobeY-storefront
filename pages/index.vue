@@ -464,7 +464,7 @@ onMounted(() => {
           <div class="mt-8">
             <div class="w-full bg-gray-200 rounded-full h-2.5">
               <div
-                class="bg-primary h-2.5 rounded-full transition-all duration-500"
+                class="h-2.5 rounded-full transition-all duration-500 bg-gradient-to-r from-secondary to-primary"
                 :style="{ width: `${stepProgress}%` }"
               ></div>
             </div>
