@@ -83,13 +83,17 @@ const [container] = useKeenSlider(
 <template>
   <main>
     <HeroBanner :nodes="stBanners.getAll" />
-    <div class="relative">
+    <div class="relative overflow-hidden">
       <div class="absolute inset-0 z-0 pointer-events-none">
         <div
-          class="absolute top-[10%] -left-[20%] sm:w-[750px] sm:h-[750px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(153,178,228,0.3)_0%,_rgba(153,178,228,0.25)_15%,_rgba(153,178,228,0.2)_30%,_rgba(153,178,228,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+          class="absolute sm:top-[25%] sm:-left-[25%] xs:-top-[10%] xs:-left-[25%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(75,18,88,0.3)_0%,_rgba(75,18,88,0.25)_15%,_rgba(75,18,88,0.2)_30%,_rgba(75,18,88,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
         ></div>
         <div
           class="absolute sm:-bottom-[10%] -bottom-56 sm:right-[20%] xs:right-[0] sm:w-[750px] sm:h-[750px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(153,178,228,0.3)_0%,_rgba(153,178,228,0.25)_15%,_rgba(153,178,228,0.2)_30%,_rgba(153,178,228,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
+        ></div>
+        <div
+          v-if="!isMobile() || !isTablet()"
+          class="absolute -top-[10%] -right-[15%] sm:w-[950px] sm:h-[950px] xs:w-[320px] xs:h-[320px] bg-[radial-gradient(circle_at_center,_rgba(75,18,88,0.3)_0%,_rgba(75,18,88,0.25)_15%,_rgba(75,18,88,0.2)_30%,_rgba(75,18,88,0.15)_45%,_rgba(255,255,255,0.1)_60%,_rgba(255,255,255,0.05)_75%,_rgba(255,255,255,0.02)_90%,_rgba(255,255,255,0)_100%)] rounded-full"
         ></div>
       </div>
       <section class="container sm:my-16">
@@ -131,7 +135,7 @@ const [container] = useKeenSlider(
       <section
         class="grid sm:gap-12 xs:gap-4 my-24 md:grid-cols-2 lg:grid-cols-4 bg-secondary-light py-10 sm:px-[10rem] xs:px-4"
       >
-        <div class="flex items-center gap-8 p-8 bg-white rounded-lg">
+        <div class="z-10 flex items-center gap-8 p-8 bg-white rounded-lg">
           <img
             src="/icons/box.svg"
             width="60"
@@ -186,20 +190,20 @@ const [container] = useKeenSlider(
       </section>
 
       <!-- New Products -->
-       <div class="container">
+      <div class="container">
         <div class="flex flex-row items-center justify-between gap-2">
-          <h2 class="text-lg font-semibold md:text-2xl">
+          <h2 class="w-8/12 text-lg font-semibold md:text-2xl">
             {{ $t("messages.shop.latestProducts") }}
           </h2>
           <div class="flex-1 border border-gray-200 text-center"></div>
           <NuxtLink
-            class="rounded-full border p-3 text-primary-dark font-bold text-lg"
+            class="rounded-full border p-3 text-primary-dark font-bold sm:text-lg xs:text-sm"
             to="/products?filter=featured[true]"
             >{{ $t("messages.general.viewAll") }}</NuxtLink
           >
         </div>
         <ProductSlider :products="stProducts.getNews" class="w-full" />
-       </div>
+      </div>
 
       <section
         class="w-full grid sm:gap-12 xs:gap-4 py-10 lg:px-[10rem] sm:px-[5rem] xs:px-4 bg-white"

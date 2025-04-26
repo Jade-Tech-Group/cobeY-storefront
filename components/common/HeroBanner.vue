@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mx-auto">
+  <div class="relative mx-auto z-10">
     <div>
       <div class="navigation-wrapper">
         <div ref="container" class="keen-slider">
