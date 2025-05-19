@@ -1,5 +1,5 @@
 import useConf from "~/conf/useConf";
-import type Product from "~/types";
+import type {Product} from "~/types";
 import type { Cart, Coupon, ProductCart } from "~/types";
 import { getItem, setItem } from "./localStorage";
 import { delivery_method } from "~/constants";

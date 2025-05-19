@@ -1,4 +1,4 @@
-import type Category from "~/types";
+import type { Category } from "~/types";
 import conf from "~/conf/useConf";
 import type { Banner } from "~/types";
 
@@ -15,7 +15,7 @@ export const useBannerStore = defineStore("banner", {
     async fetch(): Promise<void> {
       this.loading = true;
       try {
-        const response: { data: Banner[]  } = await $fetch(
+        const response: { data: Banner[] } = await $fetch(
           `${conf.api.baseUrl}${conf.api.services.banner.list}`
         );
         this.banners = response.data;

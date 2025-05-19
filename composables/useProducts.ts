@@ -1,5 +1,5 @@
 import useConf from "~/conf/useConf";
-import type Product from "~/types";
+import type {Product} from "~/types";
 
 let allProducts = [] as Product[];
 
