@@ -1,6 +1,6 @@
 export default {
   api: {
-    baseUrl: "https://cobey-api-d3vz.onrender.com/api/v1",
+    baseUrl: "https://cobey-api-ln81.onrender.com/api/v1",
     services: {
       auth: {
         login: "/auth/login",
