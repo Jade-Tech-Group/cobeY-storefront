@@ -149,7 +149,8 @@
       "required_redirect": "Se necesitan acciones fuera de la tienda para continuar con el pago.",
       "order_error": {
         "title": "Error al realizar el pago de la orden. Intentelo más tarde",
-        "subtitle": "Ha ocurrido un error mientras se intentaba generar el pago de la orden. Puede revisar los detalles de la misma e intentar el pago nuevamente"
+        "subtitle": "Ha ocurrido un error mientras se intentaba generar el pago de la orden. Puede revisar los detalles de la misma e intentar el pago nuevamente",
+        "button": "Ir a pedidos"
       },
       "shopByCategory": "Comprar por categoría",
       "popularProducts": "Productos recomendados",

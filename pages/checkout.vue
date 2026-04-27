@@ -104,7 +104,7 @@ const payNow = async () => {
   if (errorOrder.value) {
     dialogShow.value = true;
     dialogAction.value = "error";
-    dialogPrimaryText.value = t("messages.shop");
+    dialogPrimaryText.value = t("messages.shop.order_error.button");
     dialogSecondaryText.value = t("messages.shop.close");
     dialogMainTxt.value = t("messages.shop.order_error.subtitle");
     dialogToPrimary.value = "/";

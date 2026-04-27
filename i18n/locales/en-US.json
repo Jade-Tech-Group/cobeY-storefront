@@ -148,7 +148,8 @@
       "required_redirect": "Actions outside the store are needed to continue payment.",
       "order_error": {
         "title": "Error when paying the order. Try again later",
-        "subtitle": "An error occurred while trying to generate payment for the order. You can review the order details and try payment again"
+        "subtitle": "An error occurred while trying to generate payment for the order. You can review the order details and try payment again",
+        "button": "Go to Orders"
       },
       "shopByCategory": "Shop by Category",
       "popularProducts": "Popular Products",
