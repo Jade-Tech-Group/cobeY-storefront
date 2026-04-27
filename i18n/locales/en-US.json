@@ -1,5 +1,8 @@
 {
   "messages": {
+    "home": {
+      "title": "Home"
+    },
     "general": {
       "welcome": "Welcome",
       "qty": "Qty:",

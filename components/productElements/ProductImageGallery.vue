@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type Product from '~/types';
+import type { Product } from '~/types';
 
 const { FALLBACK_IMG } = useHelpers();
 
@@ -11,16 +11,17 @@ const props = defineProps({
 });
 
 const { t, locale } = useI18n();
-const imgWidth = 640;
+const imgWidth = 300;
+const imgHeight = 100;
 </script>
 
 <template>
-  <div>
+  <div class="flex justify-center items-center">
     <SaleBadge :node class="absolute text-base top-4 right-4" />
     <NuxtImg
-      class="rounded-xl object-contain w-full min-w-[350px]"
+      class="rounded-xl object-contain"
       :width="imgWidth"
-      :height="imgWidth"
+      :height="imgHeight"
       :alt="node.name[locale]"
       :title="node.name[locale]"
       :src="node.standard_image || FALLBACK_IMG"

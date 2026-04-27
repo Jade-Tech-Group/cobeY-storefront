@@ -9,7 +9,7 @@ const props = defineProps({
   index: { type: Number, default: 1 },
 });
 
-const imgWidth = 280;
+const imgWidth = 200;
 const imgHeight = Math.round(imgWidth * 1.125);
 
 const filterQuery = ref(route.query?.filter as string);
@@ -45,29 +45,32 @@ const addToCart = async (item: Product) => {
 
 <template>
   <div
-    class="flex flex-col justify-between relative border group rounded-lg p-4 max-h-[409px] bg-white"
+    class="flex flex-col justify-between relative border group rounded-lg p-4 bg-white"
   >
     <NuxtLink
       v-if="node.id"
       :to="`/product/${decodeURIComponent(node.id)}`"
       :title="node.name[locale]"
+      class="relative block"
     >
-      <SaleBadge :node class="absolute top-2 right-2" />
-      <NuxtImg
-        v-if="node.standard_image"
-        :width="imgWidth"
-        :height="imgHeight"
-        :src="node.standard_image"
-        :alt="node.name[locale] || 'Product image'"
-        :title="node.name[locale]"
-        :loading="index <= 3 ? 'eager' : 'lazy'"
-        :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
-        class="rounded-lg object-top object-cover w-full aspect-9/8 to-transparent"
-        placeholder
-        placeholder-class="blur-xl"
-      />
+      <SaleBadge :node class="absolute top-2 right-2 z-10" />
+      <div class="w-full" :style="{ height: `${imgHeight}px` }">
+        <NuxtImg
+          v-if="node.standard_image"
+          :width="imgWidth"
+          :height="imgHeight"
+          :src="node.standard_image"
+          :alt="node.name[locale] || 'Product image'"
+          :title="node.name[locale]"
+          :loading="index <= 3 ? 'eager' : 'lazy'"
+          :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
+          class="rounded-lg object-contain w-full h-full"
+          placeholder
+          placeholder-class="blur-xl"
+        />
+      </div>
     </NuxtLink>
-    <div class="p-2 h-24 overflow-y-hidden">
+    <div class="p-2 h-20 overflow-y-hidden">
       <NuxtLink
         v-if="node.id"
         :to="`/product/${decodeURIComponent(node.id)}`"

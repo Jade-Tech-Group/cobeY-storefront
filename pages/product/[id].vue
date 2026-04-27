@@ -64,7 +64,7 @@ const storeAuth = useAuth();
           />
           <NuxtImg
             v-else
-            class="relative flex-1 skeleton"
+            class="relative flex-1 skeleton object-cover w-full h-full rounded-xl"
             src="/images/placeholder.jpg"
             :alt="stProduct.getCurrent?.name[locale] || 'Product'"
           />
