@@ -240,6 +240,18 @@
       "sending": "Enviando...",
       "description": "Nos encantaría saber de ti. Por favor completa el formulario a continuación y te responderemos lo antes posible."
     },
+    "delivery": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "phone": "Teléfono",
+      "email": "Correo electrónico",
+      "address1": "Dirección",
+      "dni": "Identidad",
+      "country": "País",
+      "state": "Estado",
+      "city": "Ciudad",
+      "zip": "Código Postal"
+    },
     "billing": {
       "billing": "Facturación",
       "billingDetails": "Detalles de facturación",
