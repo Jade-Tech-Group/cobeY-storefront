@@ -76,17 +76,21 @@ const { user } = useAuth();
       class="container border-t flex items-center justify-center mb-4 border-secondary"
     >
       <div
-        class="md:w-96 xs:w-full flex flex-row xs:justify-center sm:justify-start"
+        class="md:w-96 h-8 xs:w-full flex flex-row xs:justify-center sm:justify-start"
       >
-        <p class="py-4 text-center text-md">
+        <p class="text-center text-md py-2">
           <a
             href="https://www.asgeniusllc.com/#/"
             title="AsGenius"
             target="_blank"
-            class="w-full flex gap-4 items-center justify-center"
-            >Desarrollado por:
-            <img src="/images/logo_as_genius.jpg" alt="asgenius" width="80"
-          /></a>
+            class="w-full flex items-center justify-center gap-1"
+            >Desarrollado por: As Genius
+            <img
+              src="/images/AsGenius.png"
+              alt="asgenius"
+              class="w-8 h-8 scale-90"
+            />
+          </a>
         </p>
       </div>
       <SocialIcons class="ml-auto" />

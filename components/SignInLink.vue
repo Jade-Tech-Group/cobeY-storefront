@@ -10,7 +10,7 @@ const linkTitle = computed<string>(() => user.value?.email || "Sign In");
 </script>
 
 <template>
-  <NuxtLink
+  <div
     :title="linkTitle"
     class="hidden sm:inline-flex aspect-square"
   >
@@ -37,7 +37,7 @@ const linkTitle = computed<string>(() => user.value?.email || "Sign In");
         @click="$router.push('/login-and-register')"
       />
     </Transition>
-  </NuxtLink>
+  </div>
 </template>
 
 <style scoped lang="postcss">

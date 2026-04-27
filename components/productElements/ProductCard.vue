@@ -44,65 +44,67 @@ const addToCart = async (item: Product) => {
 </script>
 
 <template>
-  <div
-    class="flex flex-col justify-between relative border group rounded-lg p-4 bg-white"
-  >
-    <NuxtLink
-      v-if="node.id"
-      :to="`/product/${decodeURIComponent(node.id)}`"
-      :title="node.name[locale]"
-      class="relative block"
+  <div class="w-full">
+    <div
+      class="flex flex-col justify-between relative border group rounded-lg p-4 bg-white"
     >
-      <SaleBadge :node class="absolute top-2 right-2 z-10" />
-      <div class="w-full" :style="{ height: `${imgHeight}px` }">
-        <NuxtImg
-          v-if="node.standard_image"
-          :width="imgWidth"
-          :height="imgHeight"
-          :src="node.standard_image"
-          :alt="node.name[locale] || 'Product image'"
-          :title="node.name[locale]"
-          :loading="index <= 3 ? 'eager' : 'lazy'"
-          :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
-          class="rounded-lg object-contain w-full h-full"
-          placeholder
-          placeholder-class="blur-xl"
-        />
-      </div>
-    </NuxtLink>
-    <div class="p-2 h-20 overflow-y-hidden">
       <NuxtLink
         v-if="node.id"
         :to="`/product/${decodeURIComponent(node.id)}`"
         :title="node.name[locale]"
+        class="relative block"
       >
-        <h2 class="mb-1 font-normal leading-tight group-hover:text-primary whitespace-normal line-clamp-2">
-          {{ node.name[locale] }}
-        </h2>
+        <SaleBadge :node class="absolute top-2 right-2 z-10" />
+        <div class="w-full" :style="{ height: `${imgHeight}px` }">
+          <NuxtImg
+            v-if="node.standard_image"
+            :width="imgWidth"
+            :height="imgHeight"
+            :src="node.standard_image"
+            :alt="node.name[locale] || 'Product image'"
+            :title="node.name[locale]"
+            :loading="index <= 3 ? 'eager' : 'lazy'"
+            :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
+            class="rounded-lg object-contain w-full h-full"
+            placeholder
+            placeholder-class="blur-xl"
+          />
+        </div>
       </NuxtLink>
-      <ProductPrice
-        class="text-sm"
-        :sale-price="node.sale_price"
-        :regular-price="node.price"
-      />
-    </div>
-    <div
-      class="w-full flex xs:flex-col sm:flex-row gap-2 items-center border-t pt-2"
-    >
-      <div>
-        <QuantityCard
-          :item="node"
-          @increment="(quantity: number)=> node.amount = quantity"
+      <div class="p-2 h-20 overflow-y-hidden">
+        <NuxtLink
+          v-if="node.id"
+          :to="`/product/${decodeURIComponent(node.id)}`"
+          :title="node.name[locale]"
+        >
+          <h2 class="mb-1 font-normal leading-tight group-hover:text-primary whitespace-normal line-clamp-2">
+            {{ node.name[locale] }}
+          </h2>
+        </NuxtLink>
+        <ProductPrice
+          class="text-sm"
+          :sale-price="node.sale_price"
+          :regular-price="node.price"
         />
       </div>
-      <AddToCartButton class="flex-1 w-full" @click="addToCart(node)" />
+      <div
+        class="w-full flex xs:flex-col sm:flex-row gap-2 items-center border-t pt-2"
+      >
+        <div>
+          <QuantityCard
+            :item="node"
+            @increment="(quantity: number)=> node.amount = quantity"
+          />
+        </div>
+        <AddToCartButton class="flex-1 w-full" @click="addToCart(node)" />
+      </div>
     </div>
+    <Toast
+      v-for="(toast, index) in toastList"
+      :key="index"
+      :message="toast.message"
+      :type="toast.type"
+      :duration="toast.duration"
+    />
   </div>
-  <Toast
-    v-for="(toast, index) in toastList"
-    :key="index"
-    :message="toast.message"
-    :type="toast.type"
-    :duration="toast.duration"
-  />
 </template>
