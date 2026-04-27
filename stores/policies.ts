@@ -1,29 +1,30 @@
 import conf from "~/conf/useConf";
 
 
-export const usePrivacyPolicy = defineStore("privacyPolicy", () => {
-    const privacyPolicy = ref();
+export const usePolicies = defineStore("policies", () => {
+    const policies = ref();
     const loading = ref(false);
     const hasError = ref(false);
 
-async function getPrivacyPolicyInfo() {
+async function getPolicies() {
     loading.value = true;
     try {
-        const response = await fetch(`${conf.api.baseUrl}${conf.api.services.privacyPolicy}`);
+        const response = await fetch(`${conf.api.baseUrl}${conf.api.services.policy}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        privacyPolicy.value = await response.json();
+        const result = await response.json();
+        policies.value = result;
         loading.value = false;
         hasError.value = false;
         
     } catch (error) {
         loading.value = false;
         hasError.value = true;
-        console.error('Error fetching privacyPolicy info:', error);
+        console.error('Error fetching policies info:', error);
         throw error;
     }
 }
-return { privacyPolicy, loading, hasError, getPrivacyPolicyInfo };
+return { policies, loading, hasError, getPolicies };
 
 });
