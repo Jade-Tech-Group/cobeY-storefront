@@ -40,12 +40,12 @@ const { user } = useAuth();
           <!-- <a href="/" class="py-1.5 block">{{
             $t("messages.general.shippingReturns")
           }}</a> -->
-          <a href="/" class="py-1.5 block">{{
+          <NuxtLink to="/privacy-policy" class="py-1.5 block">{{
             $t("messages.general.privacyPolicy")
-          }}</a>
-          <a href="/" class="py-1.5 block">{{
+          }}</NuxtLink>
+          <NuxtLink to="/terms-conditions" class="py-1.5 block">{{
             $t("messages.general.termsConditions")
-          }}</a>
+          }}</NuxtLink>
         </div>
       </div>
       <div class="w-3/7 lg:w-auto">

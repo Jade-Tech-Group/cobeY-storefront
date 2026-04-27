@@ -44,6 +44,8 @@ export default {
         updateShipping: '/cart/shippingMethod'
       },
       aboutUs: '/aboutUs',
+      termsConditions: '/termsConditions',
+      privacyPolicy: '/privacyPolicy',
     },
   },
 };
