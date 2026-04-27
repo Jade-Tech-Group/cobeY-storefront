@@ -45,6 +45,7 @@ export default {
       },
       aboutUs: '/aboutUs',
       policy: '/Policy',
+      ticket: '/ticket',
     },
   },
 };

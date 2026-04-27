@@ -49,6 +49,7 @@
       "searchResults": "Resultados de la búsqueda",
       "aboutUs": "Sobre nosotros",
       "contactUs": "Contáctenos",
+      "contactError": "Error al enviar mensaje",
       "onSale": "En oferta",
       "topRated": "Mejores calificados",
       "wishlist": "Lista de deseos",
@@ -221,6 +222,19 @@
         "clearFiltersAndSearch": "Limpiar todos los filtros y buscar"
       },
       "welcomeMessage": "Descubre la mejor experiencia de compra en línea con nuestras ofertas exclusivas y envío rápido."
+    },
+    "contact": {
+      "contactInfo": "Información de contacto",
+      "sendUsMessage": "Envíanos un mensaje",
+      "name": "Nombre",
+      "namePlaceholder": "Ingresa tu nombre",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "message": "Mensaje",
+      "messagePlaceholder": "Escribe tu mensaje aquí...",
+      "sendMessage": "Enviar mensaje",
+      "sending": "Enviando...",
+      "description": "Nos encantaría saber de ti. Por favor completa el formulario a continuación y te responderemos lo antes posible."
     },
     "billing": {
       "billing": "Facturación",

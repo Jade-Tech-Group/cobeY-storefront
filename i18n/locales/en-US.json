@@ -49,6 +49,7 @@
       "searchResults": "Search Results",
       "aboutUs": "About Us",
       "contactUs": "Contact Us",
+      "contactError": "Error sending message",
       "onSale": "On Sale",
       "topRated": "Top Rated",
       "wishlist": "Wishlist",
@@ -306,6 +307,19 @@
           "description": "Receive your order confirmation and wait for delivery"
         }
       }
+    },
+    "contact": {
+      "contactInfo": "Contact Information",
+      "sendUsMessage": "Send us a message",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "message": "Message",
+      "messagePlaceholder": "Write your message here...",
+      "sendMessage": "Send Message",
+      "sending": "Sending...",
+      "description": "We'd love to hear from you. Please fill out the form below and we'll get back to you as soon as possible."
     }
   }
 }
