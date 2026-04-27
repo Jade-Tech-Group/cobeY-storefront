@@ -85,7 +85,7 @@ const { user } = useAuth();
             target="_blank"
             class="w-full flex gap-4 items-center justify-center"
             >Desarrollado por:
-            <img src="/imges/logo_as_genius.svg" alt="asgenius" width="80"
+            <img src="/images/logo_as_genius.jpg" alt="asgenius" width="80"
           /></a>
         </p>
       </div>
