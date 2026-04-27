@@ -19,13 +19,13 @@ const billing = toRef(props, 'modelValue');
     </div>
     
     <div class="w-full">
-      <label for="last-name">{{ $t('messages.billing.email') }}</label>
-      <input id="email" v-model="billing.email" placeholder="Doe" autocomplete="family-name" type="text" required />
+      <label for="email">{{ $t('messages.billing.email') }}</label>
+      <input id="email" v-model="billing.email" placeholder="john.doe@example.com" autocomplete="email" type="email" required />
     </div>
 
     <div class="w-full">
-      <label for="last-name">{{ $t('messages.billing.phone') }}</label>
-      <input id="phone" v-model="billing.phone" placeholder="Doe" autocomplete="family-name" type="text" required />
+      <label for="phone">{{ $t('messages.billing.phone') }}</label>
+      <input id="phone" v-model="billing.phone" placeholder="+53 5 259 9746" autocomplete="tel" type="tel" required pattern="[0-9+\\s()-]*" />
     </div>
 
     <div class="w-full col-span-full">

@@ -27,7 +27,7 @@ export function useCheckout() {
               lastName: billingData.lastName,
               address: billingData.address,
               country: billingData.country,
-              countryId: 53,
+              countryId: billingData.countryId,
               state: billingData.state,
               city: billingData.city,
               phone: billingData.phone,
