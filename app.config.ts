@@ -20,7 +20,7 @@ export default defineAppConfig({
     showRelatedProducts: true,
     showProductCategoriesOnSingleProduct: true,
     showBreadcrumbOnSingleProduct: true,
-    showMoveToWishlist: true,
+    // showMoveToWishlist: true,*
     hideBillingAddressForVirtualProducts: false,
     initStoreOnUserActionToReduceServerLoad: true,
     saleBadge: "percent", 

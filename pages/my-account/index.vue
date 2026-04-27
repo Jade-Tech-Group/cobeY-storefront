@@ -74,15 +74,6 @@ useSeoMeta({
               <Icon name="ion:person-outline" size="22" />
               {{ $t("messages.shop.delvery_address") }}
             </NuxtLink>
-
-            <NuxtLink
-              to="/my-account?tab=wishlist"
-              class="flex items-center gap-4 p-2 px-4"
-              :class="{ active: activeTab == 'wishlist' }"
-            >
-              <Icon name="ion:heart-outline" size="22" />
-              {{ $t("messages.general.wishlist") }}
-            </NuxtLink>
           </nav>
 
           <template class="hidden sm:block">
@@ -103,7 +94,6 @@ useSeoMeta({
         >
           <AccountMyDetails v-if="activeTab === 'my-details'" :user="user" />
           <OrderList v-else-if="activeTab === 'orders'" />
-          <WishList v-else-if="activeTab === 'wishlist'" />
           <DeliveryAddress v-else-if="activeTab === 'delivery'" />
         </main>
       </div>
