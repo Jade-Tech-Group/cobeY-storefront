@@ -57,16 +57,12 @@ const { user } = useAuth();
               $t(
                 user
                   ? "messages.account.myAccount"
-                  : "messages.account.loginToAccount"
+                  : "messages.account.loginToAccount",
               )
             }}</NuxtLink
           >
           <NuxtLink
-            :to="
-              user
-                ? `/my-account/?tab=orders`
-                : `/login-and-register`
-            "
+            :to="user ? `/my-account/?tab=orders` : `/login-and-register`"
             class="py-1.5 block"
             >{{ $t("messages.shop.orderHistory") }}</NuxtLink
           >
@@ -79,12 +75,18 @@ const { user } = useAuth();
     <div
       class="container border-t flex items-center justify-center mb-4 border-secondary"
     >
-      <div class="md:w-96 xs:w-full flex flex-row xs:justify-center sm:justify-start">
-       
+      <div
+        class="md:w-96 xs:w-full flex flex-row xs:justify-center sm:justify-start"
+      >
         <p class="py-4 text-center text-md">
-          <a href="https://jadetechgroup.com" title="JADE" target="_blank" class="w-full flex gap-4 items-center justify-center"
-            >Desarrollado por: <img src="/icons/jade.svg" alt="jade" width="80"/></a
-          >
+          <a
+            href="https://www.asgeniusllc.com/#/"
+            title="AsGenius"
+            target="_blank"
+            class="w-full flex gap-4 items-center justify-center"
+            >Desarrollado por:
+            <img src="/imges/logo_as_genius.svg" alt="asgenius" width="80"
+          /></a>
         </p>
       </div>
       <SocialIcons class="ml-auto" />
