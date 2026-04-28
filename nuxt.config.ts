@@ -42,12 +42,13 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: 'node-server',
-    routeRules: {
-      "/": { prerender: true },
-      "/products/**": { swr: 3600 },
-      "/order-summary/**": { ssr: false },
-      "/product/**": { ssr: true },
-    },
+  },
+
+  routeRules: {
+    "/": { prerender: true },
+    "/products/**": { swr: 3600 },
+    "/order-summary/**": { ssr: false },
+    "/product/**": { ssr: true },
   },
   runtimeConfig: {
     apiUrl: process.env.BASE_URL,

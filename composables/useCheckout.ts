@@ -24,10 +24,10 @@ export function useCheckout() {
           body: JSON.stringify({
             billing_address: {
               name: billingData.name,
-              lastName: billingData.lastName,
+              lastName: (billingData as any).lastName || (billingData as any).last_name,
               address: billingData.address,
-              country: billingData.country,
-              countryId: billingData.countryId,
+              country: 34,
+              countryId: 34,
               state: billingData.state,
               city: billingData.city,
               phone: billingData.phone,
@@ -36,11 +36,12 @@ export function useCheckout() {
               termsAndConditions: true,
             },
             coupon_id: coupon_id !== null ? coupon_id : "",
-            delivery_address_id: delivery_method !== 'STORE_PICKUP' ? deliveryAddressId : '',
+            delivery_address_id: delivery_method !== 'STORE_PICKUP' && deliveryAddressId ? deliveryAddressId : null,
+            shipping_method: delivery_method,
             payment_method: paymentMethod,
             note: note,
-            url_payment_success: 'https://www.cobeymas.com/payment-success',
-            url_payment_fail: 'https://www.cobeymas.com/paymentfailure',
+            url_payment_success: url_payment_success,
+            url_payment_fail: url_payment_fail,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -50,9 +51,14 @@ export function useCheckout() {
       );
       paymentLink.value = response.shortUrl
       errorOrder.value = false
-    } catch (error) {
+    } catch (error: any) {
       errorOrder.value = true
-      console.log(error);
+      console.error('Checkout error', {
+        message: error?.message,
+        status: error?.response?.status,
+        statusText: error?.response?.statusText,
+        data: error?.data,
+      })
     }
     resetInitialState()
   };

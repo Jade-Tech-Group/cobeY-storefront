@@ -25,7 +25,7 @@ const billing = toRef(props, 'modelValue');
 
     <div class="w-full">
       <label for="phone">{{ $t('messages.billing.phone') }}</label>
-      <input id="phone" v-model="billing.phone" placeholder="+53 5 259 9746" autocomplete="tel" type="tel" required pattern="[0-9+\\s()-]*" />
+      <input id="phone" v-model="billing.phone" placeholder="+53 5 259 9746" autocomplete="tel" type="tel" required pattern="^[0-9+()\- ]*$" />
     </div>
 
     <div class="w-full col-span-full">
