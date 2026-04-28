@@ -271,6 +271,8 @@
       "paymentOptions": "Opciones de pago"
     },
     "error": {
+      "pageNotFound": "Página no encontrada",
+      "pageNotFoundText": "La página que buscas no existe.",
       "passwordValidation": "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.",
       "passwordMatch": "Las contraseñas no coinciden.",
       "invalidUsernameAndPassword": "Correo o contraseña incorrectos.",
