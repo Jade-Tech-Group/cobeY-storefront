@@ -18,7 +18,7 @@ export const useAuth = () => {
   ): Promise<{ success: boolean; error: any } | undefined> => {
     isPending.value = true;
     try {
-      const response = await $fetch<Customer>(
+      const response = await $fetch<any>(
         `${conf.api.baseUrl}${conf.api.services.auth.login}`,
         {
           method: "POST",
@@ -26,6 +26,7 @@ export const useAuth = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: 'include',
         }
       );
       await updateCustomer(response);
@@ -48,6 +49,8 @@ export const useAuth = () => {
   // Log out the user
   const logoutUser = async (): Promise<{ success: boolean; error: any }> => {
     try {
+      // Notify API to clear refresh cookie too
+      await $fetch(`${conf.api.baseUrl}/auth/logout`, { method: 'POST', credentials: 'include' });
       clearAllCookies();
       returnUrl.value = "/";
       return { success: true, error: null };
