@@ -12,16 +12,14 @@ const props = defineProps({
 
 const { t, locale } = useI18n();
 const imgWidth = 300;
-const imgHeight = 100;
 </script>
 
 <template>
-  <div class="flex justify-center items-center">
+  <div class="flex justify-center items-center max-h-[500px]">
     <SaleBadge :node class="absolute text-base top-4 right-4" />
     <NuxtImg
-      class="rounded-xl object-contain"
+      class="rounded-xl object-contain max-h-[500px]"
       :width="imgWidth"
-      :height="imgHeight"
       :alt="node.name[locale]"
       :title="node.name[locale]"
       :src="node.standard_image || FALLBACK_IMG"
