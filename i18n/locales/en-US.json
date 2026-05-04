@@ -288,7 +288,9 @@
       "invalidFirstNameFormat": "Invalid first name format.",
       "invalidLastNameFormat": "Invalid last name format.",
       "invalidAddress1Format": "Invalid address 1 format.",
-      "invalidAddress2Format": "Invalid address 2 format."
+      "invalidAddress2Format": "Invalid address 2 format.",
+      "alreadyRegistered": "This email is already registered. Please log in.",
+      "notRegistered": "No account found with this email. Please register."
     },
     "notification": {
       "perfect": "Perfect",

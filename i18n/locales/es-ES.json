@@ -303,7 +303,9 @@
       "invalidFirstNameFormat": "Formato de nombre inválido.",
       "invalidLastNameFormat": "Formato de apellido inválido.",
       "invalidAddress1Format": "Formato de dirección 1 inválido.",
-      "invalidAddress2Format": "Formato de dirección 2 inválido."
+      "invalidAddress2Format": "Formato de dirección 2 inválido.",
+      "alreadyRegistered": "Este correo electrónico ya está registrado. Por favor, inicia sesión.",
+      "notRegistered": "No se encontró una cuenta con este correo electrónico. Por favor, regístrate."
     },
     "notification":{
       "perfect": "Perfecto",
