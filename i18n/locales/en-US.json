@@ -146,7 +146,7 @@
       "welcomeMessage": "Discover the best online shopping experience with our exclusive offers and fast delivery.",
       "invalidCupon": "Invalid Cupon",
       "delvery_address": "Delivery Address",
-      "goToTropipay": "Go to Tropipay",
+      "goToStripe": "Go to Stripe",
       "perfect": "Perfect",
       "required_redirect": "Actions outside the store are needed to continue payment.",
       "order_error": {

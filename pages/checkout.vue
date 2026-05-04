@@ -112,7 +112,7 @@ const payNow = async () => {
   } else {
     dialogShow.value = true;
     dialogAction.value = "success";
-    dialogPrimaryText.value = t("messages.shop.goToTropipay");
+    dialogPrimaryText.value = t("messages.shop.goToStripe");
     dialogSecondaryText.value = t("messages.shop.close");
     dialogMainTxt.value = t("messages.shop.required_redirect");
     dialogToPrimary.value = paymentLink.value;
@@ -145,8 +145,8 @@ const shippingOption: ShippingOption[] = [
 
 const paymentMethods: PaymentOptions[] = [
   {
-    id: "Tropipay",
-    label: "Tropipay",
+    id: "Stripe",
+    label: "Stripe",
   },
 ];
 
@@ -162,7 +162,7 @@ function onClickLogin() {
   returnUrl.value = "/checkout";
 }
 
-const goToTropipay = () => {
+const goToPayment = () => {
   window.location.href = paymentLink.value;
 };
 </script>
@@ -366,7 +366,7 @@ const goToTropipay = () => {
         :main-txt="dialogMainTxt"
         :to-primary="dialogToPrimary"
         :to-secondary="dialogToSecondary"
-        @onClickPrimary="goToTropipay"
+        @onClickPrimary="goToPayment"
       />
     </template>
   </div>

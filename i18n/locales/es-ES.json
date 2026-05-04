@@ -147,7 +147,7 @@
       "featuredProducts": "Lo más destacado",
       "invalidCupon": "Cupón no valido",
       "delvery_address": "Direcciones de entrega",
-      "goToTropipay": "Ir a Tropipay",
+      "goToStripe": "Ir a Stripe",
       "perfect": "Perfecto",
       "required_redirect": "Se necesitan acciones fuera de la tienda para continuar con el pago.",
       "order_error": {
@@ -343,3 +343,4 @@
     }
   }
 }
+

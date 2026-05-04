@@ -26,14 +26,6 @@ const updatePaymentMethod = (value: any) => {
       @click="updatePaymentMethod(gateway)"
       :title="gateway?.label || gateway?.label || 'Payment Method'"
     >
-      <img
-        v-if="gateway.id === 'Tropipay'"
-        src="/icons/tropipay.svg"
-        width="20"
-        height="20"
-        alt="Add address"
-        loading="lazy"
-      />
       <span class="whitespace-nowrap" v-html="gateway.label" />
       <icon
         name="ion:checkmark-circle"
@@ -57,3 +49,4 @@ const updatePaymentMethod = (value: any) => {
   }
 }
 </style>
+
